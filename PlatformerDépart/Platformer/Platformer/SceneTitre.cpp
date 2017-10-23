@@ -39,7 +39,8 @@ bool SceneTitre::init(RenderWindow * const window)
 
 	//Les positions sont arbitraires, obtenus par essai et erreur.
 	//par rapport au fond d'écran
-	textbox.init(480, 24, Vector2f(430, 320), font);
+	textboxUsername.init(480, 24, Vector2f(430, 320), font);
+	textbox.init(480, 24, Vector2f(430, 360), font);
 	textboxErreur.initInfo(Vector2f(430, 290), font, true);
 
 	this->mainWin = window;
@@ -67,8 +68,16 @@ void SceneTitre::getInputs()
 			//Si on touche à la textbox avec la souris
 			if (textbox.touche(Mouse::getPosition(*mainWin)))
 			{
+				if (textboxActif != nullptr) textboxActif->deSelectionner();
 				textboxActif = &textbox; //Ce textbox devient actif
 				textbox.selectionner();  //on l'affiche comme étant sélectionné
+				textboxErreur.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
+			}
+			else if (textboxUsername.touche(Mouse::getPosition(*mainWin)))
+			{
+				if(textboxActif != nullptr) textboxActif->deSelectionner();
+				textboxActif = &textboxUsername; //Ce textbox devient actif
+				textboxUsername.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
 			}
 			else
@@ -76,9 +85,8 @@ void SceneTitre::getInputs()
 				//Sinon aucun textbox actif
 				//Ce else devrait être dans toutes vos fenêtres où il n'y a pas de textbox.
 				textboxActif = nullptr;
-				textbox.deSelectionner();
+				textboxUsername.deSelectionner();
 			}
-
 		}
 
 		//Un événement de touche de clavier AVEC un textobx actif
@@ -135,6 +143,7 @@ void SceneTitre::draw()
 	mainWin->clear();
 	mainWin->draw(ecranTitre);
 	textbox.dessiner(mainWin);
+	textboxUsername.dessiner(mainWin);
 	textboxErreur.dessiner(mainWin);
 	mainWin->display();
 }

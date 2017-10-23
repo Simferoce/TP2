@@ -27,6 +27,7 @@ namespace platformer
 		Sprite ecranTitre;
 
 		Textbox textbox;
+		Textbox textboxUsername;
 		Textbox textboxErreur; // Ce textbox agit plutôt comme un messagebox.
 		Font font;
 
