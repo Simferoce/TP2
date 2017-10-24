@@ -93,7 +93,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Model.cpp" />
+    <ClCompile Include="Modele.cpp" />
     <ClCompile Include="SceneGestionCompte.cpp" />
     <ClCompile Include="SceneNiveau1.cpp" />
     <ClCompile Include="SceneTitre.cpp" />
@@ -104,7 +104,7 @@
     <ClInclude Include="Controle.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Joueur.h" />
-    <ClInclude Include="Model.h" />
+    <ClInclude Include="Modele.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneGestionCompte.h" />
     <ClInclude Include="SceneNiveau1.h" />
@@ -167,7 +167,7 @@
     <None Include="Ressources\Sounds\Powerup.ogg" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="user-pass.txt" />
+    <Text Include="userpass.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

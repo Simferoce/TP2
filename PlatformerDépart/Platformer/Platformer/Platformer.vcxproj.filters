@@ -72,10 +72,10 @@
     <ClCompile Include="Controle.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
+    <ClCompile Include="SceneGestionCompte.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="SceneGestionCompte.cpp">
+    <ClCompile Include="Modele.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,10 +104,10 @@
     <ClInclude Include="Controle.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
+    <ClInclude Include="SceneGestionCompte.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="SceneGestionCompte.h">
+    <ClInclude Include="Modele.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -262,6 +262,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="user-pass.txt" />
+    <Text Include="userpass.txt" />
   </ItemGroup>
 </Project>
