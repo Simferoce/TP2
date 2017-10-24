@@ -116,9 +116,14 @@ void SceneTitre::getInputs()
 				textboxActif->retirerChar();
 				backspaceActif = true;  //Pour s'assurer que backspace n'est pas saisie comme caractère
 			}
-			else if (event.key.code == Keyboard::Num1)
+		}
+		if (event.type == Event::KeyPressed)
+		{
+			if (event.key.code == Keyboard::Num1)
 			{
 				boutonMenu[Keyboard::Key::Num1] = true;
+				isRunning = false;
+				transitionVersScene = Scene::scenes::GESTIONCOMPTE;
 			}
 			else if (event.key.code == Keyboard::Num2)
 			{
