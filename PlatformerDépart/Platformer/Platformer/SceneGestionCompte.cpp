@@ -1,17 +1,17 @@
-#include "SceneTitre.h"
+#include "SceneGestionCompte.h"
 #include <algorithm>
 using namespace platformer;
 
-SceneTitre::SceneTitre()
+SceneGestionCompte::SceneGestionCompte()
 {
-	
+
 }
 
-SceneTitre::~SceneTitre()
+SceneGestionCompte::~SceneGestionCompte()
 {
 }
 
-Scene::scenes SceneTitre::run()
+Scene::scenes SceneGestionCompte::run()
 {
 	while (isRunning)
 	{
@@ -23,7 +23,7 @@ Scene::scenes SceneTitre::run()
 	return transitionVersScene;
 }
 
-bool SceneTitre::init(RenderWindow * const window)
+bool SceneGestionCompte::init(RenderWindow * const window)
 {
 	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
 	{
@@ -49,7 +49,7 @@ bool SceneTitre::init(RenderWindow * const window)
 	return true;
 }
 
-void SceneTitre::getInputs()
+void SceneGestionCompte::getInputs()
 {
 	while (mainWin->pollEvent(event))
 	{
@@ -99,7 +99,7 @@ void SceneTitre::getInputs()
 			{
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
 
-				//Condition bison pour voir que la transition fonctionne.
+								   //Condition bison pour voir que la transition fonctionne.
 				if (textbox.getTexte() == "password")
 				{
 					isRunning = false;
@@ -140,18 +140,18 @@ void SceneTitre::getInputs()
 			}
 		}
 	}
-	//Dans tous les cas on netoie ces conditions après chaque boucle.
-	enterActif = false;
-	backspaceActif = false;
-	for (auto iter = boutonMenu.begin(); iter != boutonMenu.end(); ++iter)
-		iter->second = false;
+		//Dans tous les cas on netoie ces conditions après chaque boucle.
+		enterActif = false;
+		backspaceActif = false;
+		for (auto iter = boutonMenu.begin(); iter != boutonMenu.end(); ++iter)
+			iter->second = false;
 }
 
-void SceneTitre::update()
+void SceneGestionCompte::update()
 {
 }
 
-void SceneTitre::draw()
+void SceneGestionCompte::draw()
 {
 	mainWin->clear();
 	mainWin->draw(ecranTitre);
