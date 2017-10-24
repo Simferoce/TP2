@@ -89,17 +89,21 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Controle.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="SceneNiveau1.cpp" />
     <ClCompile Include="SceneTitre.cpp" />
     <ClCompile Include="Testeur.cpp" />
     <ClCompile Include="Textbox.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Controle.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Joueur.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneNiveau1.h" />
     <ClInclude Include="SceneTitre.h" />
@@ -159,6 +163,9 @@
     <None Include="Ressources\Sounds\PlayerJump.ogg" />
     <None Include="Ressources\Sounds\PlayerKilled.ogg" />
     <None Include="Ressources\Sounds\Powerup.ogg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="user-pass.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -33,8 +33,9 @@ namespace platformer
 
 		//Nécessaire car on ne peut pas que le code ascii que Enter et Backspace ne soit jamais saisie
 		bool backspaceActif = false;
-		bool enterActif = false;
-		
+		bool enterActif = false;		
+		//Dictionaire de la sélection de menu
+		std::map<char, bool> boutonMenu = { std::make_pair('1',false),std::make_pair('2',false) };
 		//Ne fait pas beaucoup sens à un Textbox, mais à plusieurs, ça le fera.
 		Textbox* textboxActif = nullptr;		
 	};

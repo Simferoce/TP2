@@ -1,5 +1,5 @@
 #include "SceneTitre.h"
-
+#include <algorithm>
 using namespace platformer;
 
 SceneTitre::SceneTitre()
@@ -116,11 +116,23 @@ void SceneTitre::getInputs()
 				textboxActif->retirerChar();
 				backspaceActif = true;  //Pour s'assurer que backspace n'est pas saisie comme caractère
 			}
+			else if(event.key.code == Keyboard::Num1)
+			{
+				boutonMenu['1'] = true;
+			}
+			else if (event.key.code == Keyboard::Num2)
+			{
+				boutonMenu['2'] = true;
+			}
+			else if (event.key.code == Keyboard::Num3)
+			{
+				boutonMenu['3'] = true;
+			}
 		}
-
+		const auto menuBoutonChoisi = std::find_if(boutonMenu.begin(), boutonMenu.end(), [](std::pair<char,bool> n) { return n.second == true; });
 		//Attention : TextEntered est différent de KeyPressed
 		//Voir ici pour l'explication: https://www.sfml-dev.org/tutorials/2.4/window-events-fr.php
-		if (!backspaceActif && !enterActif && textboxActif != nullptr && (event.type == Event::TextEntered))
+		if (menuBoutonChoisi == boutonMenu.end() && !backspaceActif && !enterActif && textboxActif != nullptr && (event.type == Event::TextEntered))
 		{
 			if (event.text.unicode < 128) //Travailler en unicode n'est pas simple en C++; on peut vivre avec du simple
 			{                             //ascii pour ce tp (libre à vous d'aller plus loin si vous voulez)
