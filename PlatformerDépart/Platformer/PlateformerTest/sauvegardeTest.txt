@@ -1,0 +1,4 @@
+Nickname:Password:Prenom:Nom:exemple@hotmail.com:101,1001,10001
+Nickname2:Password2:Prenom:Nom:exemple@hotmail.com:101,1001,10001
+012:01234:Prenom:Nom:exemple@hotmail.com:101,1001,10001
+0123456789ABCDEFGHIJQLMNO:0123456789ABCDE:Prenom:Nom:exemple@hotmail.com:101,1001,10001
