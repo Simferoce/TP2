@@ -29,7 +29,6 @@ Scene::scenes SceneCreerCompte::run()
 
 bool SceneCreerCompte::init(RenderWindow * const window)
 {
-	Modele::InitFont("Ressources\\Fonts\\Peric.ttf");
 	//test de texte à l'écran
 	text1=Modele::CreateTextLine("Veuiller entrer vos informations.",0,0);
 	text2=Modele::CreateTextLine("Utilisateur", 0, 50);

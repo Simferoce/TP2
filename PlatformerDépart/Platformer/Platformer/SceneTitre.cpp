@@ -1,4 +1,3 @@
-#include <algorithm>
 #include "Controle.h"
 #include "SceneTitre.h"
 using namespace platformer;
@@ -26,24 +25,14 @@ Scene::scenes SceneTitre::run()
 
 bool SceneTitre::init(RenderWindow * const window)
 {
-	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
-	{
-		return false;
-	}
-
-	if (!font.loadFromFile("Ressources\\Fonts\\Peric.ttf"))
-	{
-		return false;
-	}
-
-	ecranTitre.setTexture(ecranTitreT);
+	ecranTitre.setTexture(Modele::GetTextureBackground());
 
 	this->mainWin = window;
-	menuInstruction.setFont(font);
+	menuInstruction.setFont(Modele::GetFont());
 	menuInstruction.setString("Enter:Valider|1:Gestion de Compte|2:Meilleurs Scores");
-	menuInstruction.setCharacterSize(24);
-	menuInstruction.setFillColor(sf::Color::White);
-	menuInstruction.setStyle(sf::Text::Bold);
+	menuInstruction.setCharacterSize(Modele::GROSSEUR_CARACTERE);
+	menuInstruction.setFillColor(Modele::TEXTE_COULEUR);
+	menuInstruction.setStyle(Modele::TEXTE_STYLE);
 	
 	menuInstruction.setPosition((mainWin->getView().getSize().x - menuInstruction.getLocalBounds().width)/2, 0);
 	isRunning = true;

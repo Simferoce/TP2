@@ -11,20 +11,29 @@
 class Controle;
 
 class Modele
-{
-public:
+{	
 	friend Controle;
+	static sf::Font font;
+	static std::string sauvegardeEmplacement;
+	static std::string emplacementFond;
+	static sf::Texture textureFond;
+public:
 	enum PositonInformation { Nickname, Password, Prenom, Nom, Courriel, Pointages};
-private:
 	enum ResultatAuthentification { Reussi, UtilisateurFormat, MotPassFormat, Echouer };
 	enum StringId {};
-
-	static sf::Font font;
-	static bool InitFont(std::string chemin);
-	static sf::Font font;
+	static const int GROSSEUR_CARACTERE = 24;
+	static const sf::Text::Style TEXTE_STYLE = sf::Text::Style::Bold;
+	static const sf::Color TEXTE_COULEUR;
 	static sf::Text CreateTextLine(std::string text, float posX, float posY);
-	static Modele* GetInstance();
-	static void Decharger();	
+	static Modele* GetInstance();	
+	/// <summary>
+	/// Initialise l'instance.
+	/// </summary>
+	static bool Init();	
+	/// <summary>
+	/// Decharger l'instance.
+	/// </summary>
+	static void Decharger();
 	/// <summary>
 	/// Obtient le texte correspondant à l'identifiant
 	/// </summary>
@@ -46,7 +55,14 @@ private:
 	/// <param name="ligne">La ligne ou l'usager a été trouvée</param>
 	/// <param name="emplacmeentFichier">Le fichier ou les infos sont gardées</param>
 	/// <returns></returns>
-	static Modele::ResultatAuthentification AuthentifierUtilisateur(std::string utilisateur, std::string motPass, int& ligne, std::string emplacementFichier);
+	static Modele::ResultatAuthentification AuthentifierUtilisateur(std::string utilisateur, std::string motPass, int& ligne, std::string emplacementFichier);	
+	/// <summary>
+	/// Obtien la police d'ecriture de base du modèle.
+	/// </summary>
+	/// <returns>La police d'écriture de base du modèle.</returns>
+	static const sf::Font& GetFont();
+	static const std::string& GetSaveEmplacement();
+	static const sf::Texture& GetTextureBackground();
 private:
 	static Modele* instance;
 	static std::string emplacementFont;

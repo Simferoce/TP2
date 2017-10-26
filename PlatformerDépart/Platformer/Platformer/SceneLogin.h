@@ -22,13 +22,11 @@ namespace platformer
 
 	private:
 		//L'écran titre est super arbitraire, vous pouvez en trouver un autre si vous voulez.
-		Texture ecranTitreT;
 		Sprite ecranTitre;
 
 		Textbox textbox;
 		Textbox textboxUsername;
 		Textbox textboxErreur; // Ce textboxUser agit plutôt comme un messagebox.
-		Font font;
 
 		//Nécessaire car on ne peut pas que le code ascii que Enter et Backspace ne soit jamais saisie
 		bool backspaceActif = false;

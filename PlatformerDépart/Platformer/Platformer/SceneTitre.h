@@ -22,11 +22,8 @@ namespace platformer
 
 	private:
 		//L'écran titre est super arbitraire, vous pouvez en trouver un autre si vous voulez.
-		Texture ecranTitreT;
 		Sprite ecranTitre;
 		Text menuInstruction;
-
-		Font font;
 
 		//Nécessaire car on ne peut pas que le code ascii que Enter et Backspace ne soit jamais saisie
 		bool backspaceActif = false;

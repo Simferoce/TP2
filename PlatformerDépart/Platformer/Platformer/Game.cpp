@@ -27,7 +27,7 @@ int Game::testTest()
 int Game::run()
 {
 	//deux enums et un pointeur de scene pour faire la manipulation de scène
-	Scene::scenes selecteurDeScene = Scene::scenes::/*TITRE*/GESTIONCOMPTE;
+	Scene::scenes selecteurDeScene = Scene::scenes::TITRE;
 	Scene::scenes sceneEnRetour;
 	Scene* sceneActive = nullptr; //Pointeur de la super-classe, peut pointer sur n'imprte quelle scène
 
@@ -87,5 +87,7 @@ int Game::run()
 
 bool Game::init()
 {
+	if (!Modele::Init())
+		return false;
 	return true;
 }

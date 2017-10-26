@@ -13,10 +13,7 @@ namespace platformer
 	{
 	public:
 		//Quand vos ajouterez des scènes, ajouter un enum ici
-		enum scenes {TITRE, LOGIN, GESTIONCOMPTE, NIVEAU1, SCORE, SORTIE};
-		static const int GROSSEUR_CARACTERE = 24;
-		static const Text::Style TEXTE_STYLE = Text::Style::Bold;
-		static const Color TEXTE_COULEUR;
+		enum scenes {TITRE, LOGIN, GESTIONCOMPTE, CREERCOMPTE, NIVEAU1, SCORE, SORTIE};
 
 		virtual ~Scene() {}  //Pour que le destructeur de l'objet en mémoire soit apellé
 		virtual scenes run() = 0;

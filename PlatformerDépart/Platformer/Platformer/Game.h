@@ -16,11 +16,11 @@ namespace platformer
 		int run();
 		int testTest();
 
+		bool init();
+
 	private:
 		const int LARGEUR = 800;
 		const int HAUTEUR = 480;
-
-		bool init();
 
 		RenderWindow mainWin;
 		Event event;

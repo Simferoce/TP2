@@ -21,7 +21,6 @@ namespace platformer
 
 		Textbox textboxUser;
 		Textbox textboxScore;
-		Font font;
 		static const int TABLEAU_SCORE_X = 2;
 		static const int TABLEAU_SCORE_Y = 10;
 		static const int DISTANCE_ENTRE_SCORE_Y = 35;

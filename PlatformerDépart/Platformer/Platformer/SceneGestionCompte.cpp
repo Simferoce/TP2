@@ -144,7 +144,6 @@ void SceneGestionCompte::getInputs()
 				boutonMenu[Keyboard::Key::Num1] = true;
 				isRunning = false;
 			}
-
 				transitionVersScene = Scene::scenes::CREERCOMPTE;
 			}
 			else if (event.key.code == Keyboard::Num2)
@@ -156,15 +155,14 @@ void SceneGestionCompte::getInputs()
 				boutonMenu[Keyboard::Key::Num3] = true;
 			}
 		}
-		const auto menuBoutonChoisi = std::find_if(boutonMenu.begin(), boutonMenu.end(), [](std::pair<Keyboard::Key, bool> n) { return n.second == true; });
-		//Attention : TextEntered est différent de KeyPressed
-		//Voir ici pour l'explication: https://www.sfml-dev.org/tutorials/2.4/window-events-fr.php
-		if (!backspaceActif && !enterActif && textboxActif != nullptr && (event.type == Event::TextEntered))
-		{
-			if (event.text.unicode < 128) //Travailler en unicode n'est pas simple en C++; on peut vivre avec du simple
-			{                             //ascii pour ce tp (libre à vous d'aller plus loin si vous voulez)
-				textboxActif->ajouterChar((char)event.text.unicode);
-			}
+	const auto menuBoutonChoisi = std::find_if(boutonMenu.begin(), boutonMenu.end(), [](std::pair<Keyboard::Key, bool> n) { return n.second == true; });
+	//Attention : TextEntered est différent de KeyPressed
+	//Voir ici pour l'explication: https://www.sfml-dev.org/tutorials/2.4/window-events-fr.php
+	if (!backspaceActif && !enterActif && textboxActif != nullptr && (event.type == Event::TextEntered))
+	{
+		if (event.text.unicode < 128) //Travailler en unicode n'est pas simple en C++; on peut vivre avec du simple
+		{                             //ascii pour ce tp (libre à vous d'aller plus loin si vous voulez)
+			textboxActif->ajouterChar((char)event.text.unicode);
 		}
 	}
 }

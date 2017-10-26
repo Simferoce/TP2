@@ -26,23 +26,12 @@ Scene::scenes SceneLogin::run()
 
 bool SceneLogin::init(RenderWindow * const window)
 {
-	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
-	{
-		return false;
-	}
-
-	if (!font.loadFromFile("Ressources\\Fonts\\Peric.ttf"))
-	{
-		return false;
-	}
-
-	ecranTitre.setTexture(ecranTitreT);
-
+	ecranTitre.setTexture(Modele::GetTextureBackground());
 	//Les positions sont arbitraires, obtenus par essai et erreur.
 	//par rapport au fond d'écran
-	textboxUsername.init(480, 24, Vector2f(430, 320), font);
-	textbox.init(480, 24, Vector2f(430, 360), font);
-	textboxErreur.initInfo(Vector2f(430, 290), font, true);
+	textboxUsername.init(480, 24, Vector2f(430, 320), Modele::GetFont());
+	textbox.init(480, 24, Vector2f(430, 360), Modele::GetFont());
+	textboxErreur.initInfo(Vector2f(430, 290), Modele::GetFont(), true);
 	this->mainWin = window;
 	isRunning = true;
 
@@ -135,7 +124,7 @@ void SceneLogin::update()
 	if(enterActif)
 	{
 		int ligne = 0;
-		Modele::ResultatAuthentification resultat = Controle::AuthentifierUtilisateur(textboxUsername.getTexte(), textbox.getTexte(), ligne, "userpass.txt");
+		Modele::ResultatAuthentification resultat = Controle::AuthentifierUtilisateur(textboxUsername.getTexte(), textbox.getTexte(), ligne, Modele::GetSaveEmplacement());
 		if (Modele::ResultatAuthentification::Reussi == resultat)
 		{
 			transitionVersScene = Scene::scenes::NIVEAU1;
