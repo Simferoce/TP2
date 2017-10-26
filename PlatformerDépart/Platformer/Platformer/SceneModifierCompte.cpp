@@ -1,20 +1,21 @@
-#include "SceneGestionCompte.h"
+#include "SceneModifierCompte.h"
 #include <algorithm>
 #include <fstream>
 #include "Modele.h"
 
 using namespace platformer;
 
-SceneGestionCompte::SceneGestionCompte()
+SceneModifierCompte::SceneModifierCompte()
 {
 
 }
 
-SceneGestionCompte::~SceneGestionCompte()
+SceneModifierCompte::~SceneModifierCompte()
 {
+	
 }
 
-Scene::scenes SceneGestionCompte::run()
+Scene::scenes SceneModifierCompte::run()
 {
 	while (isRunning)
 	{
@@ -26,14 +27,14 @@ Scene::scenes SceneGestionCompte::run()
 	return transitionVersScene;
 }
 
-bool SceneGestionCompte::init(RenderWindow * const window)
+bool SceneModifierCompte::init(RenderWindow * const window)
 {
 	/*ifstream iFich;
 	iFich.open("userpass.txt");
 	if (!iFich.is_open())
 	{
-		//cout << "Fichier au mauvais endroit" << endl;
-		return 0;
+	//cout << "Fichier au mauvais endroit" << endl;
+	return 0;
 	}
 	while(getline(iFich, ligne))
 	{
@@ -42,13 +43,13 @@ bool SceneGestionCompte::init(RenderWindow * const window)
 	}*/
 
 	//test de texte à l'écran
-	text.setFont(font); 
+	text.setFont(font);
 	text.setString("Appuyer 1 pour creer un compte, \n2 pour modifier votre compte, \n 3 pour le supprimer ou \n 4 pour l.");
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::White);
 	text.setStyle(sf::Text::Bold);
 
-	
+
 	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
 	{
 		return false;
@@ -73,7 +74,7 @@ bool SceneGestionCompte::init(RenderWindow * const window)
 	return true;
 }
 
-void SceneGestionCompte::getInputs()
+void SceneModifierCompte::getInputs()
 {
 	enterActif = false;
 	backspaceActif = false;
@@ -93,27 +94,26 @@ void SceneGestionCompte::getInputs()
 		//Si on a un événement de click de souris
 		if (event.type == Event::MouseButtonPressed)
 		{
-			//Si on touche à la textboxUser avec la souris
+			//Si on touche à la textbox avec la souris
 			if (textbox.touche(Mouse::getPosition(*mainWin)))
 			{
 				if (textboxActif != nullptr) textboxActif->deSelectionner();
-				textboxActif = &textbox; //Ce textboxUser devient actif
+				textboxActif = &textbox; //Ce textbox devient actif
 				textbox.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
 			}
 			else if (textboxUsername.touche(Mouse::getPosition(*mainWin)))
 			{
 				if (textboxActif != nullptr) textboxActif->deSelectionner();
-				textboxActif = &textboxUsername; //Ce textboxUser devient actif
+				textboxActif = &textboxUsername; //Ce textbox devient actif
 				textboxUsername.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
 			}
 			else
 			{
-				//Sinon aucun textboxUser actif
-				//Ce else devrait être dans toutes vos fenêtres où il n'y a pas de textboxUser.
-				if(textboxActif != nullptr)
-					textboxActif->deSelectionner();
+				//Sinon aucun textbox actif
+				//Ce else devrait être dans toutes vos fenêtres où il n'y a pas de textbox.
+				textboxActif->deSelectionner();
 				textboxActif = nullptr;
 			}
 		}
@@ -138,22 +138,15 @@ void SceneGestionCompte::getInputs()
 		}
 		if (event.type == Event::KeyPressed && textboxActif == nullptr)
 		{
-			//On n'a pas besoin d'une touche pour aller sur la page qu'on est déjà
 			if (event.key.code == Keyboard::Num1)
 			{
-				boutonMenu[Keyboard::Key::Num1] = true;
-				isRunning = false;
+			boutonMenu[Keyboard::Key::Num1] = true;
+			isRunning = false;
+			transitionVersScene = Scene::scenes::GESTIONCOMPTE;
 			}
-
-				transitionVersScene = Scene::scenes::CREERCOMPTE;
-			}
-			else if (event.key.code == Keyboard::Num2)
+			if(event.key.code == Keyboard::Return)
 			{
-				boutonMenu[Keyboard::Key::Num2] = true;
-			}
-			else if (event.key.code == Keyboard::Num3)
-			{
-				boutonMenu[Keyboard::Key::Num3] = true;
+				
 			}
 		}
 		const auto menuBoutonChoisi = std::find_if(boutonMenu.begin(), boutonMenu.end(), [](std::pair<Keyboard::Key, bool> n) { return n.second == true; });
@@ -169,12 +162,12 @@ void SceneGestionCompte::getInputs()
 	}
 }
 
-void SceneGestionCompte::update()
+void SceneModifierCompte::update()
 {
 
 }
 
-void SceneGestionCompte::draw()
+void SceneModifierCompte::draw()
 {
 	mainWin->clear();
 	mainWin->draw(ecranTitre);

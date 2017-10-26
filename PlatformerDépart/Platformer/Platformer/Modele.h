@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <SFML/Graphics/Text.hpp>
+#include <string>
 
 
 class Controle;
@@ -13,10 +15,14 @@ class Modele
 public:
 	friend Controle;
 	enum PositonInformation { Nickname, Password, Prenom, Nom, Courriel, Pointages};
+private:
 	enum ResultatAuthentification { Reussi, UtilisateurFormat, MotPassFormat, Echouer };
 	enum StringId {};
 
 	static sf::Font font;
+	static bool InitFont(std::string chemin);
+	static sf::Font font;
+	static sf::Text CreateTextLine(std::string text, float posX, float posY);
 	static Modele* GetInstance();
 	static void Decharger();	
 	/// <summary>

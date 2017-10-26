@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include <SFML/Graphics.hpp>
 #include "Scene.h"
 #include "Textbox.h"
@@ -11,11 +12,11 @@ using namespace sf;
 
 namespace platformer
 {
-	class SceneGestionCompte : public Scene
+	class SceneCreerCompte : public Scene
 	{
 	public:
-		SceneGestionCompte();
-		~SceneGestionCompte();
+		SceneCreerCompte();
+		~SceneCreerCompte();
 
 		scenes run();
 		bool init(RenderWindow * const window);
@@ -27,19 +28,21 @@ namespace platformer
 		std::vector<std::string> information;
 		string ligne;
 
+		//Text CreateTextLine(string text, float posX, float posY);
+		//Text textLine;
 		//Test de texte à l'écran
-		sf::Text text;
+		
+		Text text1;
+		Text text2;
+		Text text3;
+		Text text4;
+		Text text5;
+		Text text6;
 
 		//L'écran titre est super arbitraire, vous pouvez en trouver un autre si vous voulez.
-		Texture ecranTitreT;
-		Sprite ecranTitre;
 
 		Textbox textbox;
 		Textbox textboxUsername;
-		Textbox textboxPassword;
-		Textbox textboxPrenom;
-		Textbox textboxNom;
-		Textbox textboxCourriel;
 		Textbox textboxErreur; // Ce textbox agit plutôt comme un messagebox.
 		Font font;
 
