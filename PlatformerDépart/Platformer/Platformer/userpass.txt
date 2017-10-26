@@ -1,0 +1,1 @@
+Nickname:Password:Prenom:Nom:exemple@hotmail.com:101,1001,10001

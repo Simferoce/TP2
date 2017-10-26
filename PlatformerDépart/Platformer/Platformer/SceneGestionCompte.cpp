@@ -1,17 +1,22 @@
-#include "SceneTitre.h"
+#include "SceneGestionCompte.h"
 #include <algorithm>
+#include <fstream>
+#include <string.h>
+#include <stdio.h>
+#include <iostream>
+
 using namespace platformer;
 
-SceneTitre::SceneTitre()
+SceneGestionCompte::SceneGestionCompte()
 {
-	
+
 }
 
-SceneTitre::~SceneTitre()
+SceneGestionCompte::~SceneGestionCompte()
 {
 }
 
-Scene::scenes SceneTitre::run()
+Scene::scenes SceneGestionCompte::run()
 {
 	while (isRunning)
 	{
@@ -23,8 +28,39 @@ Scene::scenes SceneTitre::run()
 	return transitionVersScene;
 }
 
-bool SceneTitre::init(RenderWindow * const window)
+bool SceneGestionCompte::init(RenderWindow * const window)
 {
+	//http://www.cplusplus.com/forum/beginner/8388/
+	ifstream iFich;
+	iFich.open("userpass.txt");
+	if (!iFich.is_open())
+	{
+		//cout << "Fichier au mauvais endroit" << endl;
+		return 0;
+	}
+	//pointATrouver = strtok(ligne, ':');
+	while(getline(iFich, ligne))
+	{
+		int trouve = ligne.find(":");
+		for(int i=0; i<trouve;i++)
+		{
+			utilisateur += ligne[i];
+		}
+	}
+	//Lecture ligne
+	/*char ligneTemp[100] = ligne;
+	char utilisateurTab[] = ligne;
+	pointATrouver = strtok(utilisateurTab, ':');*/
+	//utilisateur = ligne;
+
+	//test de texte à l'écran
+	text.setFont(font); 
+	text.setString("Appuyer sur telle partie du texte pour voir votre score,\n changer votre nom ou mot de passe ou retourner");
+	text.setCharacterSize(24);
+	text.setColor(sf::Color::White);
+	text.setStyle(sf::Text::Bold);
+
+	
 	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
 	{
 		return false;
@@ -49,7 +85,7 @@ bool SceneTitre::init(RenderWindow * const window)
 	return true;
 }
 
-void SceneTitre::getInputs()
+void SceneGestionCompte::getInputs()
 {
 	while (mainWin->pollEvent(event))
 	{
@@ -99,7 +135,7 @@ void SceneTitre::getInputs()
 			{
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
 
-				//Condition bison pour voir que la transition fonctionne.
+								   //Condition bison pour voir que la transition fonctionne.
 				if (textbox.getTexte() == "password")
 				{
 					isRunning = false;
@@ -117,15 +153,16 @@ void SceneTitre::getInputs()
 				backspaceActif = true;  //Pour s'assurer que backspace n'est pas saisie comme caractère
 			}
 		}
-		if (event.type == Event::KeyPressed)
+		if(event.type == Event::KeyPressed)
 		{
-			if (event.key.code == Keyboard::Num1 || event.key.code == Keyboard::Numpad1)
+			//On n'a pas besoin d'une touche pour aller sur la page qu'on est déjà
+			/*if (event.key.code == Keyboard::Num1)
 			{
 				boutonMenu[Keyboard::Key::Num1] = true;
 				isRunning = false;
 				transitionVersScene = Scene::scenes::GESTIONCOMPTE;
-			}
-			else if (event.key.code == Keyboard::Num2)
+			}*/
+			if (event.key.code == Keyboard::Num2)
 			{
 				boutonMenu[Keyboard::Key::Num2] = true;
 			}
@@ -145,23 +182,27 @@ void SceneTitre::getInputs()
 			}
 		}
 	}
-	//Dans tous les cas on netoie ces conditions après chaque boucle.
-	enterActif = false;
-	backspaceActif = false;
-	for (auto iter = boutonMenu.begin(); iter != boutonMenu.end(); ++iter)
-		iter->second = false;
+		//Dans tous les cas on netoie ces conditions après chaque boucle.
+		enterActif = false;
+		backspaceActif = false;
+		for (auto iter = boutonMenu.begin(); iter != boutonMenu.end(); ++iter)
+			iter->second = false;
 }
 
-void SceneTitre::update()
+void SceneGestionCompte::update()
 {
 }
 
-void SceneTitre::draw()
+void SceneGestionCompte::draw()
 {
 	mainWin->clear();
 	mainWin->draw(ecranTitre);
 	textbox.dessiner(mainWin);
 	textboxUsername.dessiner(mainWin);
 	textboxErreur.dessiner(mainWin);
+	//test texte à l'écran
+	// puis, dans la boucle de dessin, entre window.clear() et window.display()
+	mainWin->draw(text);
+
 	mainWin->display();
 }

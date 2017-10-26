@@ -1,15 +1,16 @@
 #include "Game.h"
 #include "SceneTitre.h"
 #include "SceneNiveau1.h"
+#include "SceneGestionCompte.h"
+#include "Controle.h"
 
 using namespace platformer;
 
 Game::Game()
 {
 	//On place dans le contructeur ce qui permet à la game elle-même de fonctionner
-
 	mainWin.create(VideoMode(LARGEUR, HAUTEUR, 32), "Platformer");  // , Style::Titlebar); / , Style::FullScreen);
-
+	Controle::AuthentifierUtilisateur("alloallo", "testtest");
 	//Synchonisation coordonnée à l'écran!  Normalement 60 frames par secondes. À faire absolument
 	mainWin.setVerticalSyncEnabled(true);
 	//mainWin.setFramerateLimit(60);  //Équivalent... normalement, mais pas toujours. À utiliser si la synchonisation de l'écran fonctionne mal.
@@ -24,7 +25,7 @@ int Game::testTest()
 int Game::run()
 {
 	//deux enums et un pointeur de scene pour faire la manipulation de scène
-	Scene::scenes selecteurDeScene = Scene::scenes::TITRE;
+	Scene::scenes selecteurDeScene = Scene::scenes::GESTIONCOMPTE;
 	Scene::scenes sceneEnRetour;
 	Scene* sceneActive = nullptr; //Pointeur de la super-classe, peut pointer sur n'imprte quelle scène
 
@@ -33,6 +34,8 @@ int Game::run()
 		//Seule condition de sortie de toute l'app
 		if (selecteurDeScene == Scene::scenes::SORTIE)
 		{
+			Controle::Decharger();
+			Modele::Decharger();
 			return EXIT_SUCCESS;
 		}
 		else			
@@ -44,12 +47,13 @@ int Game::run()
 			case Scene::scenes::TITRE:
 				sceneActive = new SceneTitre();
 				break;
-
+			case Scene::scenes::GESTIONCOMPTE:
+				sceneActive = new SceneGestionCompte();
+				break;
 			case Scene::scenes::NIVEAU1:
 				sceneActive = new SceneNiveau1();
 				break;
 			}
-			
 			if (sceneActive->init(&mainWin))
 			{
 				sceneEnRetour = sceneActive->run();
