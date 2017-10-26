@@ -44,22 +44,24 @@ void Modele::Decharger()
 	instance = nullptr;
 }
 
-Modele::ResultatAuthentification Modele::AuthentifierUtilisateur(std::string utilisateur, std::string motPass)
+Modele::ResultatAuthentification Modele::AuthentifierUtilisateur(std::string utilisateur, std::string motPass, int& ligne, std::string emplacementFichier)
 {
+	int ligneCourrante = 0;
+	std::ifstream readFile(emplacementFichier, std::ios::out | std::ios::app);
+	std::string line = "";
+	if(readFile.is_open())
 	{
-		std::ifstream readFile("userpass.txt", std::ios::out | std::ios::app);
-		std::string line = "";
-		if(readFile.is_open())
+		while(std::getline(readFile,line))
 		{
-			while(std::getline(readFile,line))
+			std::vector<std::string> stringSplit = split(line, ':');
+			if (stringSplit[Nickname] == utilisateur && stringSplit[Password] == motPass)
 			{
-				std::vector<std::string> stringSplit = split(line, ':');
-				if (stringSplit[Nickname] == utilisateur && stringSplit[Password] == motPass)
-					return Modele::ResultatAuthentification::Reussi;
+				ligne = ligneCourrante;
+				return Modele::ResultatAuthentification::Reussi;
 			}
+			ligneCourrante++;
 		}
-
 	}
-
+	ligne = 0;
 	return Modele::ResultatAuthentification::Echouer;
 }
