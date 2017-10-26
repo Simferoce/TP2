@@ -2,6 +2,7 @@
 #include "SceneTitre.h"
 #include "SceneNiveau1.h"
 #include "SceneGestionCompte.h"
+#include "SceneCreerCompte.h"
 #include "Controle.h"
 
 using namespace platformer;
@@ -24,7 +25,7 @@ int Game::testTest()
 int Game::run()
 {
 	//deux enums et un pointeur de scene pour faire la manipulation de scène
-	Scene::scenes selecteurDeScene = Scene::scenes::TITRE;
+	Scene::scenes selecteurDeScene = Scene::scenes::/*TITRE*/GESTIONCOMPTE;
 	Scene::scenes sceneEnRetour;
 	Scene* sceneActive = nullptr; //Pointeur de la super-classe, peut pointer sur n'imprte quelle scène
 
@@ -51,6 +52,9 @@ int Game::run()
 				break;
 			case Scene::scenes::NIVEAU1:
 				sceneActive = new SceneNiveau1();
+				break;
+			case Scene::scenes::CREERCOMPTE:
+				sceneActive = new SceneCreerCompte();
 				break;
 			}
 			if (sceneActive->init(&mainWin))

@@ -1,20 +1,21 @@
-#include "SceneGestionCompte.h"
+
 #include <algorithm>
 #include <fstream>
 #include "Modele.h"
+#include "SceneCreerCompte.h"
 
 using namespace platformer;
 
-SceneGestionCompte::SceneGestionCompte()
+SceneCreerCompte::SceneCreerCompte()
 {
 
 }
 
-SceneGestionCompte::~SceneGestionCompte()
+SceneCreerCompte::~SceneCreerCompte()
 {
 }
 
-Scene::scenes SceneGestionCompte::run()
+Scene::scenes SceneCreerCompte::run()
 {
 	while (isRunning)
 	{
@@ -26,40 +27,19 @@ Scene::scenes SceneGestionCompte::run()
 	return transitionVersScene;
 }
 
-bool SceneGestionCompte::init(RenderWindow * const window)
+bool SceneCreerCompte::init(RenderWindow * const window)
 {
-	/*ifstream iFich;
-	iFich.open("userpass.txt");
-	if (!iFich.is_open())
-	{
-		//cout << "Fichier au mauvais endroit" << endl;
-		return 0;
-	}
-	while(getline(iFich, ligne))
-	{
-		information = Modele::split(ligne, ':');
-		if()
-	}*/
-
+	Modele::InitFont("Ressources\\Fonts\\Peric.ttf");
 	//test de texte à l'écran
-	text.setFont(font); 
-	text.setString("Appuyer 1 pour creer un compte, \n2 pour modifier votre compte, \n 3 pour le supprimer ou \n 4 pour l.");
-	text.setCharacterSize(24);
-	text.setColor(sf::Color::White);
-	text.setStyle(sf::Text::Bold);
-
+	text1=Modele::CreateTextLine("Veuiller entrer vos informations.",0,0);
+	text2=Modele::CreateTextLine("Utilisateur", 0, 50);
+	text3=Modele::CreateTextLine("Mot de passe", 0, 100);
+	text4=Modele::CreateTextLine("Prenom", 0, 150);
+	text5=Modele::CreateTextLine("Nom", 0, 200);
+	text6=Modele::CreateTextLine("Courriel", 0, 250);
 	
-	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
-	{
-		return false;
-	}
 
-	if (!font.loadFromFile("Ressources\\Fonts\\Peric.ttf"))
-	{
-		return false;
-	}
 
-	ecranTitre.setTexture(ecranTitreT);
 
 	//Les positions sont arbitraires, obtenus par essai et erreur.
 	//par rapport au fond d'écran
@@ -73,7 +53,7 @@ bool SceneGestionCompte::init(RenderWindow * const window)
 	return true;
 }
 
-void SceneGestionCompte::getInputs()
+void SceneCreerCompte::getInputs()
 {
 	enterActif = false;
 	backspaceActif = false;
@@ -112,11 +92,11 @@ void SceneGestionCompte::getInputs()
 			{
 				//Sinon aucun textbox actif
 				//Ce else devrait être dans toutes vos fenêtres où il n'y a pas de textbox.
-				if (textboxActif != nullptr)
+				if(textboxActif!=nullptr)
 				{
 					textboxActif->deSelectionner();
 					textboxActif = nullptr;
-				}
+				}	
 			}
 		}
 
@@ -140,14 +120,14 @@ void SceneGestionCompte::getInputs()
 		}
 		if (event.type == Event::KeyPressed && textboxActif == nullptr)
 		{
+			//On n'a pas besoin d'une touche pour aller sur la page qu'on est déjà
 			if (event.key.code == Keyboard::Num1)
 			{
 				boutonMenu[Keyboard::Key::Num1] = true;
-
 				isRunning = false;
-				transitionVersScene = Scene::scenes::CREERCOMPTE;
+				transitionVersScene = Scene::scenes::GESTIONCOMPTE;
 			}
-			if (event.key.code == Keyboard::Num2){
+			if (event.key.code == Keyboard::Num2) {
 				//isRunning = false;
 				//transitionVersScene = Scene::scenes::GESTIONCOMPTE;
 			}
@@ -173,21 +153,25 @@ void SceneGestionCompte::getInputs()
 	}
 }
 
-void SceneGestionCompte::update()
+void SceneCreerCompte::update()
 {
 
 }
 
-void SceneGestionCompte::draw()
+void SceneCreerCompte::draw()
 {
 	mainWin->clear();
-	mainWin->draw(ecranTitre);
 	textbox.dessiner(mainWin);
 	textboxUsername.dessiner(mainWin);
 	textboxErreur.dessiner(mainWin);
 	//test texte à l'écran
 	// puis, dans la boucle de dessin, entre window.clear() et window.display()
-	mainWin->draw(text);
+	mainWin->draw(text1);
+	mainWin->draw(text2);
+	mainWin->draw(text3);
+	mainWin->draw(text4);
+	mainWin->draw(text5);
+	mainWin->draw(text6);
 
 	mainWin->display();
 }

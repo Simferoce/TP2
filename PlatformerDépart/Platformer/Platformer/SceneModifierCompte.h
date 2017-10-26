@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include <SFML/Graphics.hpp>
 #include "Scene.h"
 #include "Textbox.h"
@@ -11,11 +12,11 @@ using namespace sf;
 
 namespace platformer
 {
-	class SceneGestionCompte : public Scene
+	class SceneModifierCompte : public Scene
 	{
 	public:
-		SceneGestionCompte();
-		~SceneGestionCompte();
+		SceneModifierCompte();
+		~SceneModifierCompte();
 
 		scenes run();
 		bool init(RenderWindow * const window);
@@ -36,10 +37,6 @@ namespace platformer
 
 		Textbox textbox;
 		Textbox textboxUsername;
-		Textbox textboxPassword;
-		Textbox textboxPrenom;
-		Textbox textboxNom;
-		Textbox textboxCourriel;
 		Textbox textboxErreur; // Ce textbox agit plutôt comme un messagebox.
 		Font font;
 

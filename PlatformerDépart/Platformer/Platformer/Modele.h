@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <SFML/Graphics/Text.hpp>
+#include <string>
 
 class Modele
 {
@@ -10,6 +12,9 @@ class Modele
 	Modele(const Modele&) = delete;
 	void operator=(const Modele&) = delete;
 public:
+	static bool InitFont(std::string chemin);
+	static sf::Font font;
+	static sf::Text CreateTextLine(std::string text, float posX, float posY);
 	static std::vector<std::string> split(std::string strinASplit, char caractereQuiSplit);
 	static Modele* GetInstance();
 	static void Decharger();

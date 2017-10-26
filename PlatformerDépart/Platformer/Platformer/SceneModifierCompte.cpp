@@ -1,20 +1,21 @@
-#include "SceneGestionCompte.h"
+#include "SceneModifierCompte.h"
 #include <algorithm>
 #include <fstream>
 #include "Modele.h"
 
 using namespace platformer;
 
-SceneGestionCompte::SceneGestionCompte()
+SceneModifierCompte::SceneModifierCompte()
 {
 
 }
 
-SceneGestionCompte::~SceneGestionCompte()
+SceneModifierCompte::~SceneModifierCompte()
 {
+	
 }
 
-Scene::scenes SceneGestionCompte::run()
+Scene::scenes SceneModifierCompte::run()
 {
 	while (isRunning)
 	{
@@ -26,14 +27,14 @@ Scene::scenes SceneGestionCompte::run()
 	return transitionVersScene;
 }
 
-bool SceneGestionCompte::init(RenderWindow * const window)
+bool SceneModifierCompte::init(RenderWindow * const window)
 {
 	/*ifstream iFich;
 	iFich.open("userpass.txt");
 	if (!iFich.is_open())
 	{
-		//cout << "Fichier au mauvais endroit" << endl;
-		return 0;
+	//cout << "Fichier au mauvais endroit" << endl;
+	return 0;
 	}
 	while(getline(iFich, ligne))
 	{
@@ -42,13 +43,13 @@ bool SceneGestionCompte::init(RenderWindow * const window)
 	}*/
 
 	//test de texte à l'écran
-	text.setFont(font); 
+	text.setFont(font);
 	text.setString("Appuyer 1 pour creer un compte, \n2 pour modifier votre compte, \n 3 pour le supprimer ou \n 4 pour l.");
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::White);
 	text.setStyle(sf::Text::Bold);
 
-	
+
 	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
 	{
 		return false;
@@ -73,7 +74,7 @@ bool SceneGestionCompte::init(RenderWindow * const window)
 	return true;
 }
 
-void SceneGestionCompte::getInputs()
+void SceneModifierCompte::getInputs()
 {
 	enterActif = false;
 	backspaceActif = false;
@@ -112,11 +113,8 @@ void SceneGestionCompte::getInputs()
 			{
 				//Sinon aucun textbox actif
 				//Ce else devrait être dans toutes vos fenêtres où il n'y a pas de textbox.
-				if (textboxActif != nullptr)
-				{
-					textboxActif->deSelectionner();
-					textboxActif = nullptr;
-				}
+				textboxActif->deSelectionner();
+				textboxActif = nullptr;
 			}
 		}
 
@@ -142,22 +140,13 @@ void SceneGestionCompte::getInputs()
 		{
 			if (event.key.code == Keyboard::Num1)
 			{
-				boutonMenu[Keyboard::Key::Num1] = true;
-
-				isRunning = false;
-				transitionVersScene = Scene::scenes::CREERCOMPTE;
+			boutonMenu[Keyboard::Key::Num1] = true;
+			isRunning = false;
+			transitionVersScene = Scene::scenes::GESTIONCOMPTE;
 			}
-			if (event.key.code == Keyboard::Num2){
-				//isRunning = false;
-				//transitionVersScene = Scene::scenes::GESTIONCOMPTE;
-			}
-			else if (event.key.code == Keyboard::Num2)
+			if(event.key.code == Keyboard::Return)
 			{
-				boutonMenu[Keyboard::Key::Num2] = true;
-			}
-			else if (event.key.code == Keyboard::Num3)
-			{
-				boutonMenu[Keyboard::Key::Num3] = true;
+				
 			}
 		}
 		const auto menuBoutonChoisi = std::find_if(boutonMenu.begin(), boutonMenu.end(), [](std::pair<Keyboard::Key, bool> n) { return n.second == true; });
@@ -173,12 +162,12 @@ void SceneGestionCompte::getInputs()
 	}
 }
 
-void SceneGestionCompte::update()
+void SceneModifierCompte::update()
 {
 
 }
 
-void SceneGestionCompte::draw()
+void SceneModifierCompte::draw()
 {
 	mainWin->clear();
 	mainWin->draw(ecranTitre);

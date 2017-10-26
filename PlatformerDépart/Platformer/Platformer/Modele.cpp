@@ -1,8 +1,10 @@
 #include "Modele.h"
 #include <fstream>
 #include <vector>
+#include <string>
 
 Modele* Modele::instance = nullptr;
+sf::Font Modele::font;
 
 Modele::Modele()
 {
@@ -64,4 +66,23 @@ Modele::ResultatAuthentification Modele::AuthentifierUtilisateur(std::string uti
 	}
 	ligne = 0;
 	return Modele::ResultatAuthentification::Echouer;
+}
+sf::Text Modele::CreateTextLine(std::string text, float posX, float posY)
+{
+	sf::Text textLine;
+	textLine.setFont(font);
+	textLine.setString(text);
+	textLine.setCharacterSize(24);
+	textLine.setColor(sf::Color::White);
+	textLine.setStyle(sf::Text::Bold);
+	textLine.setPosition(posX, posY);
+	return textLine;
+}
+bool Modele::InitFont(std::string chemin)
+{
+	if (!Modele::font.loadFromFile(chemin))
+	{
+		return false;
+	}
+	return true;
 }

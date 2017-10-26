@@ -94,7 +94,9 @@
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Modele.cpp" />
+    <ClCompile Include="SceneCreerCompte.cpp" />
     <ClCompile Include="SceneGestionCompte.cpp" />
+    <ClCompile Include="SceneModifierCompte.cpp" />
     <ClCompile Include="SceneNiveau1.cpp" />
     <ClCompile Include="SceneTitre.cpp" />
     <ClCompile Include="Testeur.cpp" />
@@ -106,7 +108,9 @@
     <ClInclude Include="Joueur.h" />
     <ClInclude Include="Modele.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneCreerCompte.h" />
     <ClInclude Include="SceneGestionCompte.h" />
+    <ClInclude Include="SceneModifierCompte.h" />
     <ClInclude Include="SceneNiveau1.h" />
     <ClInclude Include="SceneTitre.h" />
     <ClInclude Include="Testeur.h" />
