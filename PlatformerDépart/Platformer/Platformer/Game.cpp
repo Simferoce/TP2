@@ -1,8 +1,10 @@
 #include "Game.h"
-#include "SceneTitre.h"
+#include "SceneLogin.h"
 #include "SceneNiveau1.h"
 #include "SceneGestionCompte.h"
 #include "Controle.h"
+#include "SceneTitre.h"
+#include "SceneScore.h"
 
 using namespace platformer;
 
@@ -46,11 +48,17 @@ int Game::run()
 			case Scene::scenes::TITRE:
 				sceneActive = new SceneTitre();
 				break;
+			case Scene::scenes::LOGIN:
+				sceneActive = new SceneLogin();
+					break;
 			case Scene::scenes::GESTIONCOMPTE:
 				sceneActive = new SceneGestionCompte();
 				break;
 			case Scene::scenes::NIVEAU1:
 				sceneActive = new SceneNiveau1();
+				break;
+			case Scene::scenes::SCORE:
+				sceneActive = new SceneScore();
 				break;
 			}
 			if (sceneActive->init(&mainWin))

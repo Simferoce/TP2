@@ -21,6 +21,14 @@ Controle* Controle::GetInstance()
 	return instance;
 }
 
+std::string Controle::GetText(Modele::StringId id)
+{
+	if (Modele::dictionnaire.count(id))
+		return Modele::GetText(id);
+	else
+		throw std::invalid_argument("Aucune clef pour " + id);
+}
+
 Modele::ResultatAuthentification Controle::AuthentifierUtilisateur(std::string utilisateur, std::string motPass, int& ligne, std::string emplacementFichier)
 {
 	if (utilisateur.length() < 3 || utilisateur.length() > 25)
@@ -29,4 +37,9 @@ Modele::ResultatAuthentification Controle::AuthentifierUtilisateur(std::string u
 		return Modele::MotPassFormat;
 	ligne = 0;
 	return Modele::AuthentifierUtilisateur(utilisateur,motPass,ligne,emplacementFichier);
+}
+
+std::vector<std::string> Controle::split(std::string stringASplit, char caractereQuiSplit)
+{
+	return Modele::split(stringASplit,caractereQuiSplit);
 }

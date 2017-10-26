@@ -16,12 +16,12 @@ Textbox::~Textbox()
 /// Où alors on serait obligé de l'utiliser comme pointeur.
 /// La méthode init règle la question
 ///
-/// Certains éléments sont délibéréments hardcodés; on ne veut pas une textbox hyper-flexible
+/// Certains éléments sont délibéréments hardcodés; on ne veut pas une textboxUser hyper-flexible
 /// Juste de quoi qui fera le travail pour ce TP
 ///
 /// </summary>
 /// <param name="longueur">Longueur du Textbox</param>
-/// <param name="limite">Limite de caractères; devrait être 1 pour 20 pixels de longueur du textbox</param>
+/// <param name="limite">Limite de caractères; devrait être 1 pour 20 pixels de longueur du textboxUser</param>
 /// <param name="position">Position à l'écran.  Le Textbox est centrée sur cette position.</param>
 /// <param name="font">La font utilisée</param>
 void Textbox::init(const int longueur, const int limite, const Vector2f position, const Font& font)
@@ -87,7 +87,7 @@ void Textbox::deSelectionner()
 }
 
 /// <summary>
-/// Vérifie si une position touche au textbox
+/// Vérifie si une position touche au textboxUser
 /// </summary>
 bool Textbox::touche(const Vector2i& position)
 {

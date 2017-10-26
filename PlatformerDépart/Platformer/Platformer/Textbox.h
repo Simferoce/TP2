@@ -35,13 +35,13 @@ namespace platformer
 		void ajustementsVisuels();		
 		
 		/// <summary>
-		/// Limite de caractères que notre textbox tolère.  Mettez 1 de limite par 20 pixels de largeur de votre boite
+		/// Limite de caractères que notre textboxUser tolère.  Mettez 1 de limite par 20 pixels de largeur de votre boite
 		/// Ainsi si vous entrez que des caractères larges (comme W par exemple), tout va entrer
 		/// </summary>
 		int limite;
 				
 		/// <summary>
-		/// Graphiquement, la textbox est un simple rectangle.
+		/// Graphiquement, la textboxUser est un simple rectangle.
 		/// </summary>
 		RectangleShape boite;
 		

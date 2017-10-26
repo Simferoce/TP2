@@ -3,27 +3,29 @@
 #include <vector>
 
 Modele* Modele::instance = nullptr;
-
+std::map<Modele::StringId, std::string> Modele::dictionnaire = {};
+sf::Font Modele::font;
+std::string Modele::emplacementFont = "Ressources\\Fonts\\Peric.ttf";
 Modele::Modele()
 {
+	font.loadFromFile(emplacementFont);
 }
-//A TESTER
-std::vector<std::string> Modele::split(std::string strinASplit, char caractereQuiSplit)
+std::vector<std::string> Modele::split(std::string stringASplit, char caractereQuiSplit)
 {
 	std::vector<std::string> stringSplit;
 	int i = 0;
 	std::string currentString = "";
-	while(i < strinASplit.length())
+	while(i < stringASplit.length())
 	{
 
-		if (strinASplit[i] == caractereQuiSplit)
+		if (stringASplit[i] == caractereQuiSplit)
 		{
 			stringSplit.push_back(currentString);
 			currentString = "";
 		}
 		else
 		{
-			currentString += strinASplit[i];
+			currentString += stringASplit[i];
 		}
 		i++;
 	}
@@ -42,6 +44,11 @@ void Modele::Decharger()
 {
 	delete instance;
 	instance = nullptr;
+}
+
+std::string Modele::GetText(StringId id)
+{
+	return dictionnaire[id];
 }
 
 Modele::ResultatAuthentification Modele::AuthentifierUtilisateur(std::string utilisateur, std::string motPass, int& ligne, std::string emplacementFichier)

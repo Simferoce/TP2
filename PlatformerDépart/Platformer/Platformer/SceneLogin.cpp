@@ -1,22 +1,18 @@
-#include "SceneGestionCompte.h"
+#include "SceneLogin.h"
 #include <algorithm>
-#include <fstream>
-#include <string.h>
-#include <stdio.h>
-#include <iostream>
-
+#include "Controle.h"
 using namespace platformer;
 
-SceneGestionCompte::SceneGestionCompte()
+SceneLogin::SceneLogin()
 {
-
+	
 }
 
-SceneGestionCompte::~SceneGestionCompte()
+SceneLogin::~SceneLogin()
 {
 }
 
-Scene::scenes SceneGestionCompte::run()
+Scene::scenes SceneLogin::run()
 {
 	while (isRunning)
 	{
@@ -28,39 +24,8 @@ Scene::scenes SceneGestionCompte::run()
 	return transitionVersScene;
 }
 
-bool SceneGestionCompte::init(RenderWindow * const window)
+bool SceneLogin::init(RenderWindow * const window)
 {
-	//http://www.cplusplus.com/forum/beginner/8388/
-	ifstream iFich;
-	iFich.open("userpass.txt");
-	if (!iFich.is_open())
-	{
-		//cout << "Fichier au mauvais endroit" << endl;
-		return 0;
-	}
-	//pointATrouver = strtok(ligne, ':');
-	while(getline(iFich, ligne))
-	{
-		int trouve = ligne.find(":");
-		for(int i=0; i<trouve;i++)
-		{
-			utilisateur += ligne[i];
-		}
-	}
-	//Lecture ligne
-	/*char ligneTemp[100] = ligne;
-	char utilisateurTab[] = ligne;
-	pointATrouver = strtok(utilisateurTab, ':');*/
-	//utilisateur = ligne;
-
-	//test de texte à l'écran
-	text.setFont(font); 
-	text.setString("Appuyer sur telle partie du texte pour voir votre score,\n changer votre nom ou mot de passe ou retourner");
-	text.setCharacterSize(24);
-	text.setColor(sf::Color::White);
-	text.setStyle(sf::Text::Bold);
-
-	
 	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
 	{
 		return false;
@@ -78,19 +43,16 @@ bool SceneGestionCompte::init(RenderWindow * const window)
 	textboxUsername.init(480, 24, Vector2f(430, 320), font);
 	textbox.init(480, 24, Vector2f(430, 360), font);
 	textboxErreur.initInfo(Vector2f(430, 290), font, true);
-
 	this->mainWin = window;
 	isRunning = true;
 
 	return true;
 }
 
-void SceneGestionCompte::getInputs()
+void SceneLogin::getInputs()
 {
 	enterActif = false;
 	backspaceActif = false;
-	for (auto iter = boutonMenu.begin(); iter != boutonMenu.end(); ++iter)
-		iter->second = false;
 	while (mainWin->pollEvent(event))
 	{
 		//x sur la fenêtre
@@ -129,20 +91,20 @@ void SceneGestionCompte::getInputs()
 				textboxActif = nullptr;
 			}
 		}
-
-		//Un événement de touche de clavier AVEC un textobx actif
-		if (event.type == Event::KeyPressed && textboxActif != nullptr)
-		{
+		if (event.type == Event::KeyPressed)
+		{						
 			//ON VA SE SERVIR DE ENTER PARTOUT DANS LE TP POUR VALIDER LES INFOS DANS TOUS
 			//LES TEXTBOX D'UNE SCÈNE (Vous pouviez vous codez un bouton si ça vous amuse,
 			//Mais vous pouvez aussi garder les choses simples.
 			if (event.key.code == Keyboard::Return)
 			{
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
-
-
 			}
-			else if (event.key.code == Keyboard::BackSpace)
+		}
+		//Un événement de touche de clavier AVEC un textobx actif
+		if (event.type == Event::KeyPressed && textboxActif != nullptr)
+		{
+			if (event.key.code == Keyboard::BackSpace)
 			{
 				textboxActif->retirerChar();
 				backspaceActif = true;  //Pour s'assurer que backspace n'est pas saisie comme caractère
@@ -150,27 +112,12 @@ void SceneGestionCompte::getInputs()
 		}
 		if (event.type == Event::KeyPressed && textboxActif == nullptr)
 		{
-			//On n'a pas besoin d'une touche pour aller sur la page qu'on est déjà
-			/*if (event.key.code == Keyboard::Num1)
+			if(event.key.code == Keyboard::Key::Escape)
 			{
-				boutonMenu[Keyboard::Key::Num1] = true;
+				transitionVersScene = Scene::scenes::TITRE;
 				isRunning = false;
-				transitionVersScene = Scene::scenes::GESTIONCOMPTE;
-			}*/
-			if (event.key.code == Keyboard::Num2) {
-				//isRunning = false;
-				//transitionVersScene = Scene::scenes::GESTIONCOMPTE;
-			}
-			else if (event.key.code == Keyboard::Num2)
-			{
-				boutonMenu[Keyboard::Key::Num2] = true;
-			}
-			else if (event.key.code == Keyboard::Num3)
-			{
-				boutonMenu[Keyboard::Key::Num3] = true;
 			}
 		}
-		const auto menuBoutonChoisi = std::find_if(boutonMenu.begin(), boutonMenu.end(), [](std::pair<Keyboard::Key, bool> n) { return n.second == true; });
 		//Attention : TextEntered est différent de KeyPressed
 		//Voir ici pour l'explication: https://www.sfml-dev.org/tutorials/2.4/window-events-fr.php
 		if (!backspaceActif && !enterActif && textboxActif != nullptr && (event.type == Event::TextEntered))
@@ -183,20 +130,30 @@ void SceneGestionCompte::getInputs()
 	}
 }
 
-void SceneGestionCompte::update()
+void SceneLogin::update()
 {
+	if(enterActif)
+	{
+		int ligne = 0;
+		Modele::ResultatAuthentification resultat = Controle::AuthentifierUtilisateur(textboxUsername.getTexte(), textbox.getTexte(), ligne, "userpass.txt");
+		if (Modele::ResultatAuthentification::Reussi == resultat)
+		{
+			transitionVersScene = Scene::scenes::NIVEAU1;
+			isRunning = false;
+		}
+		else 
+		{
+			textboxErreur.insererTexte("Mot de passe ou nom d'utilisateur incorrecte.");
+		}
+	}
 }
 
-void SceneGestionCompte::draw()
+void SceneLogin::draw()
 {
 	mainWin->clear();
 	mainWin->draw(ecranTitre);
 	textbox.dessiner(mainWin);
 	textboxUsername.dessiner(mainWin);
 	textboxErreur.dessiner(mainWin);
-	//test texte à l'écran
-	// puis, dans la boucle de dessin, entre window.clear() et window.display()
-	mainWin->draw(text);
-
 	mainWin->display();
 }
