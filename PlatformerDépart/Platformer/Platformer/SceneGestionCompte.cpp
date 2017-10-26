@@ -51,6 +51,10 @@ bool SceneGestionCompte::init(RenderWindow * const window)
 
 void SceneGestionCompte::getInputs()
 {
+	enterActif = false;
+	backspaceActif = false;
+	for (auto iter = boutonMenu.begin(); iter != boutonMenu.end(); ++iter)
+		iter->second = false;
 	while (mainWin->pollEvent(event))
 	{
 		//x sur la fenêtre
@@ -84,8 +88,8 @@ void SceneGestionCompte::getInputs()
 			{
 				//Sinon aucun textbox actif
 				//Ce else devrait être dans toutes vos fenêtres où il n'y a pas de textbox.
+				textboxActif->deSelectionner();
 				textboxActif = nullptr;
-				textboxUsername.deSelectionner();
 			}
 		}
 
@@ -99,17 +103,7 @@ void SceneGestionCompte::getInputs()
 			{
 				enterActif = true; //Pour s'assurer que enter n'est pas saisie comme caractère
 
-								   //Condition bison pour voir que la transition fonctionne.
-				if (textbox.getTexte() == "password")
-				{
-					isRunning = false;
-					transitionVersScene = Scene::scenes::NIVEAU1;
-				}
-				else
-				{
-					//On affiche notre erreur.
-					textboxErreur.insererTexte("Mauvais mot de passe, entrez-en un bon!");
-				}
+
 			}
 			else if (event.key.code == Keyboard::BackSpace)
 			{
@@ -117,13 +111,13 @@ void SceneGestionCompte::getInputs()
 				backspaceActif = true;  //Pour s'assurer que backspace n'est pas saisie comme caractère
 			}
 		}
-		if(event.type == Event::KeyPressed)
+		if (event.type == Event::KeyPressed && textboxActif == nullptr)
 		{
 			if (event.key.code == Keyboard::Num1)
 			{
 				boutonMenu[Keyboard::Key::Num1] = true;
-				isRunning = false;
-				transitionVersScene = Scene::scenes::GESTIONCOMPTE;
+				//isRunning = false;
+				//transitionVersScene = Scene::scenes::GESTIONCOMPTE;
 			}
 			else if (event.key.code == Keyboard::Num2)
 			{
@@ -137,7 +131,7 @@ void SceneGestionCompte::getInputs()
 		const auto menuBoutonChoisi = std::find_if(boutonMenu.begin(), boutonMenu.end(), [](std::pair<Keyboard::Key, bool> n) { return n.second == true; });
 		//Attention : TextEntered est différent de KeyPressed
 		//Voir ici pour l'explication: https://www.sfml-dev.org/tutorials/2.4/window-events-fr.php
-		if (menuBoutonChoisi == boutonMenu.end() && !backspaceActif && !enterActif && textboxActif != nullptr && (event.type == Event::TextEntered))
+		if (!backspaceActif && !enterActif && textboxActif != nullptr && (event.type == Event::TextEntered))
 		{
 			if (event.text.unicode < 128) //Travailler en unicode n'est pas simple en C++; on peut vivre avec du simple
 			{                             //ascii pour ce tp (libre à vous d'aller plus loin si vous voulez)
@@ -145,11 +139,6 @@ void SceneGestionCompte::getInputs()
 			}
 		}
 	}
-		//Dans tous les cas on netoie ces conditions après chaque boucle.
-		enterActif = false;
-		backspaceActif = false;
-		for (auto iter = boutonMenu.begin(); iter != boutonMenu.end(); ++iter)
-			iter->second = false;
 }
 
 void SceneGestionCompte::update()
