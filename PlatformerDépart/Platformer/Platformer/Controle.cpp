@@ -31,12 +31,44 @@ std::string Controle::GetText(Modele::StringId id)
 
 Modele::ResultatAuthentification Controle::AuthentifierUtilisateur(std::string utilisateur, std::string motPass, int& ligne, std::string emplacementFichier)
 {
-	if (utilisateur.length() < 3 || utilisateur.length() > 25)
+	if (utilisateur.length() < Modele::MIN_NICKNAME_LENGTH || utilisateur.length() > Modele::MAX_NICKNAME_LENGTH)
+	{
+		ligne = -1;
 		return Modele::UtilisateurFormat;
-	if (motPass.length() < 5 || motPass.length() > 15)
+	}
+		
+	if (motPass.length() < Modele::MIN_PASSWORD_LENGTH || motPass.length() > Modele::MAX_PASSWORD_LENGTH)
+	{
+		ligne = -1;
 		return Modele::MotPassFormat;
-	ligne = 0;
+	}
 	return Modele::AuthentifierUtilisateur(utilisateur,motPass,ligne,emplacementFichier);
+}
+
+std::vector<Modele::TopScore> Controle::GetTopTenResult(std::string user, int score, std::string emplacementSauvegarde)
+{
+
+	return Modele::GetTopTenResult(user, score, emplacementSauvegarde);
+}
+
+std::vector<Modele::TopScore> Controle::GetTopTenResult(std::string user, std::string emplacementSauvegarde)
+{
+	return Modele::GetTopTenResult(user, emplacementSauvegarde);
+}
+
+std::vector<Modele::TopScore> Controle::GetTopTenResult(int score, std::string emplacementSauvegarde)
+{
+	return Modele::GetTopTenResult(score, emplacementSauvegarde);
+}
+
+bool Controle::UserExist(std::string user, std::string emplacementFichier, int& ligne)
+{
+	if (user.length() > Modele::MAX_NICKNAME_LENGTH || user.length() < Modele::MIN_NICKNAME_LENGTH)
+	{
+		ligne = -1;
+		return false;
+	}
+	return Modele::UserExist(user, emplacementFichier, ligne);
 }
 
 std::vector<std::string> Controle::split(std::string stringASplit, char caractereQuiSplit)

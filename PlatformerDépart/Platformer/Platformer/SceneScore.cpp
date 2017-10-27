@@ -32,7 +32,8 @@ bool SceneScore::init(RenderWindow * const window)
 		{
 			tableauScore[i][j].setFont(Modele::GetFont());
 			tableauScore[i][j].setString("TEST");
-			tableauScore[i][j].setPosition(DISTANCE_ENTRE_SCORE_X*i + POSITION_BASE_SCORE_X, DISTANCE_ENTRE_SCORE_Y*j + POSITION_BASE_SCORE_Y);
+			tableauScore[i][j].setPosition(DISTANCE_ENTRE_SCORE_X*i + POSITION_BASE_SCORE_X, 
+				DISTANCE_ENTRE_SCORE_Y*j + POSITION_BASE_SCORE_Y);
 			tableauScore[i][j].setCharacterSize(Modele::GROSSEUR_CARACTERE);
 			tableauScore[i][j].setFillColor(Modele::TEXTE_COULEUR);
 			tableauScore[i][j].setStyle(Modele::TEXTE_STYLE);
@@ -40,8 +41,10 @@ bool SceneScore::init(RenderWindow * const window)
 	}
 	//Les positions sont arbitraires, obtenus par essai et erreur.
 	//par rapport au fond d'écran
-	textboxUser.init(LARGEUR_TEXT, HAUTEUR_TEXT, Vector2f(POSITION_TEXTBOX_X, POSITION_TEXTBOX_USER_Y), Modele::GetFont());
-	textboxScore.init(LARGEUR_TEXT, HAUTEUR_TEXT, Vector2f(POSITION_TEXTBOX_X, POSITION_TEXTBOX_PASSWORD_Y), Modele::GetFont());
+	textboxUser.init(LARGEUR_TEXT, HAUTEUR_TEXT, 
+		Vector2f(POSITION_TEXTBOX_X, POSITION_TEXTBOX_USER_Y), Modele::GetFont());
+	textboxScore.init(LARGEUR_TEXT, HAUTEUR_TEXT, 
+		Vector2f(POSITION_TEXTBOX_X, POSITION_TEXTBOX_PASSWORD_Y), Modele::GetFont());
 	this->mainWin = window;
 	isRunning = true;
 

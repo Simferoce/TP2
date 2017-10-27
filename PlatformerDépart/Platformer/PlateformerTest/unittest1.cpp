@@ -86,21 +86,21 @@ namespace ProjetSFMLTest
 			int emplacement = 0;
 			Modele::ResultatAuthentification resulatAuthentification = Modele::AuthentifierUtilisateur("NicknameNonPresent", "Password", emplacement, "..\\PlateformerTest\\sauvegardeTest.txt");
 			Assert::IsTrue(resulatAuthentification == Modele::Echouer);
-			Assert::IsTrue(emplacement == 0);
+			Assert::IsTrue(emplacement == -1);
 		}
 		TEST_METHOD(AuthentificationNonPresentMotPass)
 		{
 			int emplacement = 0;
 			Modele::ResultatAuthentification resulatAuthentification = Modele::AuthentifierUtilisateur("Nickname", "PasswordNonPresent", emplacement, "..\\PlateformerTest\\sauvegardeTest.txt");
 			Assert::IsTrue(resulatAuthentification == Modele::Echouer);
-			Assert::IsTrue(emplacement == 0);
+			Assert::IsTrue(emplacement == -1);
 		}
 		TEST_METHOD(AuthentificationAtreInfoAPlaceMotPass)
 		{
 			int emplacement = 0;
 			Modele::ResultatAuthentification resulatAuthentification = Modele::AuthentifierUtilisateur("Nickname", "Prenom", emplacement, "..\\PlateformerTest\\sauvegardeTest.txt");
 			Assert::IsTrue(resulatAuthentification == Modele::Echouer);
-			Assert::IsTrue(emplacement == 0);
+			Assert::IsTrue(emplacement == -1);
 		}
 		TEST_METHOD(AuthentificationValideAUneAutrePlaceQuAuDebut)
 		{
@@ -114,7 +114,28 @@ namespace ProjetSFMLTest
 			int emplacement = 0;
 			Modele::ResultatAuthentification resulatAuthentification = Modele::AuthentifierUtilisateur("Nickname", "Password2", emplacement, "..\\PlateformerTest\\sauvegardeTest.txt");
 			Assert::IsTrue(resulatAuthentification == Modele::Echouer);
+			Assert::IsTrue(emplacement == -1);
+		}
+		TEST_METHOD(UserExistValide)
+		{
+			int emplacement = 0;
+			bool userExist = Controle::UserExist("Nickname", "..\\PlateformerTest\\sauvegardeTest.txt", emplacement);
+			Assert::IsTrue(userExist);
 			Assert::IsTrue(emplacement == 0);
+		}
+		TEST_METHOD(UserExistNonValide)
+		{
+			int emplacement = 0;
+			bool userExist = Controle::UserExist("UtilisateurNonPresent", "..\\PlateformerTest\\sauvegardeTest.txt", emplacement);
+			Assert::IsTrue(!userExist);
+			Assert::IsTrue(emplacement == -1);
+		}
+		TEST_METHOD(UserExistUtilisantAutreInfo)
+		{
+			int emplacement = 0;
+			bool userExist = Controle::UserExist("Password", "..\\PlateformerTest\\sauvegardeTest.txt", emplacement);
+			Assert::IsTrue(!userExist);
+			Assert::IsTrue(emplacement == -1);
 		}
 	};
 	TEST_CLASS(ControleTest)
@@ -132,28 +153,28 @@ namespace ProjetSFMLTest
 			int emplacement = 0;
 			Modele::ResultatAuthentification resulatAuthentification = Controle::AuthentifierUtilisateur("Nickname", "0123456789ABCDEF", emplacement, "..\\PlateformerTest\\sauvegardeTest.txt");
 			Assert::IsTrue(resulatAuthentification == Modele::MotPassFormat);
-			Assert::IsTrue(emplacement == 0);
+			Assert::IsTrue(emplacement == -1);
 		}
 		TEST_METHOD(AuthentificationMotPassTropCourt)
 		{
 			int emplacement = 0;
 			Modele::ResultatAuthentification resulatAuthentification = Controle::AuthentifierUtilisateur("Nickname", "0123", emplacement, "..\\PlateformerTest\\sauvegardeTest.txt");
 			Assert::IsTrue(resulatAuthentification == Modele::MotPassFormat);
-			Assert::IsTrue(emplacement == 0);
+			Assert::IsTrue(emplacement == -1);
 		}
 		TEST_METHOD(AuthentificationNicknameTropLong)
 		{
 			int emplacement = 0;
 			Modele::ResultatAuthentification resulatAuthentification = Controle::AuthentifierUtilisateur("0123456789ABCDEFGHIJKLMNOP", "Password", emplacement, "..\\PlateformerTest\\sauvegardeTest.txt");
 			Assert::IsTrue(resulatAuthentification == Modele::UtilisateurFormat);
-			Assert::IsTrue(emplacement == 0);
+			Assert::IsTrue(emplacement == -1);
 		}
 		TEST_METHOD(AuthentificationNicknameTropCourt)
 		{
 			int emplacement = 0;
 			Modele::ResultatAuthentification resulatAuthentification = Controle::AuthentifierUtilisateur("01", "Password", emplacement, "..\\PlateformerTest\\sauvegardeTest.txt");
 			Assert::IsTrue(resulatAuthentification == Modele::UtilisateurFormat);
-			Assert::IsTrue(emplacement == 0);
+			Assert::IsTrue(emplacement == -1);
 		}
 		TEST_METHOD(AuthentificationNicknameMotPassLimiteCourt)
 		{
@@ -168,6 +189,20 @@ namespace ProjetSFMLTest
 			Modele::ResultatAuthentification resulatAuthentification = Controle::AuthentifierUtilisateur("0123456789ABCDEFGHIJQLMNO", "0123456789ABCDE", emplacement, "..\\PlateformerTest\\sauvegardeTest.txt");
 			Assert::IsTrue(resulatAuthentification == Modele::Reussi);
 			Assert::IsTrue(emplacement == 3);
+		}
+		TEST_METHOD(UserExistNicknameTropLong)
+		{
+			int emplacement = 0;
+			bool userExist = Controle::UserExist("0123456789ABCDEFGHIJKLMNOP", "..\\PlateformerTest\\sauvegardeTest.txt", emplacement);
+			Assert::IsTrue(!userExist);
+			Assert::IsTrue(emplacement == -1);
+		}
+		TEST_METHOD(UserExistNicknameTropCourt)
+		{
+			int emplacement = 0;
+			bool userExist = Controle::UserExist("01", "..\\PlateformerTest\\sauvegardeTest.txt", emplacement);
+			Assert::IsTrue(!userExist);
+			Assert::IsTrue(emplacement == -1);
 		}
 	};
 }

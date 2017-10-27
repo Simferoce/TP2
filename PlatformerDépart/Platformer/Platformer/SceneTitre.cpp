@@ -29,7 +29,7 @@ bool SceneTitre::init(RenderWindow * const window)
 
 	this->mainWin = window;
 	menuInstruction.setFont(Modele::GetFont());
-	menuInstruction.setString("Enter:Valider|1:Gestion de Compte|2:Meilleurs Scores");
+	menuInstruction.setString(Controle::GetText(Modele::SceneTitreMenuPrincipale));
 	menuInstruction.setCharacterSize(Modele::GROSSEUR_CARACTERE);
 	menuInstruction.setFillColor(Modele::TEXTE_COULEUR);
 	menuInstruction.setStyle(Modele::TEXTE_STYLE);
