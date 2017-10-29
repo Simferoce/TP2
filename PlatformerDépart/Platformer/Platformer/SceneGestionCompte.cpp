@@ -28,22 +28,10 @@ Scene::scenes SceneGestionCompte::run()
 
 bool SceneGestionCompte::init(RenderWindow * const window)
 {
-	/*ifstream iFich;
-	iFich.open("userpass.txt");
-	if (!iFich.is_open())
-	{
-		//cout << "Fichier au mauvais endroit" << endl;
-		return 0;
-	}
-	while(getline(iFich, ligne))
-	{
-		information = Modele::split(ligne, ':');
-		if()
-	}*/
-
+	
 	//test de texte à l'écran
 	text.setFont(font); 
-	text.setString("Appuyer 1 pour creer un compte, \n2 pour modifier votre compte, \n 3 pour le supprimer ou \n 4 pour l.");
+	text.setString("Appuyer 1 pour creer un compte, \n2 pour modifier votre compte, \n 3 pour le supprimer ou \n 4 pour retourner.");
 	text.setCharacterSize(24);
 	text.setColor(sf::Color::White);
 	text.setStyle(sf::Text::Bold);

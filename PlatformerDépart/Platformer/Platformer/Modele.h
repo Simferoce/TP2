@@ -33,6 +33,7 @@ public:
 	static const int MAX_PASSWORD_LENGTH = 15;
 	static const int MIN_PASSWORD_LENGTH = 5;
 	static sf::Text CreateTextLine(std::string text, float posX, float posY);
+	static bool AjouterCompte(std::string infos);
 	static Modele* GetInstance();	
 	/// <summary>
 	/// Initialise l'instance.

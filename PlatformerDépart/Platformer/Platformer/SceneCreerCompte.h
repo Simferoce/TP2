@@ -28,7 +28,6 @@ namespace platformer
 		std::vector<std::string> information;
 		string ligne;
 
-		//Text CreateTextLine(string text, float posX, float posY);
 		//Text textLine;
 		//Test de texte à l'écran
 		
@@ -38,11 +37,19 @@ namespace platformer
 		Text text4;
 		Text text5;
 		Text text6;
+		string texteUtilisateur = "Utilisateur";
+		string texteMotDePasse = "Mot de passe";
+		string textePrenom = "Prenom";
+		string texteNom = "Nom";
+		string texteCourriel = "Courriel";
 
 		//L'écran titre est super arbitraire, vous pouvez en trouver un autre si vous voulez.
 
 		Textbox textbox;
 		Textbox textboxUsername;
+		Textbox textboxFirstName;
+		Textbox textboxLastName;
+		Textbox textboxEmail;
 		Textbox textboxErreur; // Ce textbox agit plutôt comme un messagebox.
 		Font font;
 
@@ -53,5 +60,20 @@ namespace platformer
 		std::map<Keyboard::Key, bool> boutonMenu = { std::make_pair(Keyboard::Key::Num1,false),std::make_pair(Keyboard::Key::Num2,false) };
 		//Ne fait pas beaucoup sens à un Textbox, mais à plusieurs, ça le fera.
 		Textbox* textboxActif = nullptr;
+
+		bool VerifierNom(string prenom, int taille);
+		bool VerifierCourriel(string courriel, int taille);
+		bool VerifierMotDePasse(string courriel, int taille);
+		bool VerifierUtilisateur(string utilisateur, int taille);
+		int dernierePositionPoint;
+		int positionArobas;
+		int nbFoisArobas;
+		//charactères mot de passe
+		int nbMinuscule;
+		int nbMajuscule;
+		int nbChiffres;
+		int nbCharSpecial;
+		//username
+		ifstream iFich;
 	};
 }
