@@ -31,7 +31,7 @@ bool SceneScore::init(RenderWindow * const window)
 		for(int j = 0; j < TABLEAU_SCORE_Y; j++)
 		{
 			tableauScore[i][j].setFont(Modele::GetFont());
-			tableauScore[i][j].setString("TEST");
+			tableauScore[i][j].setString("");
 			tableauScore[i][j].setPosition(DISTANCE_ENTRE_SCORE_X*i + POSITION_BASE_SCORE_X, 
 				DISTANCE_ENTRE_SCORE_Y*j + POSITION_BASE_SCORE_Y);
 			tableauScore[i][j].setCharacterSize(Modele::GROSSEUR_CARACTERE);
@@ -75,6 +75,12 @@ void SceneScore::getInputs()
 				if (textboxActif != nullptr) textboxActif->deSelectionner();
 				textboxActif = &textboxUser; //Ce textboxUser devient actif
 				textboxUser.selectionner();  //on l'affiche comme étant sélectionné
+			}
+			else if(textboxScore.touche(Mouse::getPosition(*mainWin)))
+			{
+				if (textboxActif != nullptr) textboxActif->deSelectionner();
+				textboxActif = &textboxScore; //Ce textboxUser devient actif
+				textboxScore.selectionner();  //on l'affiche comme étant sélectionné
 			}
 			else
 			{
@@ -126,6 +132,42 @@ void SceneScore::getInputs()
 
 void SceneScore::update()
 {
+	if(enterActif)
+	{
+		for(int i = 0; i < TABLEAU_SCORE_X; i++)
+		{
+			for (int j = 0; j < TABLEAU_SCORE_Y; j++)
+			{
+				tableauScore[i][j].setString("");
+			}
+		}
+		std::vector<Modele::TopScore> topScore;
+		if(textboxUser.getTexte() == "" && textboxScore.getTexte() == "")
+		{
+			topScore = Modele::GetTopTenResult(Modele::GetSaveEmplacement());
+		}
+		else if(textboxUser.getTexte() == "")
+		{
+			std::string scoreString = textboxScore.getTexte();
+			topScore = Modele::GetTopTenResult(std::stoi(scoreString), Modele::GetSaveEmplacement());
+		}
+		else if (textboxScore.getTexte() == "")
+		{
+			topScore = Modele::GetTopTenResult(textboxUser.getTexte(), Modele::GetSaveEmplacement());
+		}
+		else
+		{
+			std::string scoreString = textboxScore.getTexte();
+			topScore = Modele::GetTopTenResult(textboxUser.getTexte(), std::stoi(scoreString),Modele::GetSaveEmplacement());
+		}
+		int ligne = 0;
+		for(auto iter = topScore.begin(); iter != topScore.end(); ++iter)
+		{
+			tableauScore[Score][ligne].setString(std::to_string(iter->score));
+			tableauScore[Utilisateur][ligne].setString(iter->user);
+			ligne++;
+		}
+	}
 }
 
 void SceneScore::draw()

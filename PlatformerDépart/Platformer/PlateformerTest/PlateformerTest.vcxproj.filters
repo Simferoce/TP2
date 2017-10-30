@@ -32,5 +32,11 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="sauvegardeTest.txt" />
+    <Text Include="sauvegardeScoreTest.txt" />
+    <Text Include="sauvegardeScoreTest2.txt" />
+    <Text Include="sauvegardeScoreTest3.txt" />
+    <Text Include="sauvegardeScoreTest4.txt" />
+    <Text Include="sauvegardeScoreTest5.txt" />
+    <Text Include="sauvegardeScoreTest6.txt" />
   </ItemGroup>
 </Project>

@@ -44,6 +44,7 @@ int Game::run()
 		{
 			//Vous allez ajouter d'autre scènes, alors elles devront
 			//être ajoutées ici
+			mainWin.setView(mainWin.getDefaultView());
 			switch (selecteurDeScene)
 			{
 			case Scene::scenes::TITRE:
@@ -51,7 +52,7 @@ int Game::run()
 				break;
 			case Scene::scenes::LOGIN:
 				sceneActive = new SceneLogin();
-					break;
+				break;
 			case Scene::scenes::GESTIONCOMPTE:
 				sceneActive = new SceneGestionCompte();
 				break;

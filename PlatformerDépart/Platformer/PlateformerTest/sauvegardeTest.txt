@@ -1,4 +1,4 @@
-Nickname:Password:Prenom:Nom:exemple@hotmail.com:101,1001,10001
-Nickname2:Password2:Prenom:Nom:exemple@hotmail.com:101,1001,10001
-012:01234:Prenom:Nom:exemple@hotmail.com:101,1001,10001
-0123456789ABCDEFGHIJQLMNO:0123456789ABCDE:Prenom:Nom:exemple@hotmail.com:101,1001,10001
+Nickname:Password:Prenom:Nom:exemple@hotmail.com:1,5,9
+Nickname2:Password2:Prenom:Nom:exemple@hotmail.com:2,6
+012:01234:Prenom:Nom:exemple@hotmail.com:3,7
+0123456789ABCDEFGHIJQLMNO:0123456789ABCDE:Prenom:Nom:exemple@hotmail.com:4,8,0

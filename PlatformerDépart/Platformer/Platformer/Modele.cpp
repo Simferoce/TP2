@@ -126,6 +126,8 @@ std::vector<Modele::TopScore> Modele::GetTopTenResult(std::string user, int scor
 			}
 		}
 	}
+	if(topScore.size() > 10)
+		topScore.resize(10);
 	return topScore;
 }
 
@@ -151,10 +153,38 @@ std::vector<Modele::TopScore> Modele::GetTopTenResult(std::string user, std::str
 	}
 	std::sort(topScore.begin(), topScore.end());
 	std::reverse(topScore.begin(), topScore.end());
+	if (topScore.size() > 10)
+		topScore.resize(10);
 	return topScore;
 }
 
 std::vector<Modele::TopScore> Modele::GetTopTenResult(int score, std::string emplacementSauvegarde)
+{
+	std::vector<Modele::TopScore> topScore;
+	std::ifstream readFile(emplacementSauvegarde, std::ios::out | std::ios::app);
+	std::string line = "";
+	if (readFile.is_open())
+	{
+		while (std::getline(readFile, line))
+		{
+			std::vector<std::string> stringSplit = split(line, ':');
+			std::vector<std::string> scoreUser = split(stringSplit[Pointages], ',');
+			for (auto iter = scoreUser.begin(); iter != scoreUser.end(); ++iter)
+			{
+				if (std::stoi(*iter) == score)
+				{
+					topScore.push_back(TopScore(std::stoi(*iter), stringSplit[Nickname]));
+				}
+			}
+		}
+	}
+	std::sort(topScore.begin(), topScore.end());
+	std::reverse(topScore.begin(), topScore.end());
+	if (topScore.size() > 10)
+		topScore.resize(10);
+	return topScore;
+}
+std::vector<Modele::TopScore> Modele::GetTopTenResult(std::string emplacementSauvegarde)
 {
 	std::vector<Modele::TopScore> topScore;
 	std::ifstream readFile(emplacementSauvegarde, std::ios::out | std::ios::app);
@@ -173,9 +203,10 @@ std::vector<Modele::TopScore> Modele::GetTopTenResult(int score, std::string emp
 	}
 	std::sort(topScore.begin(), topScore.end());
 	std::reverse(topScore.begin(), topScore.end());
+	if (topScore.size() > 10)
+		topScore.resize(10);
 	return topScore;
 }
-
 bool Modele::UserExist(std::string user, std::string emplacementFichier, int& ligne)
 {
 	int ligneCourrante = 0;

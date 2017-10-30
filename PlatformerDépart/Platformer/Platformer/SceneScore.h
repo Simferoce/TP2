@@ -26,7 +26,7 @@ namespace platformer
 		static const int DISTANCE_ENTRE_SCORE_Y = 35;
 		static const int POSITION_BASE_SCORE_X = 35;
 		static const int POSITION_BASE_SCORE_Y = 100;
-		static const int DISTANCE_ENTRE_SCORE_X = 100;
+		static const int DISTANCE_ENTRE_SCORE_X = 500;
 		static const int LARGEUR_TEXT = 360;
 		static const int HAUTEUR_TEXT = 24;
 		static const int POSITION_TEXTBOX_X = 600;

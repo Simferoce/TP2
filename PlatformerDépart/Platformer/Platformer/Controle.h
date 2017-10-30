@@ -32,9 +32,6 @@ public:
 	/// <param name="emplacmeentFichier">Le fichier ou les infos sont gardées</param>
 	/// <returns></returns>
 	static Modele::ResultatAuthentification AuthentifierUtilisateur(std::string utilisateur, std::string motPass, int& ligne, std::string emplacementFichier);
-	static std::vector<Modele::TopScore> GetTopTenResult(std::string user, int score, std::string emplacementSauvegarde);
-	static std::vector<Modele::TopScore> GetTopTenResult(std::string user, std::string emplacementSauvegarde);
-	static std::vector<Modele::TopScore> GetTopTenResult(int score, std::string emplacementSauvegarde);
 	static bool UserExist(std::string user, std::string emplacementFichier, int& ligne);
 };
 
