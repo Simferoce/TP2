@@ -18,8 +18,10 @@ public:
 	{
 		int score;
 		std::string user;
-		TopScore(int score, std::string user) : score(score), user(user){}
+		TopScore(int score = 0, std::string user = "NULL") : score(score), user(user){}
 		bool operator<(const TopScore& other) { return score < other.score; };
+		TopScore& operator=(const TopScore& other) { this->score = other.score; this->user = other.user; return *this; }
+		TopScore(const TopScore& other) { *this = other; }
 	};
 	enum PositonInformation { Nickname, Password, Prenom, Nom, Courriel, Pointages};
 	enum ResultatAuthentification { Reussi, UtilisateurFormat, MotPassFormat, Echouer };
@@ -79,16 +81,41 @@ public:
 	/// Obtient la texture du fond
 	/// </summary>
 	/// <returns>La texture du fond</returns>
-	static const sf::Texture& GetTextureBackground();
-	static std::vector<TopScore> GetTopTenResult(std::string user, int score, std::string emplacementSauvegarde);
-	static std::vector<TopScore> GetTopTenResult(std::string user, std::string emplacementSauvegarde);
-	static std::vector<TopScore> GetTopTenResult(int score, std::string emplacementSauvegarde);
+	static const sf::Texture& GetTextureBackground();	
+	/// <summary>
+	/// Obtient les scores spécifié de l'usager spécifié. Max: 10
+	/// </summary>
+	/// <param name="user">L'usager spécifier.</param>
+	/// <param name="score">Le score spécifier.</param>
+	/// <param name="emplacementSauvegarde">L'emplacement sauvegarde.</param>
+	/// <returns>Les scores spécifiés de l'usager spécifié. Max: 10</returns>
+	static std::vector<TopScore> GetTopTenResult(std::string user, int score, std::string emplacementSauvegarde);	
+	/// <summary>
+	/// Obtient les meilleurs scores de l'utilisateur. Max: 10
+	/// </summary>
+	/// <param name="user">L'usager spécifier.</param>
+	/// <param name="emplacementSauvegarde">L'emplacement sauvegarde.</param>
+	/// <returns>Les 10 meilleurs scores de l'utilisateur</returns>
+	static std::vector<TopScore> GetTopTenResult(std::string user, std::string emplacementSauvegarde);	
+	/// <summary>
+	/// Obtient les utilisateurs qui ont le score spécifié. Max: 10
+	/// </summary>
+	/// <param name="score">le score spécifié.</param>
+	/// <param name="emplacementSauvegarde">L'emplacement sauvegarde.</param>
+	/// <returns>Les utilisateurs ayant le resultat. Max: 10</returns>
+	static std::vector<TopScore> GetTopTenResult(int score, std::string emplacementSauvegarde);	
+	/// <summary>
+	/// Obtient les meilleurs scores. Max: 10
+	/// </summary>
+	/// <param name="emplacementSauvegarde">L'emplacement sauvegarde.</param>
+	/// <returns>Les meilleurs scores. Max: 10</returns>
+	static std::vector<TopScore> GetTopTenResult(std::string emplacementSauvegarde);
 	/// <summary>
 	/// Détermine si l'utilisateur existe.
 	/// </summary>
 	/// <param name="user">L'utilisateur.</param>
 	/// <param name="emplacementFichier">l'emplacement du fichier de sauvegarde.</param>
-	/// <param name="ligne">La ligne trouver, -1 si pas trouver.</param>
+	/// <param name="ligne">La ligne ou l'utilisateur a été trouvé, -1 si pas trouver.</param>
 	/// <returns></returns>
 	static bool UserExist(std::string user, std::string emplacementFichier, int& ligne);
 private:

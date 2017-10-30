@@ -98,7 +98,13 @@
     <ClCompile Include="unittest1.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="sauvegardeScoreTest2.txt" />
+    <Text Include="sauvegardeScoreTest3.txt" />
+    <Text Include="sauvegardeScoreTest4.txt" />
+    <Text Include="sauvegardeScoreTest5.txt" />
+    <Text Include="sauvegardeScoreTest6.txt" />
     <Text Include="sauvegardeTest.txt" />
+    <Text Include="sauvegardeScoreTest.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

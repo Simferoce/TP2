@@ -74,7 +74,7 @@ bool SceneNiveau1::init(RenderWindow * const window)
 
 	//Position arbitraire pour le joueur en x, pas arbitraire en y (sur le plancher)
 	joueur.setPosition(100, window->getSize().y - TAILLE_TUILES_Y * 2);
-
+	window->setView(window->getDefaultView());
 	this->mainWin = window;
 	isRunning = true;
 	

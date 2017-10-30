@@ -137,6 +137,279 @@ namespace ProjetSFMLTest
 			Assert::IsTrue(!userExist);
 			Assert::IsTrue(emplacement == -1);
 		}
+		TEST_METHOD(GetTopTenResultAucunParametreSuplementaire)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult("..\\PlateformerTest\\sauvegardeTest.txt");
+			Assert::IsTrue(topScoreTest[0].score == 9);
+			Assert::IsTrue(topScoreTest[0].user == "Nickname");
+			Assert::IsTrue(topScoreTest[1].score == 8);
+			Assert::IsTrue(topScoreTest[1].user == "0123456789ABCDEFGHIJQLMNO");
+			Assert::IsTrue(topScoreTest[2].score == 7);
+			Assert::IsTrue(topScoreTest[2].user == "012");
+			Assert::IsTrue(topScoreTest[3].score == 6);
+			Assert::IsTrue(topScoreTest[3].user == "Nickname2");
+			Assert::IsTrue(topScoreTest[4].score == 5);
+			Assert::IsTrue(topScoreTest[4].user == "Nickname");
+			Assert::IsTrue(topScoreTest[5].score == 4);
+			Assert::IsTrue(topScoreTest[5].user == "0123456789ABCDEFGHIJQLMNO");
+			Assert::IsTrue(topScoreTest[6].score == 3);
+			Assert::IsTrue(topScoreTest[6].user == "012");
+			Assert::IsTrue(topScoreTest[7].score == 2);
+			Assert::IsTrue(topScoreTest[7].user == "Nickname2");
+			Assert::IsTrue(topScoreTest[8].score == 1);
+			Assert::IsTrue(topScoreTest[8].user == "Nickname");
+			Assert::IsTrue(topScoreTest[9].score == 0);
+			Assert::IsTrue(topScoreTest[9].user == "0123456789ABCDEFGHIJQLMNO");
+			Assert::IsTrue(topScoreTest.size() == 10);
+		}
+		TEST_METHOD(GetTopTenResultAucunParametreSuplementaireSizePlusQue10)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult("..\\PlateformerTest\\sauvegardeScoreTest.txt");
+			Assert::IsTrue(topScoreTest[0].score == 9);
+			Assert::IsTrue(topScoreTest[0].user == "Nickname");
+			Assert::IsTrue(topScoreTest[1].score == 8);
+			Assert::IsTrue(topScoreTest[1].user == "Nickname");
+			Assert::IsTrue(topScoreTest[2].score == 7);
+			Assert::IsTrue(topScoreTest[2].user == "Nickname");
+			Assert::IsTrue(topScoreTest[3].score == 6);
+			Assert::IsTrue(topScoreTest[3].user == "Nickname");
+			Assert::IsTrue(topScoreTest[4].score == 5);
+			Assert::IsTrue(topScoreTest[4].user == "Nickname");
+			Assert::IsTrue(topScoreTest[5].score == 4);
+			Assert::IsTrue(topScoreTest[5].user == "Nickname");
+			Assert::IsTrue(topScoreTest[6].score == 3);
+			Assert::IsTrue(topScoreTest[6].user == "Nickname");
+			Assert::IsTrue(topScoreTest[7].score == 2);
+			Assert::IsTrue(topScoreTest[7].user == "Nickname");
+			Assert::IsTrue(topScoreTest[8].score == 1);
+			Assert::IsTrue(topScoreTest[8].user == "Nickname");
+			Assert::IsTrue(topScoreTest[9].score == 0);
+			Assert::IsTrue(topScoreTest[9].user == "Nickname");
+			Assert::IsTrue(topScoreTest.size() == 10);
+		}
+		TEST_METHOD(GetTopTenResultAucunParametreSuplementaireSizeMoinsQue10)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult("..\\PlateformerTest\\sauvegardeScoreTest2.txt");
+			Assert::IsTrue(topScoreTest[0].score == 9);
+			Assert::IsTrue(topScoreTest[0].user == "Nickname");
+			Assert::IsTrue(topScoreTest[1].score == 8);
+			Assert::IsTrue(topScoreTest[1].user == "Nickname");
+			Assert::IsTrue(topScoreTest[2].score == 7);
+			Assert::IsTrue(topScoreTest[2].user == "Nickname");
+			Assert::IsTrue(topScoreTest[3].score == 6);
+			Assert::IsTrue(topScoreTest[3].user == "Nickname");
+			Assert::IsTrue(topScoreTest[4].score == 5);
+			Assert::IsTrue(topScoreTest[4].user == "Nickname");
+			Assert::IsTrue(topScoreTest[5].score == 4);
+			Assert::IsTrue(topScoreTest[5].user == "Nickname");
+			Assert::IsTrue(topScoreTest[6].score == 3);
+			Assert::IsTrue(topScoreTest[6].user == "Nickname");
+			Assert::IsTrue(topScoreTest[7].score == 2);
+			Assert::IsTrue(topScoreTest[7].user == "Nickname");
+			Assert::IsTrue(topScoreTest[8].score == 1);
+			Assert::IsTrue(topScoreTest[8].user == "Nickname");
+			Assert::IsTrue(topScoreTest.size() == 9);
+		}
+		TEST_METHOD(GetTopTenResultAucunParametreSuplementaireAucunResultat)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult("..\\PlateformerTest\\sauvegardeScoreTest3.txt");
+			Assert::IsTrue(topScoreTest.size() == 0);
+		}
+		TEST_METHOD(GetTopTenResultAucunParametreSuplementaireDuplicataScore)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult("..\\PlateformerTest\\sauvegardeScoreTest4.txt");
+			Assert::IsTrue(topScoreTest[0].score == 9);
+			Assert::IsTrue(topScoreTest[0].user == "Nickname2");
+			Assert::IsTrue(topScoreTest[1].score == 9);
+			Assert::IsTrue(topScoreTest[1].user == "Nickname2");
+			Assert::IsTrue(topScoreTest[2].score == 9);
+			Assert::IsTrue(topScoreTest[2].user == "Nickname2");
+			Assert::IsTrue(topScoreTest[3].score == 9);
+			Assert::IsTrue(topScoreTest[3].user == "Nickname2");
+			Assert::IsTrue(topScoreTest[4].score == 9);
+			Assert::IsTrue(topScoreTest[4].user == "Nickname2");
+			Assert::IsTrue(topScoreTest[5].score == 9);
+			Assert::IsTrue(topScoreTest[5].user == "Nickname");
+			Assert::IsTrue(topScoreTest[6].score == 9);
+			Assert::IsTrue(topScoreTest[6].user == "Nickname");
+			Assert::IsTrue(topScoreTest[7].score == 9);
+			Assert::IsTrue(topScoreTest[7].user == "Nickname");
+			Assert::IsTrue(topScoreTest[8].score == 9);
+			Assert::IsTrue(topScoreTest[8].user == "Nickname");
+			Assert::IsTrue(topScoreTest[9].score == 9);
+			Assert::IsTrue(topScoreTest[9].user == "Nickname");
+			Assert::IsTrue(topScoreTest.size() == 10);
+		}
+		TEST_METHOD(GetTopTenResultScore)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult(9,"..\\PlateformerTest\\sauvegardeTest.txt");
+			Assert::IsTrue(topScoreTest[0].score == 9);
+			Assert::IsTrue(topScoreTest[0].user == "Nickname");
+			Assert::IsTrue(topScoreTest.size() == 1);
+		}
+		TEST_METHOD(GetTopTenResultScoreSizePlusQue10)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult(0,"..\\PlateformerTest\\sauvegardeScoreTest5.txt");
+			Assert::IsTrue(topScoreTest[0].score == 0);
+			Assert::IsTrue(topScoreTest[0].user == "Nickname10");
+			Assert::IsTrue(topScoreTest[1].score == 0);
+			Assert::IsTrue(topScoreTest[1].user == "Nickname9");
+			Assert::IsTrue(topScoreTest[2].score == 0);
+			Assert::IsTrue(topScoreTest[2].user == "Nickname8");
+			Assert::IsTrue(topScoreTest[3].score == 0);
+			Assert::IsTrue(topScoreTest[3].user == "Nickname7");
+			Assert::IsTrue(topScoreTest[4].score == 0);
+			Assert::IsTrue(topScoreTest[4].user == "Nickname6");
+			Assert::IsTrue(topScoreTest[5].score == 0);
+			Assert::IsTrue(topScoreTest[5].user == "Nickname5");
+			Assert::IsTrue(topScoreTest[6].score == 0);
+			Assert::IsTrue(topScoreTest[6].user == "Nickname4");
+			Assert::IsTrue(topScoreTest[7].score == 0);
+			Assert::IsTrue(topScoreTest[7].user == "Nickname3");
+			Assert::IsTrue(topScoreTest[8].score == 0);
+			Assert::IsTrue(topScoreTest[8].user == "Nickname2");
+			Assert::IsTrue(topScoreTest[9].score == 0);
+			Assert::IsTrue(topScoreTest[9].user == "Nickname1");
+			Assert::IsTrue(topScoreTest.size() == 10);
+		}
+		TEST_METHOD(GetTopTenResultScoreAucunResultat)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult(25, "..\\PlateformerTest\\sauvegardeTest.txt");
+			Assert::IsTrue(topScoreTest.size() == 0);
+		}
+		TEST_METHOD(GetTopTenResultScoreDuplicataScore)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult(9,"..\\PlateformerTest\\sauvegardeScoreTest4.txt");
+			Assert::IsTrue(topScoreTest[0].score == 9);
+			Assert::IsTrue(topScoreTest[0].user == "Nickname2");
+			Assert::IsTrue(topScoreTest[1].score == 9);
+			Assert::IsTrue(topScoreTest[1].user == "Nickname2");
+			Assert::IsTrue(topScoreTest[2].score == 9);
+			Assert::IsTrue(topScoreTest[2].user == "Nickname2");
+			Assert::IsTrue(topScoreTest[3].score == 9);
+			Assert::IsTrue(topScoreTest[3].user == "Nickname2");
+			Assert::IsTrue(topScoreTest[4].score == 9);
+			Assert::IsTrue(topScoreTest[4].user == "Nickname2");
+			Assert::IsTrue(topScoreTest[5].score == 9);
+			Assert::IsTrue(topScoreTest[5].user == "Nickname");
+			Assert::IsTrue(topScoreTest[6].score == 9);
+			Assert::IsTrue(topScoreTest[6].user == "Nickname");
+			Assert::IsTrue(topScoreTest[7].score == 9);
+			Assert::IsTrue(topScoreTest[7].user == "Nickname");
+			Assert::IsTrue(topScoreTest[8].score == 9);
+			Assert::IsTrue(topScoreTest[8].user == "Nickname");
+			Assert::IsTrue(topScoreTest[9].score == 9);
+			Assert::IsTrue(topScoreTest[9].user == "Nickname");
+			Assert::IsTrue(topScoreTest.size() == 10);
+		}
+		TEST_METHOD(GetTopTenResultUser)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult("Nickname", "..\\PlateformerTest\\sauvegardeTest.txt");
+			Assert::IsTrue(topScoreTest[0].score == 9);
+			Assert::IsTrue(topScoreTest[0].user == "Nickname");
+			Assert::IsTrue(topScoreTest[1].score == 5);
+			Assert::IsTrue(topScoreTest[1].user == "Nickname");
+			Assert::IsTrue(topScoreTest[2].score == 1);
+			Assert::IsTrue(topScoreTest[2].user == "Nickname");
+			Assert::IsTrue(topScoreTest.size() == 3);
+		}
+		TEST_METHOD(GetTopTenResultUserSizePlusQue10)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult("Nickname", "..\\PlateformerTest\\sauvegardeScoreTest5.txt");
+			Assert::IsTrue(topScoreTest[0].score == 10);
+			Assert::IsTrue(topScoreTest[0].user == "Nickname");
+			Assert::IsTrue(topScoreTest[1].score == 9);
+			Assert::IsTrue(topScoreTest[1].user == "Nickname");
+			Assert::IsTrue(topScoreTest[2].score == 8);
+			Assert::IsTrue(topScoreTest[2].user == "Nickname");
+			Assert::IsTrue(topScoreTest[3].score == 7);
+			Assert::IsTrue(topScoreTest[3].user == "Nickname");
+			Assert::IsTrue(topScoreTest[4].score == 6);
+			Assert::IsTrue(topScoreTest[4].user == "Nickname");
+			Assert::IsTrue(topScoreTest[5].score == 5);
+			Assert::IsTrue(topScoreTest[5].user == "Nickname");
+			Assert::IsTrue(topScoreTest[6].score == 4);
+			Assert::IsTrue(topScoreTest[6].user == "Nickname");
+			Assert::IsTrue(topScoreTest[7].score == 3);
+			Assert::IsTrue(topScoreTest[7].user == "Nickname");
+			Assert::IsTrue(topScoreTest[8].score == 2);
+			Assert::IsTrue(topScoreTest[8].user == "Nickname");
+			Assert::IsTrue(topScoreTest[9].score == 1);
+			Assert::IsTrue(topScoreTest[9].user == "Nickname");
+			Assert::IsTrue(topScoreTest.size() == 10);
+		}
+		TEST_METHOD(GetTopTenResultUserAucunResultat)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult("Jean-Claude", "..\\PlateformerTest\\sauvegardeTest.txt");
+			Assert::IsTrue(topScoreTest.size() == 0);
+		}
+		TEST_METHOD(GetTopTenResultUserDuplicataScore)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult("Nickname", "..\\PlateformerTest\\sauvegardeScoreTest4.txt");
+			Assert::IsTrue(topScoreTest[0].score == 9);
+			Assert::IsTrue(topScoreTest[0].user == "Nickname");
+			Assert::IsTrue(topScoreTest[1].score == 9);
+			Assert::IsTrue(topScoreTest[1].user == "Nickname");
+			Assert::IsTrue(topScoreTest[2].score == 9);
+			Assert::IsTrue(topScoreTest[2].user == "Nickname");
+			Assert::IsTrue(topScoreTest[3].score == 9);
+			Assert::IsTrue(topScoreTest[3].user == "Nickname");
+			Assert::IsTrue(topScoreTest[4].score == 9);
+			Assert::IsTrue(topScoreTest[4].user == "Nickname");
+			Assert::IsTrue(topScoreTest.size() == 5);
+		}
+		TEST_METHOD(GetTopTenResultUserScore)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult("Nickname", 9, "..\\PlateformerTest\\sauvegardeTest.txt");
+			Assert::IsTrue(topScoreTest[0].score == 9);
+			Assert::IsTrue(topScoreTest[0].user == "Nickname");
+			Assert::IsTrue(topScoreTest.size() == 1);
+		}
+		TEST_METHOD(GetTopTenResultUserScoreSizePlusQue10)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult("Nickname",0, "..\\PlateformerTest\\sauvegardeScoreTest6.txt");
+			Assert::IsTrue(topScoreTest[0].score == 0);
+			Assert::IsTrue(topScoreTest[0].user == "Nickname");
+			Assert::IsTrue(topScoreTest[1].score == 0);
+			Assert::IsTrue(topScoreTest[1].user == "Nickname");
+			Assert::IsTrue(topScoreTest[2].score == 0);
+			Assert::IsTrue(topScoreTest[2].user == "Nickname");
+			Assert::IsTrue(topScoreTest[3].score == 0);
+			Assert::IsTrue(topScoreTest[3].user == "Nickname");
+			Assert::IsTrue(topScoreTest[4].score == 0);
+			Assert::IsTrue(topScoreTest[4].user == "Nickname");
+			Assert::IsTrue(topScoreTest[5].score == 0);
+			Assert::IsTrue(topScoreTest[5].user == "Nickname");
+			Assert::IsTrue(topScoreTest[6].score == 0);
+			Assert::IsTrue(topScoreTest[6].user == "Nickname");
+			Assert::IsTrue(topScoreTest[7].score == 0);
+			Assert::IsTrue(topScoreTest[7].user == "Nickname");
+			Assert::IsTrue(topScoreTest[8].score == 0);
+			Assert::IsTrue(topScoreTest[8].user == "Nickname");
+			Assert::IsTrue(topScoreTest[9].score == 0);
+			Assert::IsTrue(topScoreTest[9].user == "Nickname");
+			Assert::IsTrue(topScoreTest.size() == 10);
+		}
+		TEST_METHOD(GetTopTenResultUserScoreAucunResultat)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult("Jean-Claude",-100, "..\\PlateformerTest\\sauvegardeTest.txt");
+			Assert::IsTrue(topScoreTest.size() == 0);
+		}
+		TEST_METHOD(GetTopTenResultUserScoreDuplicataScore)
+		{
+			std::vector<Modele::TopScore> topScoreTest = Modele::GetTopTenResult("Nickname",9, "..\\PlateformerTest\\sauvegardeScoreTest4.txt");
+			Assert::IsTrue(topScoreTest[0].score == 9);
+			Assert::IsTrue(topScoreTest[0].user == "Nickname");
+			Assert::IsTrue(topScoreTest[1].score == 9);
+			Assert::IsTrue(topScoreTest[1].user == "Nickname");
+			Assert::IsTrue(topScoreTest[2].score == 9);
+			Assert::IsTrue(topScoreTest[2].user == "Nickname");
+			Assert::IsTrue(topScoreTest[3].score == 9);
+			Assert::IsTrue(topScoreTest[3].user == "Nickname");
+			Assert::IsTrue(topScoreTest[4].score == 9);
+			Assert::IsTrue(topScoreTest[4].user == "Nickname");
+			Assert::IsTrue(topScoreTest.size() == 5);
+		}
 	};
 	TEST_CLASS(ControleTest)
 	{
