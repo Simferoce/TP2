@@ -29,12 +29,6 @@ Scene::scenes SceneCreerCompte::run()
 
 bool SceneCreerCompte::init(RenderWindow * const window)
 {
-	iFich.open("userpass.txt");
-	if (!iFich.is_open())
-	{
-		//cout << "Fichier au mauvais endroit" << endl;
-		return false;
-	}
 	if (!font.loadFromFile("Ressources\\Fonts\\Peric.ttf"))
 	{
 		return false;
@@ -187,13 +181,13 @@ void SceneCreerCompte::update()
 {
 	if (enterActif)
 	{
-		if (VerifierUtilisateur(textboxUsername.getTexte(),textboxUsername.getTexte().getSize()))
+		if (Modele::VerifierUtilisateur(textboxUsername.getTexte()))
 		{
-			if(VerifierMotDePasse(textbox.getTexte(),textbox.getTexte().getSize()))
+			if(Modele::VerifierMotDePasse(textbox.getTexte()))
 			{
-				if(VerifierNom(textboxFirstName.getTexte(),textboxFirstName.getTexte().getSize()))
+				if(Modele::VerifierNom(textboxFirstName.getTexte()))
 				{
-					if(VerifierNom(textboxLastName.getTexte(),textboxLastName.getTexte().getSize()))
+					if(Modele::VerifierNom(textboxLastName.getTexte()))
 					{
 						if(VerifierCourriel(textboxEmail.getTexte(),textboxEmail.getTexte().getSize()))
 						{
@@ -246,21 +240,7 @@ void SceneCreerCompte::draw()
 
 	mainWin->display();
 }
-bool SceneCreerCompte::VerifierNom(string prenom, int taille)
-{
-	if(taille<2 || taille>25)
-	{
-		return false;
-	}
-	for(int i=0;i<taille;i++)
-	{
-		if(prenom[i]!='-' && prenom[i]!='.' && (prenom[i]<'a' || prenom[i]>'z') && (prenom[i]<'A' || prenom[i]>'Z'))
-		{
-			return false;
-		}
-	}
-	return true;
-}
+
 bool SceneCreerCompte::VerifierCourriel(string courriel, int taille)
 {
 	nbFoisArobas = 0;
@@ -296,53 +276,5 @@ bool SceneCreerCompte::VerifierCourriel(string courriel, int taille)
 	}
 	return true;
 }
-bool SceneCreerCompte::VerifierMotDePasse(string courriel, int taille)
-{
-	if(taille<5 || taille>15)
-	{
-		return false;
-	}
-	for(int i=0;i<taille;i++)
-	{
-		if(courriel[i]>='a' && courriel[i]<='z')
-		{
-			nbMinuscule++;
-		}
-		else if(courriel[i] >= 'A' && courriel[i] <= 'Z')
-		{
-			nbMajuscule++;
-		}
-		else if(courriel[i] >= '0' && courriel[i] <= '9')
-		{
-			nbChiffres;
-		}
-		else
-		{
-			nbCharSpecial++;
-		}
-	}
-	if(nbMinuscule<1 || nbMajuscule<1 || nbChiffres<1 || nbCharSpecial<1)
-	{
-		return false;
-	}
-	return true;
-}
-//La vérification n'est pas complète
-bool SceneCreerCompte::VerifierUtilisateur(string utilisateur, int taille)
-{
-	if(taille<3 || taille>25)
-	{
-		return false;
-	}
-	
-	while(getline(iFich, ligne))
-	{
-		information = Modele::split(ligne, ':');
-		if(utilisateur==information[Modele::Nickname])
-		{
-			return false;
-		}
-	}
-	return true;
-}
+
 

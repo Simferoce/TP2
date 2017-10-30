@@ -5,6 +5,7 @@
 #include "Textbox.h"
 #include <string>
 #include <vector>
+#include <fstream>
 
 
 using namespace std;
@@ -61,19 +62,9 @@ namespace platformer
 		//Ne fait pas beaucoup sens à un Textbox, mais à plusieurs, ça le fera.
 		Textbox* textboxActif = nullptr;
 
-		bool VerifierNom(string prenom, int taille);
 		bool VerifierCourriel(string courriel, int taille);
-		bool VerifierMotDePasse(string courriel, int taille);
-		bool VerifierUtilisateur(string utilisateur, int taille);
 		int dernierePositionPoint;
 		int positionArobas;
 		int nbFoisArobas;
-		//charactères mot de passe
-		int nbMinuscule;
-		int nbMajuscule;
-		int nbChiffres;
-		int nbCharSpecial;
-		//username
-		ifstream iFich;
 	};
 }

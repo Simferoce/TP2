@@ -209,3 +209,66 @@ sf::Text Modele::CreateTextLine(std::string text, float posX, float posY)
 	textLine.setPosition(posX, posY);
 	return textLine;
 }
+bool Modele::VerifierUtilisateur(std::string utilisateur)
+{
+	if (utilisateur.size()<3 || utilisateur.size()>25)
+	{
+		return false;
+	}
+	int ligne = 0;
+	if (Modele::UserExist(utilisateur, Modele::GetSaveEmplacement(), ligne))
+	{
+		return false;
+	}
+	return true;
+}
+bool Modele::VerifierMotDePasse(std::string motDePasse)
+{
+	if (motDePasse.size()<5 || motDePasse.size()>15)
+	{
+		return false;
+	}
+	int nbChiffres = 0;
+	int nbCharSpecial = 0;
+	int nbMajuscule = 0;
+	int nbMinuscule = 0;
+	for (int i = 0; i<motDePasse.size(); i++)
+	{
+		if (motDePasse[i] >= 'a' && motDePasse[i] <= 'z')
+		{
+			nbMinuscule++;
+		}
+		else if (motDePasse[i] >= 'A' && motDePasse[i] <= 'Z')
+		{
+			nbMajuscule++;
+		}
+		else if (motDePasse[i] >= '0' && motDePasse[i] <= '9')
+		{
+			nbChiffres++;
+		}
+		else
+		{
+			nbCharSpecial++;
+		}
+	}
+	if (nbMinuscule<1 || nbMajuscule<1 || nbChiffres<1 || nbCharSpecial<1)
+	{
+		return false;
+	}
+	return true;
+}
+bool Modele::VerifierNom(std::string prenom)
+{
+	if (prenom.size()<2 || prenom.size()>25)
+	{
+		return false;
+	}
+	for (int i = 0; i<prenom.size(); i++)
+	{
+		if (prenom[i] != '-' && prenom[i] != '.' && (prenom[i]<'a' || prenom[i]>'z') && (prenom[i]<'A' || prenom[i]>'Z'))
+		{
+			return false;
+		}
+	}
+	return true;
+}

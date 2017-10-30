@@ -90,7 +90,20 @@ public:
 	/// <param name="emplacementFichier">l'emplacement du fichier de sauvegarde.</param>
 	/// <param name="ligne">La ligne trouver, -1 si pas trouver.</param>
 	/// <returns></returns>
-	static bool UserExist(std::string user, std::string emplacementFichier, int& ligne);
+	static bool UserExist(std::string user, std::string emplacementFichier, int& ligne);	
+	/// <summary>
+	/// Verifier l'utilisateur.
+	/// </summary>
+	/// <param name="utilisateur">Utilisateur.</param>
+	/// <returns></returns>Vrai si l'utilisateur est correct
+	static bool VerifierUtilisateur(std::string utilisateur);
+	/// <summary>
+	/// Verifier le mot de passe.
+	/// </summary>
+	/// <param name="motDePasse">mot de passe</param>
+	/// <returns></returns>Vrai si le mot de passe est correct
+	static bool VerifierMotDePasse(std::string motDePasse);
+	static bool VerifierNom(std::string prenom);
 private:
 	static Modele* instance;
 	//Police de base

@@ -6,6 +6,7 @@
 #include "../Platformer/Modele.h"
 #include <vector>
 #include "../Platformer/Controle.h"
+#include "../Platformer/SceneCreerCompte.h"
 //Il faut que ce dernier lien soit aussi dans 
 //[right-click sur projet]\éditeur de liens\propriétés\entrées\dépendances additionnelles
 //sinon il y aura une erreur de linkage
@@ -137,6 +138,50 @@ namespace ProjetSFMLTest
 			Assert::IsTrue(!userExist);
 			Assert::IsTrue(emplacement == -1);
 		}
+		TEST_METHOD(CreateNormalUser)
+		{
+			Assert::IsTrue(Modele::VerifierUtilisateur("allo"));
+		}
+		TEST_METHOD(CreateShorterUser)
+		{
+			Assert::IsFalse(Modele::VerifierUtilisateur("al"));
+		}
+		TEST_METHOD(CreateLongerUser)
+		{
+			Assert::IsFalse(Modele::VerifierUtilisateur("k3njfnvnrkrenfkdnvjfnvmfjvnf"));
+		}
+		TEST_METHOD(CreateNormalPassword)
+		{
+			Assert::IsTrue(Modele::VerifierMotDePasse("4rT)kj"));
+		}
+		TEST_METHOD(CreateShorterPassword)
+		{
+			Assert::IsFalse(Modele::VerifierMotDePasse("4T)k"));
+		}
+		TEST_METHOD(CreateLongerPassword)
+		{
+			Assert::IsFalse(Modele::VerifierMotDePasse("4T)kfkfdjfdjfdsjfdjfdsjfdsj"));
+		}
+		TEST_METHOD(CreateInvalidPassword)
+		{
+			Assert::IsFalse(Modele::VerifierMotDePasse("4*kn-k"));
+		}
+		TEST_METHOD(CreateNormalName)
+		{
+			Assert::IsTrue(Modele::VerifierNom("jon-phil.R"));
+		}
+		TEST_METHOD(CreateShortName)
+		{
+			Assert::IsFalse(Modele::VerifierNom("h"));
+		}
+		TEST_METHOD(CreateLongerName)
+		{
+			Assert::IsFalse(Modele::VerifierNom("hklklklklkokojojjojojojojojojoj"));
+		}
+		TEST_METHOD(CreateInvalidName)
+		{
+			Assert::IsFalse(Modele::VerifierNom("h*f+"));
+		}
 	};
 	TEST_CLASS(ControleTest)
 	{
@@ -205,4 +250,6 @@ namespace ProjetSFMLTest
 			Assert::IsTrue(emplacement == -1);
 		}
 	};
+		
+
 }
