@@ -98,6 +98,7 @@
     <ClCompile Include="SceneCreerCompte.cpp" />
     <ClCompile Include="SceneGestionCompte.cpp" />
     <ClCompile Include="SceneModifierCompte.cpp" />
+    <ClCompile Include="SceneNiveau.cpp" />
     <ClCompile Include="SceneNiveau1.cpp" />
     <ClCompile Include="SceneLogin.cpp" />
     <ClCompile Include="SceneScore.cpp" />
@@ -114,6 +115,7 @@
     <ClInclude Include="SceneCreerCompte.h" />
     <ClInclude Include="SceneGestionCompte.h" />
     <ClInclude Include="SceneModifierCompte.h" />
+    <ClInclude Include="SceneNiveau.h" />
     <ClInclude Include="SceneNiveau1.h" />
     <ClInclude Include="SceneLogin.h" />
     <ClInclude Include="SceneScore.h" />

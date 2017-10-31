@@ -29,6 +29,7 @@ namespace platformer
 		~Joueur();
 		void move(const int direction);
 		bool init(const int limiteGauche, const int limiteDroite, const String texturePath);
+		void jump();
 	private:
 		static const int TAILLE_RECT = 64;
 

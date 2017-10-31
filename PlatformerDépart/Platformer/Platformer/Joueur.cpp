@@ -27,6 +27,10 @@ bool Joueur::init(const int limiteGauche, const int limiteDroite, const String t
 	return true;
 }
 
+void platformer::Joueur::jump()
+{
+}
+
 void Joueur::move(const int direction)
 {
 	if (direction == 1)
