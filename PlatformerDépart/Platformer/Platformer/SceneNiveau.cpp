@@ -5,10 +5,10 @@ namespace platformer
 {
 	SceneNiveau::SceneNiveau(int nbreX, int nbreY) : NOMBRE_TUILES_X(nbreX), NOMBRE_TUILES_Y(nbreY)
 	{
-		grilleDeTuiles = new Sprite**[NOMBRE_TUILES_X];
+		grilleDeTuiles = new Bloc**[NOMBRE_TUILES_X];
 		for (int i = 0; i < NOMBRE_TUILES_X; ++i)
 		{
-			grilleDeTuiles[i] = new Sprite*[NOMBRE_TUILES_Y];
+			grilleDeTuiles[i] = new Bloc*[NOMBRE_TUILES_Y];
 			for (int j = 0; j < NOMBRE_TUILES_Y; ++j)
 				grilleDeTuiles[i][j] = nullptr;
 		}

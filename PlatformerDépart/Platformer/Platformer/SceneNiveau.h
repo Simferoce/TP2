@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "Joueur.h"
+#include "Bloc.h"
 
 namespace platformer
 {
@@ -16,7 +17,7 @@ namespace platformer
 		static const int BACKGROUNDS = 3;
 		std::map<Keyboard::Key, bool> inputs;
 		Joueur joueur;
-		Sprite*** grilleDeTuiles;
+		Bloc*** grilleDeTuiles;
 		/// <summary>
 		/// Trois backgrounds superposés pour le plus bel effet visuel
 		/// </summary>

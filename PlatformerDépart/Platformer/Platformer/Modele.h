@@ -30,6 +30,10 @@ public:
 	static const int GROSSEUR_CARACTERE = 24;
 	static const sf::Text::Style TEXTE_STYLE = sf::Text::Style::Bold;
 	static const sf::Color TEXTE_COULEUR;
+	static const int NBRE_TEXTURE_MUR = 7;
+	static sf::Texture* textureMur[NBRE_TEXTURE_MUR];
+	static std::string emplacementTextureMurSuffixe;
+	static std::string emplacementTextureMurPrefixe;
 	static const int MAX_NICKNAME_LENGTH = 25;
 	static const int MIN_NICKNAME_LENGTH = 3;
 	static const int MAX_PASSWORD_LENGTH = 15;

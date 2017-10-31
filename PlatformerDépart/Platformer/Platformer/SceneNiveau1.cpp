@@ -1,4 +1,5 @@
 #include "SceneNiveau1.h"
+#include "Mur.h"
 
 using namespace platformer;
 
@@ -29,7 +30,7 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	for (int x = 0; x < NOMBRE_TUILES_X; x++)
 	{
 		//Choix du bloc au hasard
-		grilleDeTuiles[x][NOMBRE_TUILES_Y - 1] = new Sprite(tuilesRougesT[rand() % TUILES_ROUGES]);
+		grilleDeTuiles[x][NOMBRE_TUILES_Y - 1] = new Mur();
 		grilleDeTuiles[x][NOMBRE_TUILES_Y - 1]->setPosition(x * TAILLE_TUILES_X, TAILLE_TUILES_Y * (NOMBRE_TUILES_Y - 1));
 	}
 

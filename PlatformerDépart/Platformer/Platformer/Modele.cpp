@@ -16,6 +16,9 @@ const sf::Color Modele::TEXTE_COULEUR = sf::Color::White;
 std::string Modele::sauvegardeEmplacement = "userpass.txt";
 std::string Modele::emplacementFond = "Ressources\\Sprites\\Title.png";
 sf::Texture Modele::textureFond = sf::Texture();
+sf::Texture* Modele::textureMur[NBRE_TEXTURE_MUR] = { new Texture(), new Texture(),new Texture(), new Texture(),new Texture(), new Texture(),new Texture() };
+std::string Modele::emplacementTextureMurPrefixe = "Ressources\\Tiles\\BlockA";
+std::string Modele::emplacementTextureMurSuffixe = ".png";
 Modele::Modele()
 {
 
@@ -56,11 +59,19 @@ bool Modele::Init()
 		return false;
 	if (!Modele::textureFond.loadFromFile(emplacementFond))
 		return false;
+	for(int i =0; i < NBRE_TEXTURE_MUR; ++i)
+		if(!textureMur[i]->loadFromFile(emplacementTextureMurPrefixe + std::to_string(i) + emplacementTextureMurSuffixe))
+			return false;
 	return true;
 }
 
 void Modele::Decharger()
 {
+	for(int i = 0; i < NBRE_TEXTURE_MUR; ++i)
+	{
+		delete textureMur[i];
+		textureMur[i] = nullptr;
+	}
 	delete instance;
 	instance = nullptr;
 }
