@@ -1,10 +1,13 @@
 #pragma once
 #include "Bloc.h"
-class Mur :
-	public Bloc
+namespace platformer
 {
-public:
-	Mur();
-	~Mur();
-};
+	class Mur :
+		public Bloc
+	{
+	public:
+		Mur();
+		~Mur();
+	};
+}
 

@@ -7,6 +7,7 @@
 #include <vector>
 #include "../Platformer/Controle.h"
 #include "../Platformer/SceneCreerCompte.h"
+#include "../Platformer/Bloc.h"
 //Il faut que ce dernier lien soit aussi dans 
 //[right-click sur projet]\éditeur de liens\propriétés\entrées\dépendances additionnelles
 //sinon il y aura une erreur de linkage
@@ -523,6 +524,228 @@ namespace ProjetSFMLTest
 			Assert::IsTrue(emplacement == -1);
 		}
 	};
-		
+	TEST_CLASS(Bloc)
+	{
+		TEST_METHOD(DetermineCollisionVector00None)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(300,300,10,10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(0, 0));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::None);
+		}
+		TEST_METHOD(DetermineCollisionVector10None)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(300, 300, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(1, 0));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::None);
+		}
+		TEST_METHOD(DetermineCollisionVectorMinus10None)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(300, 300, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(-1, 0));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::None);
+		}
+		TEST_METHOD(DetermineCollisionVector01None)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(300, 300, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(0, 1));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::None);
+		}
+		TEST_METHOD(DetermineCollisionVector0Minus1None)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(300, 300, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(0, -1));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::None);
+		}
+		TEST_METHOD(DetermineCollisionVector11None)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(300, 300, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(1, 1));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::None);
+		}
+		TEST_METHOD(DetermineCollisionVectorMinus1Minus1None)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(300, 300, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(-1, -1));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::None);
+		}
+		TEST_METHOD(DetermineCollisionVector00NoSide)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(50, 50, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(0, 0));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::CollisionWithNoDeterminateSide);
+		}
+		TEST_METHOD(DetermineCollisionVector10Left)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(0, 0, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(1, 0));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Left);
+		}
+		TEST_METHOD(DetermineCollisionVectorMinus10Right)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(0, 0, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(-1, 0));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Right);
+		}
+		TEST_METHOD(DetermineCollisionVector01Top)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(0, 0, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(0, 1));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Top);
+		}
+		TEST_METHOD(DetermineCollisionVector0Minus1Bot)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(0, 0, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(0, -1));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Bot);
+		}
+		TEST_METHOD(DetermineCollisionVector21Top)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(45, 45, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(2, 1));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Top);
+		}
+		TEST_METHOD(DetermineCollisionVector2Minus1Bot)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(45, 45, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(2, -1));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Bot);
+		}
+		TEST_METHOD(DetermineCollisionVector12Left)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(45, 45, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(1, 2));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Left);
+		}
+		TEST_METHOD(DetermineCollisionVectorMinus12Right)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(45, 45, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(-1, 2));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Right);
+		}
+		TEST_METHOD(DetermineCollisionVector0501Top)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(45, 45, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(0.5, 0.1));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Top);
+		}
+		TEST_METHOD(DetermineCollisionVector12LeftInNegatif)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(-100, -100);
+
+			FloatRect testOther(-55, -55, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(1, 2));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Left);
+		}
+		TEST_METHOD(DetermineCollisionVector11PriorityTop)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(45, 45, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(1, 1));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Top);
+		}
+		TEST_METHOD(DetermineCollisionVector11PriorityBot)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(0, 0);
+
+			FloatRect testOther(45, 45, 10, 10);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(1, -1));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Bot);
+		}
+	};
 
 }

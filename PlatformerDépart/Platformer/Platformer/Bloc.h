@@ -1,11 +1,15 @@
 #pragma once
 #include <SFML/Graphics/Sprite.hpp>
-
-class Bloc :
-	public sf::Sprite
+#include <vector>
+namespace platformer
 {
-public:
-	Bloc(sf::Texture& texture);
-	~Bloc();
-};
-
+	class Bloc :
+		public sf::Sprite
+	{
+	public:
+		enum Collision { Top, Bot, Right, Left, None, CollisionWithNoDeterminateSide };
+		Collision DetermineCollision(sf::FloatRect other, sf::Vector2f deplacementPerFrameObjectOther);
+		Bloc(sf::Texture& texture);
+		~Bloc();
+	};
+}

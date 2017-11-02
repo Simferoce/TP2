@@ -1,11 +1,13 @@
 #include "Mur.h"
 #include "Modele.h"
-
-Mur::Mur() : Bloc(*Modele::textureMur[rand() % Modele::NBRE_TEXTURE_MUR])
+namespace platformer
 {
-}
+	Mur::Mur() : Bloc(*Modele::textureMur[rand() % Modele::NBRE_TEXTURE_MUR])
+	{
+	}
 
 
-Mur::~Mur()
-{
+	Mur::~Mur()
+	{
+	}
 }
