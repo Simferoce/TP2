@@ -27,6 +27,8 @@ Scene::scenes SceneLogin::run()
 bool SceneLogin::init(RenderWindow * const window)
 {
 	ecranTitre.setTexture(Modele::GetTextureBackground());
+	//test
+	textMessage = Modele::CreateTextLine("Login", 0, 0);
 	//Les positions sont arbitraires, obtenus par essai et erreur.
 	//par rapport au fond d'écran
 	textboxUsername.init(480, 24, Vector2f(430, 320), Modele::GetFont());
@@ -141,6 +143,7 @@ void SceneLogin::draw()
 {
 	mainWin->clear();
 	mainWin->draw(ecranTitre);
+	mainWin->draw(textMessage);
 	textbox.dessiner(mainWin);
 	textboxUsername.dessiner(mainWin);
 	textboxErreur.dessiner(mainWin);

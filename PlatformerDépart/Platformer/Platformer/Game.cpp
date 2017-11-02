@@ -6,6 +6,7 @@
 #include "Controle.h"
 #include "SceneTitre.h"
 #include "SceneScore.h"
+#include "SceneModifierCompte.h"
 
 using namespace platformer;
 
@@ -64,6 +65,9 @@ int Game::run()
 				break;
 			case Scene::scenes::CREERCOMPTE:
 				sceneActive = new SceneCreerCompte();
+				break;
+			case Scene::scenes::MODIFIERCOMPTE:
+				sceneActive = new SceneModifierCompte();
 				break;
 			}
 			if (sceneActive->init(&mainWin))

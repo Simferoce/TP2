@@ -29,39 +29,18 @@ Scene::scenes SceneModifierCompte::run()
 
 bool SceneModifierCompte::init(RenderWindow * const window)
 {
-	/*ifstream iFich;
-	iFich.open("userpass.txt");
-	if (!iFich.is_open())
-	{
-	//cout << "Fichier au mauvais endroit" << endl;
-	return 0;
-	}
-	while(getline(iFich, ligne))
-	{
-		information = Modele::split(ligne, ':');
-		if()
-	}*/
-
-	//test de texte à l'écran
-	text.setFont(font);
-	text.setString("Appuyer 1 pour creer un compte, \n2 pour modifier votre compte, \n 3 pour le supprimer ou \n 4 pour l.");
-	text.setCharacterSize(24);
-	text.setColor(sf::Color::White);
-	text.setStyle(sf::Text::Bold);
-
-
-	if (!ecranTitreT.loadFromFile("Ressources\\Sprites\\Title.png"))
-	{
-		return false;
-	}
 
 	if (!font.loadFromFile("Ressources\\Fonts\\Peric.ttf"))
 	{
 		return false;
 	}
-
-	ecranTitre.setTexture(ecranTitreT);
-
+	//test de texte à l'écran
+	text1 = Modele::CreateTextLine("Veuillez changer vos informations", 0, 0);
+	text2 = Modele::CreateTextLine(texteUtilisateur, 0, 100);
+	text3 = Modele::CreateTextLine(texteMotDePasse, 0, 150);
+	text4 = Modele::CreateTextLine(textePrenom, 0, 200);
+	text5 = Modele::CreateTextLine(texteNom, 0, 250);
+	text6 = Modele::CreateTextLine(texteCourriel, 0, 300);
 	//Les positions sont arbitraires, obtenus par essai et erreur.
 	//par rapport au fond d'écran
 	textboxUsername.init(480, 24, Vector2f(430, 320), font);
@@ -170,13 +149,17 @@ void SceneModifierCompte::update()
 void SceneModifierCompte::draw()
 {
 	mainWin->clear();
-	mainWin->draw(ecranTitre);
 	textbox.dessiner(mainWin);
 	textboxUsername.dessiner(mainWin);
 	textboxErreur.dessiner(mainWin);
 	//test texte à l'écran
 	// puis, dans la boucle de dessin, entre window.clear() et window.display()
-	mainWin->draw(text);
+	mainWin->draw(text1);
+	mainWin->draw(text2);
+	mainWin->draw(text3);
+	mainWin->draw(text4);
+	mainWin->draw(text5);
+	mainWin->draw(text6);
 
 	mainWin->display();
 }

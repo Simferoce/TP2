@@ -189,7 +189,7 @@ void SceneCreerCompte::update()
 				{
 					if(Modele::VerifierNom(textboxLastName.getTexte()))
 					{
-						if(VerifierCourriel(textboxEmail.getTexte(),textboxEmail.getTexte().getSize()))
+						if(Modele::VerifierCourriel(textboxEmail.getTexte()))
 						{
 							textboxErreur.insererTexte("Les conditions fonctionnent pour l'instant.");
 						}
@@ -239,42 +239,6 @@ void SceneCreerCompte::draw()
 	mainWin->draw(text6);
 
 	mainWin->display();
-}
-
-bool SceneCreerCompte::VerifierCourriel(string courriel, int taille)
-{
-	nbFoisArobas = 0;
-	positionArobas = 0;
-	dernierePositionPoint = 0;
-	if (strstr(courriel.c_str(),".com") || strstr(courriel.c_str(), ".ca"))
-	{
-
-	}
-	else
-	{
-		return false;
-	}
-	for(int i=0;i<taille;i++)
-	{
-		if(courriel[i]=='@')
-		{
-			nbFoisArobas++;
-			positionArobas = i;
-		}
-		else if(courriel[i]=='.')
-		{
-			dernierePositionPoint = i;
-		}
-		else if((courriel[i]<'a' || courriel[i]>'z') && (courriel[i]<'A' || courriel[i]>'Z') && courriel[i]!='_' && courriel[i]!='-')
-		{
-			return false;
-		}
-	}
-	if(nbFoisArobas!=1 || positionArobas>dernierePositionPoint)
-	{
-		return false;
-	}
-	return true;
 }
 
 

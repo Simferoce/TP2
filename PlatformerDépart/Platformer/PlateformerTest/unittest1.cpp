@@ -456,6 +456,42 @@ namespace ProjetSFMLTest
 		{
 			Assert::IsFalse(Modele::VerifierNom("h*f+"));
 		}
+		TEST_METHOD(CreateValidEmail)
+		{
+			Assert::IsTrue(Modele::VerifierCourriel("jon@outlook.com"));
+		}
+		TEST_METHOD(CreateInvalidDomainEmail)
+		{
+			Assert::IsFalse(Modele::VerifierCourriel("jon@outlook.c"));
+		}
+		TEST_METHOD(CreateNoDomainEmail)
+		{
+			Assert::IsFalse(Modele::VerifierCourriel("jon@outlook"));
+		}
+		TEST_METHOD(CreateTooLongDomainEmail)
+		{
+			Assert::IsFalse(Modele::VerifierCourriel("jon@outlook.comm"));
+		}
+		TEST_METHOD(CreateDotAfterDomainEmail)
+		{
+			Assert::IsFalse(Modele::VerifierCourriel("jon@outlook.com."));
+		}
+		TEST_METHOD(CreateNoArobasEmail)
+		{
+			Assert::IsFalse(Modele::VerifierCourriel("jonoutlook.com"));
+		}
+		TEST_METHOD(CreateTwoArobasEmail)
+		{
+			Assert::IsFalse(Modele::VerifierCourriel("jon@out@look.com"));
+		}
+		TEST_METHOD(CreateSpecialCharEmail)
+		{
+			Assert::IsFalse(Modele::VerifierCourriel("jonéoutlook.com"));
+		}
+		TEST_METHOD(CreateNoSuffixEmail)
+		{
+			Assert::IsFalse(Modele::VerifierCourriel("jon@.com"));
+		}
 	};
 	TEST_CLASS(ControleTest)
 	{

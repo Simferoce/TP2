@@ -135,6 +135,7 @@ public:
 	/// <returns></returns>Vrai si le mot de passe est correct
 	static bool VerifierMotDePasse(std::string motDePasse);
 	static bool VerifierNom(std::string prenom);
+	static bool VerifierCourriel(std::string courriel);
 private:
 	static Modele* instance;
 	//Police de base
