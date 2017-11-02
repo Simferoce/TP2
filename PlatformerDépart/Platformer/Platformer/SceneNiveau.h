@@ -18,6 +18,7 @@ namespace platformer
 		std::map<Keyboard::Key, bool> inputs;
 		Joueur joueur;
 		Bloc*** grilleDeTuiles;
+		static float gravite;
 		/// <summary>
 		/// Trois backgrounds superposés pour le plus bel effet visuel
 		/// </summary>

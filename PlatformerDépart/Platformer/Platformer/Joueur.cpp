@@ -2,7 +2,7 @@
 
 using namespace platformer;
 
-Joueur::Joueur() : persoRect(0, 0, TAILLE_RECT, TAILLE_RECT)
+Joueur::Joueur() : velocity(0,0), persoRect(0, 0, TAILLE_RECT, TAILLE_RECT)
 {
 }
 
@@ -19,36 +19,31 @@ bool Joueur::init(const int limiteGauche, const int limiteDroite, const String t
 
 	setTexture(texture);
 	setTextureRect(persoRect);
-	setOrigin(TAILLE_RECT / 2, TAILLE_RECT /2);
 
-	this->limiteGauche = limiteGauche + TAILLE_RECT / 4;
-	this->limiteDroite = limiteDroite - TAILLE_RECT / 4;
+	this->limiteGauche = limiteGauche;
+	this->limiteDroite = limiteDroite;
 
 	return true;
 }
 
 void platformer::Joueur::jump()
-{
+{	
+	if(!jumped) velocity.y = -5;
+	jumped = true;
 }
 
-void Joueur::move(const int direction)
+void Joueur::move(const float offSetX, const float offSetY)
 {
-	if (direction == 1)
-	{
-		Sprite::move(vitesse, 0);
-	}
-	else if (direction == -1)
-	{
-		Sprite::move(-vitesse, 0);
-	}
 
+	Sprite::move(offSetX,offSetY);
 	//Test sur les limites de l'écran
 	if (getPosition().x < limiteGauche)
 	{
 		setPosition(limiteGauche, getPosition().y);
 	}
-	else if (getPosition().x > limiteDroite)
+	else if (getPosition().x + getGlobalBounds().width > limiteDroite)
 	{
-		setPosition(limiteDroite, getPosition().y);
+		setPosition(limiteDroite - getGlobalBounds().width, getPosition().y);
 	}
 }
+

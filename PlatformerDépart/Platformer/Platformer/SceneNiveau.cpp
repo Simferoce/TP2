@@ -1,8 +1,10 @@
 #include "SceneNiveau.h"
+#include "Mur.h"
 
 
 namespace platformer
 {
+	float SceneNiveau::gravite = 0.1f;
 	SceneNiveau::SceneNiveau(int nbreX, int nbreY) : NOMBRE_TUILES_X(nbreX), NOMBRE_TUILES_Y(nbreY)
 	{
 		grilleDeTuiles = new Bloc**[NOMBRE_TUILES_X];
@@ -104,11 +106,51 @@ namespace platformer
 	{
 		if (inputs[Keyboard::Left] && !inputs[Keyboard::Right])
 		{
-			joueur.move(-1);
+			joueur.move(-joueur.vitesse,0);
 		}
 		else if (inputs[Keyboard::Right] && !inputs[Keyboard::Left])
 		{
-			joueur.move(1);
+			joueur.move(joueur.vitesse,0);
+		}
+		if(inputs[Keyboard::Space])
+		{
+			joueur.jump();
+		}
+		joueur.move(joueur.velocity.x, joueur.velocity.y);
+		joueur.velocity.y += gravite;
+		//TO DO Déterminer les blocs que le joueur touche à la place de vérifie si un bloc touche le joueur.
+		for(int i =0; i < NOMBRE_TUILES_X; ++i)
+		{
+			for (int j = 0; j < NOMBRE_TUILES_Y; ++j)
+			{
+				if(grilleDeTuiles[i][j] != nullptr && dynamic_cast<Mur*>(grilleDeTuiles[i][j]) != nullptr)
+				{
+					switch (grilleDeTuiles[i][j]->DetermineCollision(joueur.getGlobalBounds(), joueur.velocity))
+					{
+					case Bloc::Collision::None:
+						break;
+					case Bloc::Collision::Bot:
+						joueur.velocity.y = 0;
+						joueur.setPosition(joueur.getPosition().x, grilleDeTuiles[i][j]->getPosition().y + grilleDeTuiles[i][j]->getGlobalBounds().height);
+						break;
+					case Bloc::Collision::Top:
+						joueur.velocity.y = 0;
+						joueur.setPosition(joueur.getPosition().x, grilleDeTuiles[i][j]->getPosition().y - joueur.getGlobalBounds().height);
+						joueur.jumped = false;
+						break;
+					case Bloc::Collision::Left:
+						joueur.velocity.x = 0;
+						joueur.setPosition(grilleDeTuiles[i][j]->getPosition().x, joueur.getPosition().y);
+						break;
+					case Bloc::Collision::Right:
+						joueur.velocity.x = 0;
+						joueur.setPosition(grilleDeTuiles[i][j]->getPosition().x + grilleDeTuiles[i][j]->getGlobalBounds().width, joueur.getPosition().y);
+						break;
+					case Bloc::Collision::CollisionWithNoDeterminateSide:
+						break;
+					}
+				}
+			}
 		}
 	}
 	void SceneNiveau::draw()

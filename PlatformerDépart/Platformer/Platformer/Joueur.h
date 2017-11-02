@@ -22,21 +22,26 @@ using namespace sf;
 /// </summary>
 namespace platformer
 {
+	class Bloc;
+
 	class Joueur : public Sprite
 	{
 	public:
 		Joueur();
 		~Joueur();
-		void move(const int direction);
+		void move(const float offSetX, const float offSetY);
 		bool init(const int limiteGauche, const int limiteDroite, const String texturePath);
 		void jump();
+		Vector2f velocity;
+		bool jumped = false;
+		float vitesse = 3;
 	private:
 		static const int TAILLE_RECT = 64;
 
 		Texture texture;
 
 		IntRect persoRect;
-		float vitesse = 3;
+
 		float limiteGauche;
 		float limiteDroite;
 	};

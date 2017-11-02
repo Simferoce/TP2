@@ -10,32 +10,29 @@ namespace platformer
 		float colisionY = 0;
 		if (deplacementPerFrameObjectOther.x > 0)
 		{
-			if (other.left + other.width > getGlobalBounds().left 
-				&& other.left + other.width < getGlobalBounds().left + getGlobalBounds().width)
+			if (getGlobalBounds().intersects(other))
 			{
 				colisionX = other.left + other.width - getGlobalBounds().left;
 			}
 		}
 		else if (deplacementPerFrameObjectOther.x < 0)
 		{
-			if (other.left <= getGlobalBounds().left + getGlobalBounds().width
-				&& other.left >= getGlobalBounds().left)
+			if (getGlobalBounds().intersects(other))
 			{
 				colisionX = (other.left - getGlobalBounds().left + getGlobalBounds().width);
 			}
 		}
 		if (deplacementPerFrameObjectOther.y > 0)
 		{
-			if (other.top + other.height >= getGlobalBounds().top
-				&& other.top + other.height <= getGlobalBounds().top + getGlobalBounds().height)
+			if (getGlobalBounds().intersects(other))
 			{
 				colisionY = other.top + other.height - getGlobalBounds().top;
 			}
 		}
 		else if (deplacementPerFrameObjectOther.y < 0)
 		{
-			if (other.top <= getGlobalBounds().top + getGlobalBounds().height
-				&& other.top >= getGlobalBounds().top)
+
+			if (getGlobalBounds().intersects(other))
 			{
 				colisionY= (other.top - getGlobalBounds().top + getGlobalBounds().height);
 			}

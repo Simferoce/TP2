@@ -746,6 +746,17 @@ namespace ProjetSFMLTest
 			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(1, -1));
 			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Bot);
 		}
+		TEST_METHOD(DetermineCollisionVector001Top)
+		{
+			sf::Texture blocTexture;
+			blocTexture.create(100, 100);
+			platformer::Bloc testBloc(blocTexture);
+			testBloc.setPosition(99, 99);
+
+			FloatRect testOther(0,0,200,200);
+			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(0, 0.1));
+			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Top);
+		}
 	};
 
 }
