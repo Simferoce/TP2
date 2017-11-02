@@ -314,3 +314,39 @@ bool Modele::VerifierNom(std::string prenom)
 	}
 	return true;
 }
+bool Modele::VerifierCourriel(std::string courriel)
+{
+	int nbFoisArobas = 0;
+	int positionArobas = 0;
+	int dernierePositionPoint = 0;
+	if((courriel[courriel.size()-1]=='m' && courriel[courriel.size() - 2] == 'o' && courriel[courriel.size() - 3] == 'c' && courriel[courriel.size() - 4] == '.' && courriel[courriel.size() - 5] != '@')
+		|| ((courriel[courriel.size() - 1] == 'a') && (courriel[courriel.size() - 2] == 'c') && (courriel[courriel.size() - 3] == '.') && (courriel[courriel.size() - 4] != '@')))
+	{
+		
+	}
+	else
+	{
+		return false;
+	}
+	for (int i = 0; i<courriel.size(); i++)
+	{
+		if (courriel[i] == '@')
+		{
+			nbFoisArobas++;
+			positionArobas = i;
+		}
+		else if (courriel[i] == '.')
+		{
+			dernierePositionPoint = i;
+		}
+		else if ((courriel[i]<'a' || courriel[i]>'z') && (courriel[i]<'A' || courriel[i]>'Z') && courriel[i] != '_' && courriel[i] != '-')
+		{
+			return false;
+		}
+	}
+	if (nbFoisArobas != 1 || positionArobas>dernierePositionPoint)
+	{
+		return false;
+	}
+	return true;
+}

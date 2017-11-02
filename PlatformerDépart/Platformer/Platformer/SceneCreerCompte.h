@@ -60,10 +60,5 @@ namespace platformer
 		std::map<Keyboard::Key, bool> boutonMenu = { std::make_pair(Keyboard::Key::Num1,false),std::make_pair(Keyboard::Key::Num2,false) };
 		//Ne fait pas beaucoup sens à un Textbox, mais à plusieurs, ça le fera.
 		Textbox* textboxActif = nullptr;
-
-		bool VerifierCourriel(string courriel, int taille);
-		int dernierePositionPoint;
-		int positionArobas;
-		int nbFoisArobas;
 	};
 }

@@ -7,7 +7,7 @@ using namespace platformer;
 
 SceneGestionCompte::SceneGestionCompte()
 {
-
+	
 }
 
 SceneGestionCompte::~SceneGestionCompte()
@@ -100,7 +100,7 @@ void SceneGestionCompte::getInputs()
 			{
 				//Sinon aucun textboxUser actif
 				//Ce else devrait être dans toutes vos fenêtres où il n'y a pas de textboxUser.
-				if(textboxActif != nullptr)
+				if (textboxActif != nullptr)
 					textboxActif->deSelectionner();
 				textboxActif = nullptr;
 			}
@@ -131,18 +131,20 @@ void SceneGestionCompte::getInputs()
 			{
 				boutonMenu[Keyboard::Key::Num1] = true;
 				isRunning = false;
-			}
 				transitionVersScene = Scene::scenes::CREERCOMPTE;
 			}
 			else if (event.key.code == Keyboard::Num2)
 			{
 				boutonMenu[Keyboard::Key::Num2] = true;
+				isRunning = false;
+				transitionVersScene = Scene::scenes::MODIFIERCOMPTE;
 			}
 			else if (event.key.code == Keyboard::Num3)
 			{
 				boutonMenu[Keyboard::Key::Num3] = true;
 			}
 		}
+	}
 	const auto menuBoutonChoisi = std::find_if(boutonMenu.begin(), boutonMenu.end(), [](std::pair<Keyboard::Key, bool> n) { return n.second == true; });
 	//Attention : TextEntered est différent de KeyPressed
 	//Voir ici pour l'explication: https://www.sfml-dev.org/tutorials/2.4/window-events-fr.php
@@ -157,8 +159,9 @@ void SceneGestionCompte::getInputs()
 
 void SceneGestionCompte::update()
 {
-
+		
 }
+
 
 void SceneGestionCompte::draw()
 {

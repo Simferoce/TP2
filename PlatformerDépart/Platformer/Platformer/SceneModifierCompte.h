@@ -29,11 +29,23 @@ namespace platformer
 		string ligne;
 
 		//Test de texte à l'écran
-		sf::Text text;
+
+		//Text textLine;
+		//Test de texte à l'écran
+
+		Text text1;
+		Text text2;
+		Text text3;
+		Text text4;
+		Text text5;
+		Text text6;
+		string texteUtilisateur = "Utilisateur";
+		string texteMotDePasse = "Mot de passe";
+		string textePrenom = "Prenom";
+		string texteNom = "Nom";
+		string texteCourriel = "Courriel";
 
 		//L'écran titre est super arbitraire, vous pouvez en trouver un autre si vous voulez.
-		Texture ecranTitreT;
-		Sprite ecranTitre;
 
 		Textbox textbox;
 		Textbox textboxUsername;

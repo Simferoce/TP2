@@ -24,6 +24,7 @@ namespace platformer
 		//L'écran titre est super arbitraire, vous pouvez en trouver un autre si vous voulez.
 		Sprite ecranTitre;
 
+		Text textMessage;
 		Textbox textbox;
 		Textbox textboxUsername;
 		Textbox textboxErreur; // Ce textboxUser agit plutôt comme un messagebox.

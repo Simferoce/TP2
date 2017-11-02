@@ -13,7 +13,7 @@ namespace platformer
 	{
 	public:
 		//Quand vos ajouterez des scènes, ajouter un enum ici
-		enum scenes {TITRE, LOGIN, GESTIONCOMPTE, CREERCOMPTE, NIVEAU1, SCORE, SORTIE};
+		enum scenes {TITRE, LOGIN, GESTIONCOMPTE, CREERCOMPTE, NIVEAU1, SCORE, SORTIE, MODIFIERCOMPTE};
 
 		virtual ~Scene() {}  //Pour que le destructeur de l'objet en mémoire soit apellé
 		virtual scenes run() = 0;
