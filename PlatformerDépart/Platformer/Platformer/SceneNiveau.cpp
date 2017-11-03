@@ -4,7 +4,7 @@
 
 namespace platformer
 {
-	float SceneNiveau::gravite = 0.1f;
+	float SceneNiveau::gravite = 0.4f;
 	SceneNiveau::SceneNiveau(int nbreX, int nbreY) : NOMBRE_TUILES_X(nbreX), NOMBRE_TUILES_Y(nbreY)
 	{
 		grilleDeTuiles = new Bloc**[NOMBRE_TUILES_X];
@@ -104,13 +104,14 @@ namespace platformer
 	}
 	void SceneNiveau::update()
 	{
+		joueur.velocity.x = 0;
 		if (inputs[Keyboard::Left] && !inputs[Keyboard::Right])
 		{
-			joueur.move(-joueur.vitesse,0);
+			joueur.velocity.x = -joueur.vitesse;
 		}
 		else if (inputs[Keyboard::Right] && !inputs[Keyboard::Left])
 		{
-			joueur.move(joueur.vitesse,0);
+			joueur.velocity.x = joueur.vitesse;
 		}
 		if(inputs[Keyboard::Space])
 		{
@@ -140,7 +141,7 @@ namespace platformer
 						break;
 					case Bloc::Collision::Left:
 						joueur.velocity.x = 0;
-						joueur.setPosition(grilleDeTuiles[i][j]->getPosition().x, joueur.getPosition().y);
+						joueur.setPosition(grilleDeTuiles[i][j]->getPosition().x - joueur.getGlobalBounds().width, joueur.getPosition().y);
 						break;
 					case Bloc::Collision::Right:
 						joueur.velocity.x = 0;

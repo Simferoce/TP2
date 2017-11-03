@@ -28,7 +28,7 @@ bool Joueur::init(const int limiteGauche, const int limiteDroite, const String t
 
 void platformer::Joueur::jump()
 {	
-	if(!jumped) velocity.y = -5;
+	if(!jumped) velocity.y = -9;
 	jumped = true;
 }
 

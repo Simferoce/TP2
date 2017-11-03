@@ -19,7 +19,7 @@ namespace platformer
 		{
 			if (getGlobalBounds().intersects(other))
 			{
-				colisionX = (other.left - getGlobalBounds().left + getGlobalBounds().width);
+				colisionX = other.left - (getGlobalBounds().left + getGlobalBounds().width);
 			}
 		}
 		if (deplacementPerFrameObjectOther.y > 0)
@@ -34,7 +34,7 @@ namespace platformer
 
 			if (getGlobalBounds().intersects(other))
 			{
-				colisionY= (other.top - getGlobalBounds().top + getGlobalBounds().height);
+				colisionY= other.top - (getGlobalBounds().top + getGlobalBounds().height);
 			}
 		}
 		if (colisionX == 0 && colisionY == 0)
@@ -67,7 +67,7 @@ namespace platformer
 			float numbFrameBetweenColisionAndDectectionX = colisionX / deplacementPerFrameObjectOther.x;
 			float numbFrameBetweenColisionAndDectectionY = colisionY / deplacementPerFrameObjectOther.y;
 
-			if (abs(numbFrameBetweenColisionAndDectectionX) > abs(numbFrameBetweenColisionAndDectectionY))
+			if (abs(numbFrameBetweenColisionAndDectectionX) < abs(numbFrameBetweenColisionAndDectectionY))
 			{
 				if (deplacementPerFrameObjectOther.x < 0)
 					return Collision::Right;
@@ -76,7 +76,7 @@ namespace platformer
 				else
 					static_assert(true, "Should not be here");
 			}
-			else if (abs(numbFrameBetweenColisionAndDectectionX) < abs(numbFrameBetweenColisionAndDectectionY))
+			else if (abs(numbFrameBetweenColisionAndDectectionX) > abs(numbFrameBetweenColisionAndDectectionY))
 			{
 				if (deplacementPerFrameObjectOther.y < 0)
 					return Collision::Bot;
