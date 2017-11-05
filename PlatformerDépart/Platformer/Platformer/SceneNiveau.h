@@ -15,15 +15,19 @@ namespace platformer
 		static const int TAILLE_TUILES_Y = 32;
 		static const int TUILES_ROUGES = 7;
 		static const int BACKGROUNDS = 3;
+		const int limiteGauche = 0;
+		const int limiteDroite = 800;
 		std::map<Keyboard::Key, bool> inputs;
 		Joueur joueur;
+		View vue;
 		Bloc*** grilleDeTuiles;
 		static float gravite;
 		/// <summary>
 		/// Trois backgrounds superposés pour le plus bel effet visuel
 		/// </summary>
 		Texture backgroundT[BACKGROUNDS];
-		Sprite background[BACKGROUNDS];
+		Sprite*** background;
+		int nbreBackground;
 		/// <summary>
 		/// On a 7 tuiles rouges de base; alors on va toutes les utiliser, pour le moment.
 		/// </summary>

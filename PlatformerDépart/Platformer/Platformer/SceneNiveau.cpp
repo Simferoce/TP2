@@ -5,7 +5,7 @@
 namespace platformer
 {
 	float SceneNiveau::gravite = 0.4f;
-	SceneNiveau::SceneNiveau(int nbreX, int nbreY) : NOMBRE_TUILES_X(nbreX), NOMBRE_TUILES_Y(nbreY)
+	SceneNiveau::SceneNiveau(int nbreX, int nbreY) : NOMBRE_TUILES_X(nbreX), NOMBRE_TUILES_Y(nbreY), limiteDroite(nbreX*TAILLE_TUILES_X)
 	{
 		grilleDeTuiles = new Bloc**[NOMBRE_TUILES_X];
 		for (int i = 0; i < NOMBRE_TUILES_X; ++i)
@@ -29,6 +29,18 @@ namespace platformer
 			delete[] grilleDeTuiles[x];
 		}
 		delete[] grilleDeTuiles;
+		for(int  i = 0; i < nbreBackground; i++)
+		{
+			for(int j =0; j < BACKGROUNDS; j++)
+			{
+				if (background[i][j] != nullptr)
+				{
+					delete background[i][j];
+				}
+			}
+			delete[] background[i];
+		}
+		delete[] background;
 	}
 	Scene::scenes SceneNiveau::run()
 	{
@@ -36,7 +48,8 @@ namespace platformer
 	}
 	bool SceneNiveau::init(RenderWindow * const window)
 	{
-		window->setView(window->getDefaultView());
+		vue = window->getDefaultView();
+		window->setView(vue);
 		this->mainWin = window;
 		for (int i = 0; i < TUILES_ROUGES; i++)
 		{
@@ -53,15 +66,22 @@ namespace platformer
 				return false;
 			}
 		}
-
-		if (!joueur.init(0, window->getSize().x, "Ressources\\Sprites\\Player\\Player.png"))
+		nbreBackground = limiteDroite / backgroundT[0].getSize().x;
+		background = new Sprite**[nbreBackground];
+		for (int i = 0; i < nbreBackground; i++)
+		{
+			background[i] = new Sprite*[BACKGROUNDS];
+			for (int j = 0; j < BACKGROUNDS; j++)
+			{
+				background[i][j] = new Sprite(backgroundT[j]);
+				if(i % 2 == 1)
+					background[i][j]->setTextureRect(sf::IntRect(background[i][j]->getGlobalBounds().width, 0, -background[i][j]->getGlobalBounds().width, background[i][j]->getGlobalBounds().height));
+				background[i][j]->setPosition(i * backgroundT[0].getSize().x, 0);
+			}
+		}
+		if (!joueur.init(limiteGauche, limiteDroite, "Ressources\\Sprites\\Player\\Player.png"))
 		{
 			return false;
-		}
-
-		for (int i = 0; i < BACKGROUNDS; i++)
-		{
-			background[i].setTexture(backgroundT[i]);
 		}
 		isRunning = true;
 		srand(time(nullptr));
@@ -153,6 +173,11 @@ namespace platformer
 				}
 			}
 		}
+		if(joueur.getPosition().x - vue.getSize().x / 2 > limiteGauche && joueur.getPosition().x + vue.getSize().x / 2 < limiteDroite)
+		{
+			vue.setCenter(joueur.getPosition().x, vue.getCenter().y);
+		}
+		mainWin->setView(vue);
 	}
 	void SceneNiveau::draw()
 	{
@@ -162,11 +187,13 @@ namespace platformer
 	}
 	void SceneNiveau::drawDefault()
 	{
-		for (int i = 0; i < BACKGROUNDS; i++)
+		for (int i = 0; i < nbreBackground; i++)
 		{
-			mainWin->draw(background[i]);
+			for (int j = 0; j < BACKGROUNDS; j++)
+			{
+				mainWin->draw(*background[i][j]);
+			}
 		}
-
 		for (int x = 0; x < NOMBRE_TUILES_X; x++)
 			for (int y = 0; y < NOMBRE_TUILES_Y; y++)
 			{
