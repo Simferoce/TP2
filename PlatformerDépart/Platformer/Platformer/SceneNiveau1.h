@@ -19,7 +19,7 @@ namespace platformer
 		void update() override;
 		void drawDefault() override;
 	private:
-		static const int NOMBRE_TUILES_X = 20;
+		static const int NOMBRE_TUILES_X = 60;
 		static const int NOMBRE_TUILES_Y = 15;
 	};
 }
