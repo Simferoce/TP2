@@ -15,6 +15,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
+
 namespace ProjetSFMLTest
 {		
 	TEST_CLASS(ModeleTest)
