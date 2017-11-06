@@ -191,7 +191,10 @@ void SceneCreerCompte::update()
 					{
 						if(Modele::VerifierCourriel(textboxEmail.getTexte()))
 						{
-							textboxErreur.insererTexte("Les conditions fonctionnent pour l'instant.");
+							string ligne = textboxUsername.getTexte() + ":" + textbox.getTexte() + ":" + textboxFirstName.getTexte() + ":" +
+								textboxLastName.getTexte() + ":" + textboxEmail.getTexte();
+							Modele::AjouterCompte(ligne);
+							textboxErreur.insererTexte("Compte ajoute");
 						}
 						else
 						{

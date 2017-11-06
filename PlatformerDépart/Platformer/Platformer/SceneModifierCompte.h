@@ -49,6 +49,9 @@ namespace platformer
 
 		Textbox textbox;
 		Textbox textboxUsername;
+		Textbox textboxFirstName;
+		Textbox textboxLastName;
+		Textbox textboxEmail;
 		Textbox textboxErreur; // Ce textbox agit plutôt comme un messagebox.
 		Font font;
 

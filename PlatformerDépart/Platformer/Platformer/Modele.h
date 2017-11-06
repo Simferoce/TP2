@@ -135,7 +135,20 @@ public:
 	/// <returns></returns>Vrai si le mot de passe est correct
 	static bool VerifierMotDePasse(std::string motDePasse);
 	static bool VerifierNom(std::string prenom);
-	static bool VerifierCourriel(std::string courriel);
+	static bool VerifierCourriel(std::string courriel);	
+	/// <summary>
+	/// Gets the user information.
+	/// </summary>
+	/// <param name="user">The user.</param>
+	/// <returns></returns>
+	static std::vector<std::string> GetUserInfo(std::string user);	
+	/// <summary>
+	/// Change l'information de l'utilisateur.
+	/// </summary>
+	/// <param name="info">information.</param>
+	/// <param name="user">Utilisateur</param>
+	/// <returns></returns>
+	static bool ChangeInfoUser(std::string info, std::string user);
 private:
 	static Modele* instance;
 	//Police de base

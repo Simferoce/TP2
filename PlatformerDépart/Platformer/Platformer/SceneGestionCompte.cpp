@@ -167,9 +167,6 @@ void SceneGestionCompte::draw()
 {
 	mainWin->clear();
 	mainWin->draw(ecranTitre);
-	textbox.dessiner(mainWin);
-	textboxUsername.dessiner(mainWin);
-	textboxErreur.dessiner(mainWin);
 	//test texte à l'écran
 	// puis, dans la boucle de dessin, entre window.clear() et window.display()
 	mainWin->draw(text);

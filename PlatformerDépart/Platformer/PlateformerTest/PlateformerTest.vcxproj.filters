@@ -38,5 +38,6 @@
     <Text Include="sauvegardeScoreTest4.txt" />
     <Text Include="sauvegardeScoreTest5.txt" />
     <Text Include="sauvegardeScoreTest6.txt" />
+    <Text Include="ajoutetCompteTest.txt" />
   </ItemGroup>
 </Project>
