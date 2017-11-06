@@ -64,7 +64,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>../Platformer/Debug/Testeur.obj;../Platformer/Debug/Bloc.obj;../Platformer/Debug/Modele.obj;../Platformer/Debug/Controle.obj;sfml-system-d.lib;sfml-main-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-window-d.lib;openal32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>../Platformer/Debug/Testeur.obj;../Platformer/Debug/User.obj;../Platformer/Debug/Bloc.obj;../Platformer/Debug/Modele.obj;../Platformer/Debug/Controle.obj;sfml-system-d.lib;sfml-main-d.lib;sfml-graphics-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-window-d.lib;openal32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

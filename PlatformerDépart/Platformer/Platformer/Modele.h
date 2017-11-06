@@ -6,6 +6,7 @@
 #include <map>
 #include <SFML/Graphics/Text.hpp>
 #include <string>
+#include "User.h"
 
 
 class Controle;
@@ -25,7 +26,7 @@ public:
 	};
 	enum PositonInformation { Nickname, Password, Prenom, Nom, Courriel, Pointages};
 	enum ResultatAuthentification { Reussi, UtilisateurFormat, MotPassFormat, Echouer };
-	enum StringId { SceneTitreMenuPrincipale };
+	enum StringId { SceneTitreMenuPrincipale, PointageJeu };
 	//Écriture style/couleur/police
 	static const int GROSSEUR_CARACTERE = 24;
 	static const sf::Text::Style TEXTE_STYLE = sf::Text::Style::Bold;
@@ -44,7 +45,7 @@ public:
 	/// <summary>
 	/// Initialise l'instance.
 	/// </summary>
-	static bool Init();	
+	static bool Init(std::string emplacement);	
 	/// <summary>
 	/// Decharger l'instance.
 	/// </summary>
@@ -136,6 +137,9 @@ public:
 	static bool VerifierMotDePasse(std::string motDePasse);
 	static bool VerifierNom(std::string prenom);
 	static bool VerifierCourriel(std::string courriel);
+	static void Save(std::string emplacement);
+	static std::list<User> users;
+	static void Clear();
 private:
 	static Modele* instance;
 	//Police de base

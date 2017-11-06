@@ -39,6 +39,7 @@ int Game::run()
 		{
 			Controle::Decharger();
 			Modele::Decharger();
+			Gem::decharger();
 			return EXIT_SUCCESS;
 		}
 		else			
@@ -75,6 +76,10 @@ int Game::run()
 				sceneEnRetour = sceneActive->run();
 				//À la fin d'une scène, s'il y a des sauvegardes à faire
 				//C'est aussi possible de les faire là.
+				if(dynamic_cast<SceneNiveau*>(sceneActive))
+				{
+
+				}
 			}
 			else
 			{
@@ -92,7 +97,7 @@ int Game::run()
 
 bool Game::init()
 {
-	if (!Modele::Init())
+	if (!Modele::Init(Modele::GetSaveEmplacement()))
 		return false;
 	return true;
 }

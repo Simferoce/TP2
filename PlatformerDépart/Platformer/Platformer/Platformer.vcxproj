@@ -92,6 +92,7 @@
     <ClCompile Include="Bloc.cpp" />
     <ClCompile Include="Controle.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Gem.cpp" />
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Modele.cpp" />
@@ -107,11 +108,13 @@
     <ClCompile Include="SceneTitre.cpp" />
     <ClCompile Include="Testeur.cpp" />
     <ClCompile Include="Textbox.cpp" />
+    <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bloc.h" />
     <ClInclude Include="Controle.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Gem.h" />
     <ClInclude Include="Joueur.h" />
     <ClInclude Include="Modele.h" />
     <ClInclude Include="Mur.h" />
@@ -126,6 +129,7 @@
     <ClInclude Include="SceneTitre.h" />
     <ClInclude Include="Testeur.h" />
     <ClInclude Include="Textbox.h" />
+    <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Ressources\Backgrounds\Layer0_0.png" />

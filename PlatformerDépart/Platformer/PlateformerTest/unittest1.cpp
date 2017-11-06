@@ -8,6 +8,7 @@
 #include "../Platformer/Controle.h"
 #include "../Platformer/SceneCreerCompte.h"
 #include "../Platformer/Bloc.h"
+#include "../Platformer/User.h"
 //Il faut que ce dernier lien soit aussi dans 
 //[right-click sur projet]\éditeur de liens\propriétés\entrées\dépendances additionnelles
 //sinon il y aura une erreur de linkage
@@ -492,6 +493,50 @@ namespace ProjetSFMLTest
 		{
 			Assert::IsFalse(Modele::VerifierCourriel("jon@.com"));
 		}
+		TEST_METHOD(Init)
+		{
+			Modele::Init("..\\PlateformerTest\\sauvegardeTest.txt");
+			auto iter = Modele::users.begin();
+			Assert::IsTrue(iter->nickname == "Nickname");
+			Assert::IsTrue(iter->password == "Password");
+			Assert::IsTrue(iter->prenom == "Prenom");
+			Assert::IsTrue(iter->nom == "Nom");
+			Assert::IsTrue(iter->courriel == "exemple@hotmail.com");
+			auto iter2 = iter->meilleurPointages.begin();
+			Assert::IsTrue(*iter2 == 1);
+			++iter2;
+			Assert::IsTrue(*iter2 == 5);
+			++iter2;
+			Assert::IsTrue(*iter2 == 9);
+			Modele::Clear();
+		}
+		TEST_METHOD(Save)
+		{
+			Modele::Init("..\\PlateformerTest\\sauvegardeScoreTest2.txt");
+			Modele::Save("..\\PlateformerTest\\sauvegardeScoreTest3.txt");
+			ifstream ifs("..\\PlateformerTest\\sauvegardeScoreTest2.txt");
+			string testingString;
+			std::getline(ifs, testingString);
+			vector<string> testVector = Modele::split(testingString,':');
+			Assert::IsTrue(testVector[Modele::Nickname] == "Nickname");
+			Assert::IsTrue(testVector[Modele::Password] == "Password");
+			Assert::IsTrue(testVector[Modele::Nom] == "Nom");
+			Assert::IsTrue(testVector[Modele::Prenom] == "Prenom");
+			Assert::IsTrue(testVector[Modele::Courriel] == "exemple@hotmail.com");
+			vector<string> testvectorScore = Modele::split(testVector[Modele::Pointages], ',');
+			Assert::IsTrue(std::stoi(testvectorScore[0]) == 1);
+			Assert::IsTrue(std::stoi(testvectorScore[1]) == 2);
+			Assert::IsTrue(std::stoi(testvectorScore[2]) == 3);
+			Assert::IsTrue(std::stoi(testvectorScore[3]) == 4);
+			Assert::IsTrue(std::stoi(testvectorScore[4]) == 5);
+			Assert::IsTrue(std::stoi(testvectorScore[5]) == 6);
+			Assert::IsTrue(std::stoi(testvectorScore[6]) == 7);
+			Assert::IsTrue(std::stoi(testvectorScore[7]) == 8);
+			Assert::IsTrue(std::stoi(testvectorScore[8]) == 9);
+			ofstream clear("..\\PlateformerTest\\sauvegardeScoreTest3.txt", ios_base::trunc);
+			Modele::Clear();
+
+		}
 	};
 	TEST_CLASS(ControleTest)
 	{
@@ -562,6 +607,31 @@ namespace ProjetSFMLTest
 	};
 	TEST_CLASS(Bloc)
 	{
+		TEST_METHOD(GetTopTenResultUserInvalide)
+		{
+			vector<Modele::TopScore> test = Controle::GetTopTenResult("", "..\\PlateformerTest\\sauvegardeTest.txt");
+			Assert::IsTrue(test.empty());
+		}
+		TEST_METHOD(GetTopTenResultScoreInvalide)
+		{
+			vector<Modele::TopScore> test = Controle::GetTopTenResult(-1, "..\\PlateformerTest\\sauvegardeTest.txt");
+			Assert::IsTrue(test.empty());
+		}
+		TEST_METHOD(GetTopTenResultScoreInvalideUserValide)
+		{
+			vector<Modele::TopScore> test = Controle::GetTopTenResult("Nickname",-1, "..\\PlateformerTest\\sauvegardeTest.txt");
+			Assert::IsTrue(test.empty());
+		}
+		TEST_METHOD(GetTopTenResultScoreValideUserInvalide)
+		{
+			vector<Modele::TopScore> test = Controle::GetTopTenResult("", 1, "..\\PlateformerTest\\sauvegardeTest.txt");
+			Assert::IsTrue(test.empty());
+		}
+		TEST_METHOD(GetTopTenResultScoreValideUserValide)
+		{
+			vector<Modele::TopScore> test = Controle::GetTopTenResult("Nickname", 1, "..\\PlateformerTest\\sauvegardeTest.txt");
+			Assert::IsTrue(!test.empty());
+		}
 		TEST_METHOD(DetermineCollisionVector00None)
 		{
 			sf::Texture blocTexture;

@@ -45,6 +45,38 @@ Modele::ResultatAuthentification Controle::AuthentifierUtilisateur(std::string u
 	return Modele::AuthentifierUtilisateur(utilisateur,motPass,ligne,emplacementFichier);
 }
 
+std::vector<Modele::TopScore> Controle::GetTopTenResult(std::string user, int score, std::string emplacementSauvegarde)
+{
+	int ligne;
+	if (score >= 0 && UserExist(user, emplacementSauvegarde, ligne))
+		return Modele::GetTopTenResult(user, score, emplacementSauvegarde);
+	else
+		return std::vector<Modele::TopScore>();
+}
+
+std::vector<Modele::TopScore> Controle::GetTopTenResult(std::string user, std::string emplacementSauvegarde)
+{
+	int ligne;
+	if (UserExist(user, emplacementSauvegarde, ligne))
+		return Modele::GetTopTenResult(user, emplacementSauvegarde);
+	else
+		return std::vector<Modele::TopScore>();
+
+}
+
+std::vector<Modele::TopScore> Controle::GetTopTenResult(int score, std::string emplacementSauvegarde)
+{
+	if (score >= 0)
+		return Modele::GetTopTenResult(score, emplacementSauvegarde);
+	else
+		return std::vector<Modele::TopScore>();
+}
+
+std::vector<Modele::TopScore> Controle::GetTopTenResult(std::string emplacementSauvegarde)
+{
+	return Modele::GetTopTenResult(emplacementSauvegarde);
+}
+
 bool Controle::UserExist(std::string user, std::string emplacementFichier, int& ligne)
 {
 	if (user.length() > Modele::MAX_NICKNAME_LENGTH || user.length() < Modele::MIN_NICKNAME_LENGTH)

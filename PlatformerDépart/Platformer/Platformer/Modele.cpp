@@ -6,9 +6,12 @@
 #include "Scene.h"
 
 Modele* Modele::instance = nullptr;
+std::list<User> Modele::users;
 std::map<Modele::StringId, std::string> Modele::dictionnaire = { 
 	std::pair<StringId,std::string>
 	(SceneTitreMenuPrincipale,"Enter:Valider|1:Gestion de Compte|2:Meilleurs Scores")
+	, std::pair<StringId,std::string>
+	(PointageJeu,"Pointage: ")
 };
 sf::Font Modele::font = sf::Font();
 std::string Modele::emplacementFont = "Ressources\\Fonts\\Peric.ttf";
@@ -53,8 +56,14 @@ Modele * Modele::GetInstance()
 	return instance;
 }
 
-bool Modele::Init()
+bool Modele::Init(std::string emplacement)
 {
+	std::ifstream readFile(emplacement, std::ios::out | std::ios::app);
+	std::string line = "";
+	while(std::getline(readFile,line))
+	{
+		users.push_back(User(line));
+	}
 	if (!Modele::font.loadFromFile(emplacementFont))
 		return false;
 	if (!Modele::textureFond.loadFromFile(emplacementFond))
@@ -349,4 +358,19 @@ bool Modele::VerifierCourriel(std::string courriel)
 		return false;
 	}
 	return true;
+}
+
+void Modele::Save(std::string emplacement)
+{
+	std::ofstream stream = std::ofstream(emplacement, std::ios::in);
+	for each(User user in users)
+	{
+		std::string stringToWrite = user.nickname + ":" + user.password + ":" + user.prenom + ":" + user.nom + ":" + user.courriel + ":";
+		stream << stringToWrite;
+	}
+}
+
+void Modele::Clear()
+{
+	users.clear();
 }
