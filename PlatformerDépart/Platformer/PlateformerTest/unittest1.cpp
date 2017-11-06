@@ -538,6 +538,10 @@ namespace ProjetSFMLTest
 			Modele::Clear();
 
 		}
+		TEST_METHOD(AddUserToFile)
+		{
+			Assert::IsTrue(Modele::AjouterCompte("Nickname4:Password:Prenom:Nom:exemple@hotmail.com"));
+		}
 	};
 	TEST_CLASS(ControleTest)
 	{

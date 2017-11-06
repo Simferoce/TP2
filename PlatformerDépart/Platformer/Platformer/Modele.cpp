@@ -267,7 +267,7 @@ bool Modele::VerifierUtilisateur(std::string utilisateur)
 		return false;
 	}
 	int ligne = 0;
-	if (Modele::UserExist(utilisateur, Modele::GetSaveEmplacement(), ligne))
+	if (UserExist(utilisateur, GetSaveEmplacement(), ligne))
 	{
 		return false;
 	}
@@ -374,3 +374,61 @@ void Modele::Clear()
 {
 	users.clear();
 }
+bool Modele::AjouterCompte(std::string infos)
+{
+	std::fstream readFile(GetSaveEmplacement(),std::ios::in | std::ios::out | std::ios::app);
+	if (readFile.is_open())
+	{
+		readFile << infos << std::endl;
+	}
+	else
+	{
+		return false;
+	}
+	readFile.close();
+	return true;
+}
+std::vector<std::string> Modele::GetUserInfo(std::string user)
+{
+	std::ifstream readFile(GetSaveEmplacement(), std::ios::out | std::ios::app);
+	std::string line = "";
+	if (readFile.is_open())
+	{
+		while (std::getline(readFile, line))
+		{
+			std::vector<std::string> stringSplit = split(line, ':');
+			if (stringSplit[Nickname] == user)
+			{
+				return stringSplit;
+			}
+		}
+	}
+}
+bool Modele::ChangeInfoUser(std::string info, std::string user)
+{
+	//code problématique pour le moment
+
+	/*std::ifstream readFile(GetSaveEmplacement(), std::ios::out | std::ios::app);
+	std::ofstream writeFile("userPass.txt", std::ios::in | std::ios::app);
+	std::string line = "";
+	if (readFile.is_open())
+	{
+		while (std::getline(readFile, line))
+		{
+			std::vector<std::string> stringSplit = split(line, ':');
+			if (stringSplit[Nickname] == user)
+			{
+				writeFile << info << std::endl;
+			}
+			else
+			{
+				writeFile << line << std::endl;
+			}
+		}
+	}
+	readFile.close();
+	writeFile.close();*/
+	return true;
+}
+
+

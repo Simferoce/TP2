@@ -1,0 +1,4 @@
+Nickname:Password:Prenom:Nom:exemple@hotmail.com:0
+Nickname1:Password:Prenom:Nom:exemple@hotmail.com:0
+Nickname2:Password2:Prenom:Nom:exemple@hotmail.com:0
+Nickname3:Password:Prenom:Nom:exemple@hotmail.com:0

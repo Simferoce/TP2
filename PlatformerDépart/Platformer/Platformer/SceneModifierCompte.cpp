@@ -43,9 +43,18 @@ bool SceneModifierCompte::init(RenderWindow * const window)
 	text6 = Modele::CreateTextLine(texteCourriel, 0, 300);
 	//Les positions sont arbitraires, obtenus par essai et erreur.
 	//par rapport au fond d'écran
-	textboxUsername.init(480, 24, Vector2f(430, 320), font);
-	textbox.init(480, 24, Vector2f(430, 360), font);
-	textboxErreur.initInfo(Vector2f(430, 290), font, true);
+	vector<std::string> stringSplit = Modele::GetUserInfo("GrossePatate");
+	textboxUsername.init(480, 24, Vector2f(430, 110), font);
+	textboxUsername.insererTexte(stringSplit[Modele::PositonInformation::Nickname]);
+	textbox.init(480, 24, Vector2f(430, 160), font);
+	textbox.insererTexte(stringSplit[Modele::PositonInformation::Password]);
+	textboxFirstName.init(480, 24, Vector2f(430, 210), font);
+	textboxFirstName.insererTexte(stringSplit[Modele::PositonInformation::Prenom]);
+	textboxLastName.init(480, 24, Vector2f(430, 260), font);
+	textboxLastName.insererTexte(stringSplit[Modele::PositonInformation::Nom]);
+	textboxEmail.init(480, 24, Vector2f(430, 310), font);
+	textboxEmail.insererTexte(stringSplit[Modele::PositonInformation::Courriel]);
+	textboxErreur.initInfo(Vector2f(430, 400), font, true);
 
 	this->mainWin = window;
 	isRunning = true;
@@ -86,6 +95,27 @@ void SceneModifierCompte::getInputs()
 				if (textboxActif != nullptr) textboxActif->deSelectionner();
 				textboxActif = &textboxUsername; //Ce textbox devient actif
 				textboxUsername.selectionner();  //on l'affiche comme étant sélectionné
+				textboxErreur.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
+			}
+			else if (textboxFirstName.touche(Mouse::getPosition(*mainWin)))
+			{
+				if (textboxActif != nullptr) textboxActif->deSelectionner();
+				textboxActif = &textboxFirstName; //Ce textbox devient actif
+				textboxFirstName.selectionner();  //on l'affiche comme étant sélectionné
+				textboxErreur.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
+			}
+			else if (textboxLastName.touche(Mouse::getPosition(*mainWin)))
+			{
+				if (textboxActif != nullptr) textboxActif->deSelectionner();
+				textboxActif = &textboxLastName; //Ce textbox devient actif
+				textboxLastName.selectionner();  //on l'affiche comme étant sélectionné
+				textboxErreur.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
+			}
+			else if (textboxEmail.touche(Mouse::getPosition(*mainWin)))
+			{
+				if (textboxActif != nullptr) textboxActif->deSelectionner();
+				textboxActif = &textboxEmail; //Ce textbox devient actif
+				textboxEmail.selectionner();  //on l'affiche comme étant sélectionné
 				textboxErreur.insererTexte(""); //on efface le message d'erreur (optionnel, amis ça fait clean si on fait un nouvel essai)
 			}
 			else
@@ -143,7 +173,48 @@ void SceneModifierCompte::getInputs()
 
 void SceneModifierCompte::update()
 {
-
+	if (enterActif)
+	{
+		if (Modele::VerifierUtilisateur(textboxUsername.getTexte()))
+		{
+			if (Modele::VerifierMotDePasse(textbox.getTexte()))
+			{
+				if (Modele::VerifierNom(textboxFirstName.getTexte()))
+				{
+					if (Modele::VerifierNom(textboxLastName.getTexte()))
+					{
+						if (Modele::VerifierCourriel(textboxEmail.getTexte()))
+						{
+							string ligne = textboxUsername.getTexte() + ":" + textbox.getTexte() + ":" + textboxFirstName.getTexte() + ":" +
+								textboxLastName.getTexte() + ":" + textboxEmail.getTexte();
+							Modele::ChangeInfoUser(ligne,textboxUsername.getTexte());
+							textboxErreur.insererTexte("Compte modifiee");
+						}
+						else
+						{
+							textboxErreur.insererTexte("Adresse de courriel incorrecte");
+						}
+					}
+					else
+					{
+						textboxErreur.insererTexte("Nom incorrect");
+					}
+				}
+				else
+				{
+					textboxErreur.insererTexte("Prenom incorrect");
+				}
+			}
+			else
+			{
+				textboxErreur.insererTexte("Mot de passe incorrect");
+			}
+		}
+		else
+		{
+			textboxErreur.insererTexte("Nom d'utilisateur incorrect");
+		}
+	}
 }
 
 void SceneModifierCompte::draw()
@@ -152,6 +223,9 @@ void SceneModifierCompte::draw()
 	textbox.dessiner(mainWin);
 	textboxUsername.dessiner(mainWin);
 	textboxErreur.dessiner(mainWin);
+	textboxFirstName.dessiner(mainWin);
+	textboxLastName.dessiner(mainWin);
+	textboxEmail.dessiner(mainWin);
 	//test texte à l'écran
 	// puis, dans la boucle de dessin, entre window.clear() et window.display()
 	mainWin->draw(text1);
