@@ -149,10 +149,28 @@ public:
 	/// <param name="info">information.</param>
 	/// <param name="user">Utilisateur</param>
 	/// <returns></returns>
-	static bool ChangeInfoUser(std::string info, std::string user);
+	static bool ChangeInfoUser(std::string info, std::string user);	
+	/// <summary>
+	/// Sauvegarde à l'endoit spécifié.
+	/// </summary>
+	/// <param name="emplacement">L'emplacement.</param>
 	static void Save(std::string emplacement);
-	static std::list<User> users;
+	/// <summary>
+	/// Tous les utilisateurs
+	/// </summary>
+	static std::list<User> users;	
+	/// <summary>
+	/// Supprime les utilisateurs
+	/// </summary>
 	static void Clear();
+	/// <summary>
+	/// Ajouter un score à l'utilisateur.
+	/// </summary>
+	/// <param name="user">L'utilisateur.</param>
+	/// <param name="score">Le resultat.</param>
+	/// <param name="emplacement">L'emplacement</param>
+	/// <returns></returns>
+	static bool AjouterScore(std::string user, int score, std::string emplacement);
 private:
 	static Modele* instance;
 	//Police de base

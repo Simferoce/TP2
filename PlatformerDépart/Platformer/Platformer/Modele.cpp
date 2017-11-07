@@ -6,6 +6,9 @@
 #include "Scene.h"
 
 Modele* Modele::instance = nullptr;
+/// <summary>
+/// The users{CC2D43FA-BBC4-448A-9D0B-7B57ADF2655C}
+/// </summary>
 std::list<User> Modele::users;
 std::map<Modele::StringId, std::string> Modele::dictionnaire = { 
 	std::pair<StringId,std::string>
@@ -366,6 +369,16 @@ void Modele::Save(std::string emplacement)
 	for each(User user in users)
 	{
 		std::string stringToWrite = user.nickname + ":" + user.password + ":" + user.prenom + ":" + user.nom + ":" + user.courriel + ":";
+		auto size = user.meilleurPointages.size();
+		int i = 0;
+		for(auto iter = user.meilleurPointages.begin(); iter != user.meilleurPointages.end(); ++iter)
+		{
+			stringToWrite += std::to_string(*iter);
+			if (i != size - 1)
+				stringToWrite += ",";
+			++i;
+		}
+		stringToWrite += "\n";
 		stream << stringToWrite;
 	}
 }
@@ -373,6 +386,18 @@ void Modele::Save(std::string emplacement)
 void Modele::Clear()
 {
 	users.clear();
+}
+bool Modele::AjouterScore(std::string user, int score, std::string emplacement)
+{
+	for(auto iter = users.begin(); iter != users.end(); ++iter)
+	{
+		if(iter->nickname == user)
+		{
+			iter->meilleurPointages.push_back(score);
+			return true;
+		}
+	}
+	return false;
 }
 bool Modele::AjouterCompte(std::string infos)
 {
