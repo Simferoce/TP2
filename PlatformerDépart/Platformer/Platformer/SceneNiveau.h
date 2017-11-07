@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Joueur.h"
 #include "Bloc.h"
+#include "Gem.h"
 #include "Men.h"
 
 namespace platformer
@@ -16,14 +17,17 @@ namespace platformer
 		static const int TAILLE_TUILES_Y = 32;
 		static const int TUILES_ROUGES = 7;
 		static const int BACKGROUNDS = 3;
+		Bloc*** grilleDeTuiles;
 		const int limiteGauche = 0;
 		const int limiteDroite = 800;
 		std::map<Keyboard::Key, bool> inputs;
 		Enemy* lesEnnemis;
 		Joueur joueur;
 		View vue;
-		Bloc*** grilleDeTuiles;
 		static float gravite;
+		int score;
+		Text scoreText;
+		std::vector<Gem> gems;
 		/// <summary>
 		/// Trois backgrounds superposés pour le plus bel effet visuel
 		/// </summary>
@@ -49,6 +53,7 @@ namespace platformer
 		virtual void update();
 		virtual void draw();
 		virtual void drawDefault();
+		int GetScore();
 	};
 }
 

@@ -37,6 +37,10 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	grilleDeTuiles[NOMBRE_TUILES_X - 3][NOMBRE_TUILES_Y - 2]->setPosition((NOMBRE_TUILES_X -3 )* TAILLE_TUILES_X, TAILLE_TUILES_Y * (NOMBRE_TUILES_Y - 2));
 	grilleDeTuiles[NOMBRE_TUILES_X - 6][NOMBRE_TUILES_Y - 5] = new Mur();
 	grilleDeTuiles[NOMBRE_TUILES_X - 6][NOMBRE_TUILES_Y - 5]->setPosition((NOMBRE_TUILES_X - 6)* TAILLE_TUILES_X, TAILLE_TUILES_Y * (NOMBRE_TUILES_Y - 5));
+	
+	Gem gem;
+	gem.setPosition(100, 300);
+	gems.push_back(gem);
 	//Position arbitraire pour le joueur en x, pas arbitraire en y (sur le plancher)
 	joueur.setPosition(100, window->getSize().y - TAILLE_TUILES_Y * 2);
 	return true;

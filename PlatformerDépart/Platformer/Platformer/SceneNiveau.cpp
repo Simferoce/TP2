@@ -1,5 +1,7 @@
 #include "SceneNiveau.h"
 #include "Mur.h"
+#include "Modele.h"
+#include <fstream>
 
 
 namespace platformer
@@ -48,6 +50,12 @@ namespace platformer
 	}
 	bool SceneNiveau::init(RenderWindow * const window)
 	{
+		score = 0;
+		scoreText.setFont(Modele::GetFont());
+		scoreText.setFillColor(Modele::TEXTE_COULEUR);
+		scoreText.setStyle(Modele::TEXTE_STYLE);
+		scoreText.setCharacterSize(Modele::GROSSEUR_CARACTERE);
+		scoreText.setString(Modele::GetText(Modele::PointageJeu) + std::to_string(score));
 		vue = window->getDefaultView();
 		window->setView(vue);
 		this->mainWin = window;
@@ -83,6 +91,8 @@ namespace platformer
 		{
 			return false;
 		}
+		if (!Gem::init())
+			return  false;
 		if(lesEnnemis==nullptr)
 		{
 			lesEnnemis = new Men();
@@ -138,6 +148,7 @@ namespace platformer
 	}
 	void SceneNiveau::update()
 	{
+		//Deplacement
 		joueur.velocity.x = 0;
 		if (inputs[Keyboard::Left] && !inputs[Keyboard::Right])
 		{
@@ -153,7 +164,7 @@ namespace platformer
 		}
 		joueur.move(joueur.velocity.x, joueur.velocity.y);
 		joueur.velocity.y += gravite;
-		//TO DO Déterminer les blocs que le joueur touche à la place de vérifie si un bloc touche le joueur.
+		//Collision bloc/joueur
 		for(int i =0; i < NOMBRE_TUILES_X; ++i)
 		{
 			for (int j = 0; j < NOMBRE_TUILES_Y; ++j)
@@ -187,10 +198,23 @@ namespace platformer
 				}
 			}
 		}
+		//Vue
 		if(joueur.getPosition().x - vue.getSize().x / 2 > limiteGauche && joueur.getPosition().x + vue.getSize().x / 2 < limiteDroite)
 		{
 			vue.setCenter(joueur.getPosition().x, vue.getCenter().y);
 		}
+		std::vector<Gem*> toDelete;
+		for(auto iter = gems.begin(); iter != gems.end();)
+		{
+			if (iter->getGlobalBounds().intersects(joueur.getGlobalBounds()))
+			{
+				iter = gems.erase(iter);
+				score++;
+			}
+			else
+				++iter;
+		}
+		scoreText.setString(Modele::GetText(Modele::PointageJeu) + std::to_string(score));
 		mainWin->setView(vue);
 	}
 	void SceneNiveau::draw()
@@ -216,6 +240,13 @@ namespace platformer
 					mainWin->draw(*grilleDeTuiles[x][y]);
 				}
 			}
+		for(Gem gem : gems)
+			mainWin->draw(gem);
 		mainWin->draw(joueur);
+		mainWin->draw(scoreText);
+	}
+	int SceneNiveau::GetScore()
+	{
+		return score;
 	}
 }

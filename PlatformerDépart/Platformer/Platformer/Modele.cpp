@@ -6,9 +6,15 @@
 #include "Scene.h"
 
 Modele* Modele::instance = nullptr;
+/// <summary>
+/// The users{CC2D43FA-BBC4-448A-9D0B-7B57ADF2655C}
+/// </summary>
+std::list<User> Modele::users;
 std::map<Modele::StringId, std::string> Modele::dictionnaire = { 
 	std::pair<StringId,std::string>
 	(SceneTitreMenuPrincipale,"Enter:Valider|1:Gestion de Compte|2:Meilleurs Scores")
+	, std::pair<StringId,std::string>
+	(PointageJeu,"Pointage: ")
 };
 sf::Font Modele::font = sf::Font();
 std::string Modele::emplacementFont = "Ressources\\Fonts\\Peric.ttf";
@@ -53,8 +59,14 @@ Modele * Modele::GetInstance()
 	return instance;
 }
 
-bool Modele::Init()
+bool Modele::Init(std::string emplacement)
 {
+	std::ifstream readFile(emplacement, std::ios::out | std::ios::app);
+	std::string line = "";
+	while(std::getline(readFile,line))
+	{
+		users.push_back(User(line));
+	}
 	if (!Modele::font.loadFromFile(emplacementFont))
 		return false;
 	if (!Modele::textureFond.loadFromFile(emplacementFond))
@@ -239,32 +251,7 @@ bool Modele::UserExist(std::string user, std::string emplacementFichier, int& li
 	ligne = -1;
 	return false;
 }
-bool Modele::UserExistModification(std::string oldUser, std::string newUser, std::string emplacementFichier, int& ligne)
-{
-	int ligneCourrante = 0;
-	std::ifstream readFile(emplacementFichier, std::ios::out | std::ios::app);
-	std::string line = "";
-	if (readFile.is_open())
-	{
-		while (std::getline(readFile, line))
-		{
-			std::vector<std::string> stringSplit = split(line, ':');
-			if (stringSplit[Nickname] == oldUser)
-			{
-				ligne = -1;
-				return false;
-			}
-			if (stringSplit[Nickname] == newUser)
-			{
-				ligne = ligneCourrante;
-				return true;
-			}
-			ligneCourrante++;
-		}
-	}
-	ligne = -1;
-	return false;
-}
+
 sf::Text Modele::CreateTextLine(std::string text, float posX, float posY)
 {
 	sf::Text textLine;
@@ -289,22 +276,6 @@ bool Modele::VerifierUtilisateur(std::string utilisateur)
 	}
 	return true;
 }
-
-bool Modele::VerifierUtilisateurModification(std::string oldUser, std::string newUser)
-{
-	if (newUser.size()<3 || newUser.size()>25)
-	{
-		return false;
-	}
-	int ligne = 0;
-	if (UserExistModification(oldUser, newUser,GetSaveEmplacement(), ligne))
-	{
-		return false;
-	}
-	return true;
-}
-
-
 bool Modele::VerifierMotDePasse(std::string motDePasse)
 {
 	if (motDePasse.size()<5 || motDePasse.size()>15)
@@ -340,7 +311,6 @@ bool Modele::VerifierMotDePasse(std::string motDePasse)
 	}
 	return true;
 }
-
 bool Modele::VerifierNom(std::string prenom)
 {
 	if (prenom.size()<2 || prenom.size()>25)
@@ -356,7 +326,6 @@ bool Modele::VerifierNom(std::string prenom)
 	}
 	return true;
 }
-
 bool Modele::VerifierCourriel(std::string courriel)
 {
 	int nbFoisArobas = 0;
@@ -394,6 +363,42 @@ bool Modele::VerifierCourriel(std::string courriel)
 	return true;
 }
 
+void Modele::Save(std::string emplacement)
+{
+	std::ofstream stream = std::ofstream(emplacement, std::ios::in);
+	for each(User user in users)
+	{
+		std::string stringToWrite = user.nickname + ":" + user.password + ":" + user.prenom + ":" + user.nom + ":" + user.courriel + ":";
+		auto size = user.meilleurPointages.size();
+		int i = 0;
+		for(auto iter = user.meilleurPointages.begin(); iter != user.meilleurPointages.end(); ++iter)
+		{
+			stringToWrite += std::to_string(*iter);
+			if (i != size - 1)
+				stringToWrite += ",";
+			++i;
+		}
+		stringToWrite += "\n";
+		stream << stringToWrite;
+	}
+}
+
+void Modele::Clear()
+{
+	users.clear();
+}
+bool Modele::AjouterScore(std::string user, int score, std::string emplacement)
+{
+	for(auto iter = users.begin(); iter != users.end(); ++iter)
+	{
+		if(iter->nickname == user)
+		{
+			iter->meilleurPointages.push_back(score);
+			return true;
+		}
+	}
+	return false;
+}
 bool Modele::AjouterCompte(std::string infos)
 {
 	std::fstream readFile(GetSaveEmplacement(),std::ios::in | std::ios::out | std::ios::app);
@@ -408,7 +413,6 @@ bool Modele::AjouterCompte(std::string infos)
 	readFile.close();
 	return true;
 }
-
 std::vector<std::string> Modele::GetUserInfo(std::string user)
 {
 	std::ifstream readFile(GetSaveEmplacement(), std::ios::out | std::ios::app);
@@ -425,38 +429,30 @@ std::vector<std::string> Modele::GetUserInfo(std::string user)
 		}
 	}
 }
-
 bool Modele::ChangeInfoUser(std::string info, std::string user)
 {
 	//code problématique pour le moment
 
-	std::ifstream readFile(GetSaveEmplacement(), std::ios::out | std::ios::app);
+	/*std::ifstream readFile(GetSaveEmplacement(), std::ios::out | std::ios::app);
 	std::ofstream writeFile("userPass.txt", std::ios::in | std::ios::app);
 	std::string line = "";
-	std::string debutfichier = "";
-	/*if (readFile.is_open())
+	if (readFile.is_open())
 	{
-		//writeFile.clear();
-		while (getline(readFile, line))
+		while (std::getline(readFile, line))
 		{
 			std::vector<std::string> stringSplit = split(line, ':');
 			if (stringSplit[Nickname] == user)
 			{
-
-				//writeFile << info << std::endl;
-			}
-			else if(readFile)
-			{
-				//writeFile << line << std::endl;
+				writeFile << info << std::endl;
 			}
 			else
 			{
-				
+				writeFile << line << std::endl;
 			}
 		}
-	}*/
+	}
 	readFile.close();
-	writeFile.close();
+	writeFile.close();*/
 	return true;
 }
 

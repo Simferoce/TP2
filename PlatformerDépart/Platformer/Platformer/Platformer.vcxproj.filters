@@ -103,10 +103,16 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Ennemi.cpp">
+    <ClCompile Include="Gem.cpp">
+      <Filter>Fichiers sources</Filter>
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    </ClCompile>
     <ClCompile Include="Men.cpp">
+    <ClCompile Include="User.cpp">
       <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,10 +168,16 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Ennemi.h">
+    <ClInclude Include="Gem.h">
+      <Filter>Fichiers d%27en-tête</Filter>
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    </ClInclude>
     <ClInclude Include="Men.h">
+    <ClInclude Include="User.h">
       <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -32,6 +32,49 @@ public:
 	/// <param name="emplacmeentFichier">Le fichier ou les infos sont gardées</param>
 	/// <returns></returns>
 	static Modele::ResultatAuthentification AuthentifierUtilisateur(std::string utilisateur, std::string motPass, int& ligne, std::string emplacementFichier);
-	static bool UserExist(std::string user, std::string emplacementFichier, int& ligne);
+	/// <summary>
+	/// Obtient les scores spécifié de l'usager spécifié. Max: 10
+	/// </summary>
+	/// <param name="user">L'usager spécifier.</param>
+	/// <param name="score">Le score spécifier.</param>
+	/// <param name="emplacementSauvegarde">L'emplacement sauvegarde.</param>
+	/// <returns>Les scores spécifiés de l'usager spécifié. Max: 10</returns>
+	static std::vector<Modele::TopScore> GetTopTenResult(std::string user, int score, std::string emplacementSauvegarde);
+	/// <summary>
+	/// Obtient les meilleurs scores de l'utilisateur. Max: 10
+	/// </summary>
+	/// <param name="user">L'usager spécifier.</param>
+	/// <param name="emplacementSauvegarde">L'emplacement sauvegarde.</param>
+	/// <returns>Les 10 meilleurs scores de l'utilisateur</returns>
+	static std::vector<Modele::TopScore> GetTopTenResult(std::string user, std::string emplacementSauvegarde);
+	/// <summary>
+	/// Obtient les utilisateurs qui ont le score spécifié. Max: 10
+	/// </summary>
+	/// <param name="score">le score spécifié.</param>
+	/// <param name="emplacementSauvegarde">L'emplacement sauvegarde.</param>
+	/// <returns>Les utilisateurs ayant le resultat. Max: 10</returns>
+	static std::vector<Modele::TopScore> GetTopTenResult(int score, std::string emplacementSauvegarde);
+	/// <summary>
+	/// Obtient les meilleurs scores. Max: 10
+	/// </summary>
+	/// <param name="emplacementSauvegarde">L'emplacement sauvegarde.</param>
+	/// <returns>Les meilleurs scores. Max: 10</returns>
+	static std::vector<Modele::TopScore> GetTopTenResult(std::string emplacementSauvegarde);
+	/// <summary>
+	/// Détermine si l'utilisateur existe.
+	/// </summary>
+	/// <param name="user">L'utilisateur.</param>
+	/// <param name="emplacementFichier">l'emplacement du fichier de sauvegarde.</param>
+	/// <param name="ligne">La ligne ou l'utilisateur a été trouvé, -1 si pas trouver.</param>
+	/// <returns></returns>
+	static bool UserExist(std::string user, std::string emplacementFichier, int& ligne);	
+	/// <summary>
+	/// Ajouter un score à l'utilisateur.
+	/// </summary>
+	/// <param name="user">L'utilisateur.</param>
+	/// <param name="score">Le resultat.</param>
+	/// <param name="emplacement">L'emplacement</param>
+	/// <returns></returns>
+	static bool AjouterScore(std::string user, int score, std::string emplacement);
 };
 
