@@ -123,11 +123,25 @@ public:
 	/// <returns></returns>
 	static bool UserExist(std::string user, std::string emplacementFichier, int& ligne);	
 	/// <summary>
+	/// Détermine si l'utilisateur existe.
+	/// </summary>
+	/// <param name="user">L'utilisateur.</param>
+	/// <param name="emplacementFichier">l'emplacement du fichier de sauvegarde.</param>
+	/// <param name="ligne">La ligne ou l'utilisateur a été trouvé, -1 si pas trouver.</param>
+	/// <returns></returns>
+	static bool UserExistModification(std::string oldUser, std::string newUser, std::string emplacementFichier, int& ligne);
+	/// <summary>
 	/// Verifier l'utilisateur.
 	/// </summary>
 	/// <param name="utilisateur">Utilisateur.</param>
 	/// <returns></returns>Vrai si l'utilisateur est correct
 	static bool VerifierUtilisateur(std::string utilisateur);
+	/// <summary>
+	/// Verifier l'utilisateur.
+	/// </summary>
+	/// <param name="utilisateur">Utilisateur.</param>
+	/// <returns></returns>Vrai si l'utilisateur est correct
+	static bool VerifierUtilisateurModification(std::string oldUser, std::string newUser);
 	/// <summary>
 	/// Verifier le mot de passe.
 	/// </summary>

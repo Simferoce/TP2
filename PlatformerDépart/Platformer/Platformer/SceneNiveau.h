@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "Joueur.h"
 #include "Bloc.h"
+#include "Men.h"
 
 namespace platformer
 {
@@ -18,6 +19,7 @@ namespace platformer
 		const int limiteGauche = 0;
 		const int limiteDroite = 800;
 		std::map<Keyboard::Key, bool> inputs;
+		Enemy* lesEnnemis;
 		Joueur joueur;
 		View vue;
 		Bloc*** grilleDeTuiles;

@@ -43,7 +43,7 @@ bool SceneModifierCompte::init(RenderWindow * const window)
 	text6 = Modele::CreateTextLine(texteCourriel, 0, 300);
 	//Les positions sont arbitraires, obtenus par essai et erreur.
 	//par rapport au fond d'écran
-	vector<std::string> stringSplit = Modele::GetUserInfo("GrossePatate");
+	stringSplit = Modele::GetUserInfo("GrossePatate");
 	textboxUsername.init(480, 24, Vector2f(430, 110), font);
 	textboxUsername.insererTexte(stringSplit[Modele::PositonInformation::Nickname]);
 	textbox.init(480, 24, Vector2f(430, 160), font);
@@ -175,7 +175,7 @@ void SceneModifierCompte::update()
 {
 	if (enterActif)
 	{
-		if (Modele::VerifierUtilisateur(textboxUsername.getTexte()))
+		if (Modele::VerifierUtilisateurModification(stringSplit[Modele::PositonInformation::Nickname], textboxUsername.getTexte()))
 		{
 			if (Modele::VerifierMotDePasse(textbox.getTexte()))
 			{
@@ -186,8 +186,8 @@ void SceneModifierCompte::update()
 						if (Modele::VerifierCourriel(textboxEmail.getTexte()))
 						{
 							string ligne = textboxUsername.getTexte() + ":" + textbox.getTexte() + ":" + textboxFirstName.getTexte() + ":" +
-								textboxLastName.getTexte() + ":" + textboxEmail.getTexte();
-							Modele::ChangeInfoUser(ligne,textboxUsername.getTexte());
+								textboxLastName.getTexte() + ":" + textboxEmail.getTexte()+":";
+							Modele::ChangeInfoUser(ligne,/*textboxUsername.getTexte()*/stringSplit[Modele::PositonInformation::Nickname]);
 							textboxErreur.insererTexte("Compte modifiee");
 						}
 						else

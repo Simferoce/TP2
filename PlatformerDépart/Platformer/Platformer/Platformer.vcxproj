@@ -91,9 +91,11 @@
   <ItemGroup>
     <ClCompile Include="Bloc.cpp" />
     <ClCompile Include="Controle.cpp" />
+    <ClCompile Include="Ennemi.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Men.cpp" />
     <ClCompile Include="Modele.cpp" />
     <ClCompile Include="Mur.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -111,8 +113,10 @@
   <ItemGroup>
     <ClInclude Include="Bloc.h" />
     <ClInclude Include="Controle.h" />
+    <ClInclude Include="Ennemi.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Joueur.h" />
+    <ClInclude Include="Men.h" />
     <ClInclude Include="Modele.h" />
     <ClInclude Include="Mur.h" />
     <ClInclude Include="Scene.h" />

@@ -83,6 +83,20 @@ namespace platformer
 		{
 			return false;
 		}
+		if(lesEnnemis==nullptr)
+		{
+			lesEnnemis = new Men();
+		}
+		//init
+		for(int i=0;i<lesEnnemis->sizeNumberEnemies;i++)
+		{
+			if(lesEnnemis[i].GetType()==Enemy::MEN)
+			{
+				//lesEnnemis[i].
+			}
+			
+		}
+		
 		isRunning = true;
 		srand(time(nullptr));
 		return true;
