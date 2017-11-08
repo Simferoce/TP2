@@ -152,6 +152,14 @@ public:
 	static bool ChangeInfoUser(std::string info, std::string user);
 	static void Save(std::string emplacement);
 	static std::list<User> users;
+	/// <summary>
+			/// Ajouter un score à l'utilisateur.
+			/// </summary>
+		/// <param name="user">L'utilisateur.</param>
+			/// <param name="score">Le resultat.</param>
+		/// <param name="emplacement">L'emplacement</param>
+			/// <returns></returns>
+		static bool AjouterScore(std::string user, int score, std::string emplacement);
 	static void Clear();
 private:
 	static Modele* instance;

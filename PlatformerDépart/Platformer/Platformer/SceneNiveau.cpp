@@ -87,7 +87,7 @@ namespace platformer
 				background[i][j]->setPosition(i * backgroundT[0].getSize().x, 0);
 			}
 		}
-		if (!joueur.init(limiteGauche, limiteDroite, "Ressources\\Sprites\\Player\\Player.png"))
+		if (!joueur.init(limiteGauche, limiteDroite))
 		{
 			return false;
 		}
@@ -136,18 +136,27 @@ namespace platformer
 	{
 		//Deplacement
 		joueur.velocity.x = 0;
+		Joueur::AnimationEnum anime = Joueur::Attend;
 		if (inputs[Keyboard::Left] && !inputs[Keyboard::Right])
 		{
+			if(!joueur.jumped)
+				anime = Joueur::Cours;
+			joueur.sensJoueurEst = Joueur::Direction::Gauche;
 			joueur.velocity.x = -joueur.vitesse;
 		}
 		else if (inputs[Keyboard::Right] && !inputs[Keyboard::Left])
 		{
+			if (!joueur.jumped)
+				anime = Joueur::Cours;
+			joueur.sensJoueurEst = Joueur::Direction::Droite;
 			joueur.velocity.x = joueur.vitesse;
 		}
 		if(inputs[Keyboard::Space])
 		{
-			joueur.jump();
+			joueur.Jump();
 		}
+		if (joueur.jumped) anime = Joueur::AnimationEnum::Saute;
+		joueur.UpdateTexture(anime);
 		joueur.move(joueur.velocity.x, joueur.velocity.y);
 		joueur.velocity.y += gravite;
 		//Collision bloc/joueur
@@ -188,6 +197,7 @@ namespace platformer
 		if(joueur.getPosition().x - vue.getSize().x / 2 > limiteGauche && joueur.getPosition().x + vue.getSize().x / 2 < limiteDroite)
 		{
 			vue.setCenter(joueur.getPosition().x, vue.getCenter().y);
+			scoreText.setPosition(vue.getCenter().x - vue.getSize().x / 2, scoreText.getPosition().y);
 		}
 		std::vector<Gem*> toDelete;
 		for(auto iter = gems.begin(); iter != gems.end();)

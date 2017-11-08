@@ -26,6 +26,18 @@ Modele::Modele()
 {
 
 }
+bool Modele::AjouterScore(std::string user, int score, std::string emplacement)
+{
+	for (auto iter = users.begin(); iter != users.end(); ++iter)
+		{
+		if (iter->nickname == user)
+			{
+			iter->meilleurPointages.push_back(score);
+			return true;
+			}
+		}
+	return false;
+}
 std::vector<std::string> Modele::split(std::string stringASplit, char caractereQuiSplit)
 {
 	std::vector<std::string> stringSplit;
@@ -366,6 +378,17 @@ void Modele::Save(std::string emplacement)
 	for each(User user in users)
 	{
 		std::string stringToWrite = user.nickname + ":" + user.password + ":" + user.prenom + ":" + user.nom + ":" + user.courriel + ":";
+		int i = 0;
+		for(auto iter = user.meilleurPointages.begin(); iter != user.meilleurPointages.end(); ++iter)		
+		{
+			stringToWrite += std::to_string((int)(*iter));
+			if (i < user.meilleurPointages.size() - 1)
+			{
+				stringToWrite += ",";
+			}
+			i++;
+		}
+		stringToWrite += "\n";
 		stream << stringToWrite;
 	}
 }

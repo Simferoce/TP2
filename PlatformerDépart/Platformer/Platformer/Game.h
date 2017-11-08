@@ -17,11 +17,11 @@ namespace platformer
 		int testTest();
 
 		bool init();
-
+		static std::string userConnected;
 	private:
 		const int LARGEUR = 800;
 		const int HAUTEUR = 480;
-
+		;
 		RenderWindow mainWin;
 		Event event;
 	};

@@ -20,6 +20,15 @@ Controle* Controle::GetInstance()
 		instance = new Controle();
 	return instance;
 }
+bool Controle::AjouterScore(std::string user, int score, std::string emplacement)
+{
+	int ligne = 0;
+	if (UserExist(user, emplacement, ligne) && score >= 0)
+		 return Modele::AjouterScore(user, score, emplacement);
+	else
+		 return false;
+}
+
 
 std::string Controle::GetText(Modele::StringId id)
 {
