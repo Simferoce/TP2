@@ -124,25 +124,11 @@ public:
 	/// <returns></returns>
 	static bool UserExist(std::string user, std::string emplacementFichier, int& ligne);	
 	/// <summary>
-	/// Détermine si l'utilisateur existe.
-	/// </summary>
-	/// <param name="user">L'utilisateur.</param>
-	/// <param name="emplacementFichier">l'emplacement du fichier de sauvegarde.</param>
-	/// <param name="ligne">La ligne ou l'utilisateur a été trouvé, -1 si pas trouver.</param>
-	/// <returns></returns>
-	static bool UserExistModification(std::string oldUser, std::string newUser, std::string emplacementFichier, int& ligne);
-	/// <summary>
 	/// Verifier l'utilisateur.
 	/// </summary>
 	/// <param name="utilisateur">Utilisateur.</param>
 	/// <returns></returns>Vrai si l'utilisateur est correct
 	static bool VerifierUtilisateur(std::string utilisateur);
-	/// <summary>
-	/// Verifier l'utilisateur.
-	/// </summary>
-	/// <param name="utilisateur">Utilisateur.</param>
-	/// <returns></returns>Vrai si l'utilisateur est correct
-	static bool VerifierUtilisateurModification(std::string oldUser, std::string newUser);
 	/// <summary>
 	/// Verifier le mot de passe.
 	/// </summary>
@@ -163,28 +149,10 @@ public:
 	/// <param name="info">information.</param>
 	/// <param name="user">Utilisateur</param>
 	/// <returns></returns>
-	static bool ChangeInfoUser(std::string info, std::string user);	
-	/// <summary>
-	/// Sauvegarde à l'endoit spécifié.
-	/// </summary>
-	/// <param name="emplacement">L'emplacement.</param>
+	static bool ChangeInfoUser(std::string info, std::string user);
 	static void Save(std::string emplacement);
-	/// <summary>
-	/// Tous les utilisateurs
-	/// </summary>
-	static std::list<User> users;	
-	/// <summary>
-	/// Supprime les utilisateurs
-	/// </summary>
+	static std::list<User> users;
 	static void Clear();
-	/// <summary>
-	/// Ajouter un score à l'utilisateur.
-	/// </summary>
-	/// <param name="user">L'utilisateur.</param>
-	/// <param name="score">Le resultat.</param>
-	/// <param name="emplacement">L'emplacement</param>
-	/// <returns></returns>
-	static bool AjouterScore(std::string user, int score, std::string emplacement);
 private:
 	static Modele* instance;
 	//Police de base

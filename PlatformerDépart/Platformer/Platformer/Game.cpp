@@ -10,8 +10,6 @@
 
 using namespace platformer;
 
-std::string Game::userConnected = "";
-
 Game::Game()
 {
 	//On place dans le contructeur ce qui permet à la game elle-même de fonctionner
@@ -30,9 +28,10 @@ int Game::testTest()
 int Game::run()
 {
 	//deux enums et un pointeur de scene pour faire la manipulation de scène
-	Scene::scenes selecteurDeScene = Scene::scenes::LOGIN;
+	Scene::scenes selecteurDeScene = Scene::scenes::NIVEAU1;
 	Scene::scenes sceneEnRetour;
 	Scene* sceneActive = nullptr; //Pointeur de la super-classe, peut pointer sur n'imprte quelle scène
+
 	while (true)
 	{
 		//Seule condition de sortie de toute l'app
@@ -77,10 +76,9 @@ int Game::run()
 				sceneEnRetour = sceneActive->run();
 				//À la fin d'une scène, s'il y a des sauvegardes à faire
 				//C'est aussi possible de les faire là.
-				if(SceneNiveau* niveau = dynamic_cast<SceneNiveau*>(sceneActive))
+				if(dynamic_cast<SceneNiveau*>(sceneActive))
 				{
-					Controle::AjouterScore(Game::userConnected, niveau->GetScore(), Modele::GetSaveEmplacement());
-					Modele::Save(Modele::GetSaveEmplacement());
+
 				}
 			}
 			else

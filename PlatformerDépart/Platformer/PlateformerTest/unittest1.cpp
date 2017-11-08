@@ -542,20 +542,6 @@ namespace ProjetSFMLTest
 		{
 			Assert::IsTrue(Modele::AjouterCompte("Nickname4:Password:Prenom:Nom:exemple@hotmail.com"));
 		}
-		TEST_METHOD(AjouterScore)
-		{
-			Modele::Init("..\\PlateformerTest\\sauvegardeScoreTest2.txt");
-			Assert::IsTrue(Modele::AjouterScore("Nickname", 10000, "..\\PlateformerTest\\sauvegardeScoreTest2.txt"));
-			for (auto iter = Modele::users.begin(); iter != Modele::users.end(); ++iter)
-			{
-				if (iter->nickname == "Nickname")
-				{
-					bool test = std::find(iter->meilleurPointages.begin(), iter->meilleurPointages.end(), 10000) != iter->meilleurPointages.end();
-					Assert::IsTrue(test);
-				}
-			}
-			Modele::Clear();
-		}
 	};
 	TEST_CLASS(ControleTest)
 	{
@@ -622,14 +608,6 @@ namespace ProjetSFMLTest
 			bool userExist = Controle::UserExist("01", "..\\PlateformerTest\\sauvegardeTest.txt", emplacement);
 			Assert::IsTrue(!userExist);
 			Assert::IsTrue(emplacement == -1);
-		}
-		TEST_METHOD(AjoutScoreInvalide)
-		{
-			Assert::IsFalse(Controle::AjouterScore("Nickname", -1, "..\\PlateformerTest\\sauvegardeTest.txt"));
-		}
-		TEST_METHOD(AjoutUserInvalide)
-		{
-			Assert::IsFalse(Controle::AjouterScore("", 0, "..\\PlateformerTest\\sauvegardeTest.txt"));
 		}
 	};
 	TEST_CLASS(Bloc)
@@ -820,7 +798,7 @@ namespace ProjetSFMLTest
 			platformer::Bloc testBloc(blocTexture);
 			testBloc.setPosition(99, 99);
 
-			FloatRect testOther(0, 0, 200, 200);
+			FloatRect testOther(0,0,200,200);
 			platformer::Bloc::Collision testCollision = testBloc.DetermineCollision(testOther, Vector2f(0, 0.1));
 			Assert::IsTrue(testCollision == platformer::Bloc::Collision::Top);
 		}

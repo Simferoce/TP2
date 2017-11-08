@@ -192,7 +192,7 @@ void SceneCreerCompte::update()
 						if(Modele::VerifierCourriel(textboxEmail.getTexte()))
 						{
 							string ligne = textboxUsername.getTexte() + ":" + textbox.getTexte() + ":" + textboxFirstName.getTexte() + ":" +
-								textboxLastName.getTexte() + ":" + textboxEmail.getTexte()+":";
+								textboxLastName.getTexte() + ":" + textboxEmail.getTexte();
 							Modele::AjouterCompte(ligne);
 							textboxErreur.insererTexte("Compte ajoute");
 						}

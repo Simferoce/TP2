@@ -55,7 +55,6 @@ namespace platformer
 		Textbox textboxErreur; // Ce textbox agit plutôt comme un messagebox.
 		Font font;
 
-		vector<std::string> stringSplit;
 		//Nécessaire car on ne peut pas que le code ascii que Enter et Backspace ne soit jamais saisie
 		bool backspaceActif = false;
 		bool enterActif = false;

@@ -87,15 +87,6 @@ bool Controle::UserExist(std::string user, std::string emplacementFichier, int& 
 	return Modele::UserExist(user, emplacementFichier, ligne);
 }
 
-bool Controle::AjouterScore(std::string user, int score, std::string emplacement)
-{
-	int ligne = 0;
-	if (UserExist(user, emplacement, ligne) && score >= 0)
-		return Modele::AjouterScore(user, score, emplacement);
-	else
-		return false;
-}
-
 std::vector<std::string> Controle::split(std::string stringASplit, char caractereQuiSplit)
 {
 	return Modele::split(stringASplit,caractereQuiSplit);
