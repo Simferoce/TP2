@@ -78,9 +78,9 @@ int Game::run()
 				//C'est aussi possible de les faire là.
 				if (SceneNiveau* niveau = dynamic_cast<SceneNiveau*>(sceneActive))
 				{
-					-
 					Controle::AjouterScore(Game::userConnected, niveau->GetScore(), Modele::GetSaveEmplacement());
 					Modele::Save(Modele::GetSaveEmplacement());
+					userConnected = "";
 				}
 			}
 			else

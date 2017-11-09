@@ -9,13 +9,14 @@ namespace platformer
 	class SceneNiveau :
 		public Scene
 	{
+	public :
+		static const int TUILES_ROUGES = 7;
+		static const int BACKGROUNDS = 3;
+		static const int TAILLE_TUILES_X = 40;
+		static const int TAILLE_TUILES_Y = 32;
 	protected:
 		int NOMBRE_TUILES_X;
 		int NOMBRE_TUILES_Y;
-		static const int TAILLE_TUILES_X = 40;
-		static const int TAILLE_TUILES_Y = 32;
-		static const int TUILES_ROUGES = 7;
-		static const int BACKGROUNDS = 3;
 		Bloc*** grilleDeTuiles;
 		const int limiteGauche = 0;
 		const int limiteDroite = 800;

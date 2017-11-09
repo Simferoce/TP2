@@ -1,5 +1,6 @@
 #include "SceneNiveau1.h"
 #include "Mur.h"
+#include "BlocFin.h"
 
 using namespace platformer;
 
@@ -38,8 +39,16 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	grilleDeTuiles[NOMBRE_TUILES_X - 6][NOMBRE_TUILES_Y - 5] = new Mur();
 	grilleDeTuiles[NOMBRE_TUILES_X - 6][NOMBRE_TUILES_Y - 5]->setPosition((NOMBRE_TUILES_X - 6)* TAILLE_TUILES_X, TAILLE_TUILES_Y * (NOMBRE_TUILES_Y - 5));
 	
+	
+	for(int i = 1; i < NOMBRE_TUILES_Y; i++)
+	{
+		grilleDeTuiles[NOMBRE_TUILES_X - 1][NOMBRE_TUILES_Y - i - 1] = new BlocFin();
+		grilleDeTuiles[NOMBRE_TUILES_X - 1][NOMBRE_TUILES_Y - i - 1]->setPosition((NOMBRE_TUILES_X - 1)* TAILLE_TUILES_X, TAILLE_TUILES_Y * (NOMBRE_TUILES_Y - i - 1));
+	}
 	Gem gem;
 	gem.setPosition(100, 300);
+	gems.push_back(gem);
+	gem.setPosition(300, 300);
 	gems.push_back(gem);
 	//Position arbitraire pour le joueur en x, pas arbitraire en y (sur le plancher)
 	joueur.setPosition(100, window->getSize().y - TAILLE_TUILES_Y * 2);

@@ -1,2 +1,2 @@
-Nickname:Password:Prenom:Nom:exemple@hotmail.com:101,1001,10001,134,23,16,236,8723,457,1
+Nickname:Password:Prenom:Nom:exemple@hotmail.com:101,1001,10001,134,23,16,236,8723,457
 GrossePatate:Tommyfre123:Gabriel:Lord:grossePatate@hotmail.com:1073676289

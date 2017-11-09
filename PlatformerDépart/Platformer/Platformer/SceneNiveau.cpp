@@ -2,6 +2,7 @@
 #include "Mur.h"
 #include "Modele.h"
 #include <fstream>
+#include "BlocFin.h"
 
 
 namespace platformer
@@ -164,9 +165,18 @@ namespace platformer
 		{
 			for (int j = 0; j < NOMBRE_TUILES_Y; ++j)
 			{
-				if(grilleDeTuiles[i][j] != nullptr && dynamic_cast<Mur*>(grilleDeTuiles[i][j]) != nullptr)
+				if(grilleDeTuiles[i][j] != nullptr)
 				{
-					switch (grilleDeTuiles[i][j]->DetermineCollision(joueur.getGlobalBounds(), joueur.velocity))
+					Bloc::Collision collide = grilleDeTuiles[i][j]->DetermineCollision(joueur.getGlobalBounds(), joueur.velocity);
+					if(BlocFin* endingBloc = dynamic_cast<BlocFin*>(grilleDeTuiles[i][j]))
+					{
+						if (!(collide == Bloc::CollisionWithNoDeterminateSide || collide == Bloc::None))
+						{
+							isRunning = false;
+							transitionVersScene = Scene::scenes::TITRE;
+						}
+					}
+					switch (collide)
 					{
 					case Bloc::Collision::None:
 						break;

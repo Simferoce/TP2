@@ -90,6 +90,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bloc.cpp" />
+    <ClCompile Include="BlocFin.cpp" />
     <ClCompile Include="Controle.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Gem.cpp" />
@@ -112,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bloc.h" />
+    <ClInclude Include="BlocFin.h" />
     <ClInclude Include="Controle.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gem.h" />
