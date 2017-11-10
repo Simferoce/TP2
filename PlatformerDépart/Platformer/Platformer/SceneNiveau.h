@@ -3,6 +3,7 @@
 #include "Joueur.h"
 #include "Bloc.h"
 #include "Gem.h"
+#include "Enemy.h"
 
 namespace platformer
 {
@@ -31,6 +32,8 @@ namespace platformer
 		/// Trois backgrounds superposés pour le plus bel effet visuel
 		/// </summary>
 		Texture backgroundT[BACKGROUNDS];
+		Enemy* enemies;
+		int nbEnemies = 3;
 		Sprite*** background;
 		int nbreBackground;
 		/// <summary>

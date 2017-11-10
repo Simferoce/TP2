@@ -44,6 +44,7 @@ namespace platformer
 			delete[] background[i];
 		}
 		delete[] background;
+		delete[] enemies;
 	}
 	Scene::scenes SceneNiveau::run()
 	{
@@ -87,6 +88,12 @@ namespace platformer
 					background[i][j]->setTextureRect(sf::IntRect(background[i][j]->getGlobalBounds().width, 0, -background[i][j]->getGlobalBounds().width, background[i][j]->getGlobalBounds().height));
 				background[i][j]->setPosition(i * backgroundT[0].getSize().x, 0);
 			}
+		}
+		//test enemy
+		enemies = new Enemy[nbEnemies];
+		if(!enemies[0].init(limiteGauche,limiteDroite))
+		{
+			return false;
 		}
 		if (!joueur.init(limiteGauche, limiteDroite))
 		{
@@ -203,6 +210,74 @@ namespace platformer
 				}
 			}
 		}
+		//Enemy
+		enemies[0].velocity.x = 0;
+		Enemy::AnimationEnum animeEnemy = Enemy::Attend;
+		if (inputs[Keyboard::A] && !inputs[Keyboard::D])
+		{
+			if (!enemies[0].jumped)
+				animeEnemy = Enemy::Cours;
+			enemies[0].sensJoueurEst = Enemy::Direction::Gauche;
+			enemies[0].velocity.x = -enemies[0].vitesse;
+		}
+		else if (inputs[Keyboard::D] && !inputs[Keyboard::A])
+		{
+			if (!enemies[0].jumped)
+				animeEnemy = Enemy::Cours;
+			enemies[0].sensJoueurEst = Enemy::Direction::Droite;
+			enemies[0].velocity.x = enemies[0].vitesse;
+		}
+		if (inputs[Keyboard::Q])
+		{
+			enemies[0].Jump();
+		}
+		if (enemies[0].jumped) animeEnemy = Enemy::AnimationEnum::Saute;
+		enemies[0].UpdateTexture(animeEnemy);
+		enemies[0].move(enemies[0].velocity.x, enemies[0].velocity.y);
+		enemies[0].velocity.y += gravite;
+		//Collision bloc/enemy
+		for (int i = 0; i < NOMBRE_TUILES_X; ++i)
+		{
+			for (int j = 0; j < NOMBRE_TUILES_Y; ++j)
+			{
+				if (grilleDeTuiles[i][j] != nullptr)
+				{
+					Bloc::Collision collide = grilleDeTuiles[i][j]->DetermineCollision(enemies[0].getGlobalBounds(), enemies[0].velocity);
+					if (BlocFin* endingBloc = dynamic_cast<BlocFin*>(grilleDeTuiles[i][j]))
+					{
+						if (!(collide == Bloc::CollisionWithNoDeterminateSide || collide == Bloc::None))
+						{
+							isRunning = false;
+							transitionVersScene = Scene::scenes::TITRE;
+						}
+					}
+					switch (collide)
+					{
+					case Bloc::Collision::None:
+						break;
+					case Bloc::Collision::Bot:
+						enemies[0].velocity.y = 0;
+						enemies[0].setPosition(enemies[0].getPosition().x, grilleDeTuiles[i][j]->getPosition().y + grilleDeTuiles[i][j]->getGlobalBounds().height);
+						break;
+					case Bloc::Collision::Top:
+						enemies[0].velocity.y = 0;
+						enemies[0].setPosition(enemies[0].getPosition().x, grilleDeTuiles[i][j]->getPosition().y - enemies[0].getGlobalBounds().height);
+						enemies[0].jumped = false;
+						break;
+					case Bloc::Collision::Left:
+						enemies[0].velocity.x = 0;
+						enemies[0].setPosition(grilleDeTuiles[i][j]->getPosition().x - enemies[0].getGlobalBounds().width, enemies[0].getPosition().y);
+						break;
+					case Bloc::Collision::Right:
+						enemies[0].velocity.x = 0;
+						enemies[0].setPosition(grilleDeTuiles[i][j]->getPosition().x + grilleDeTuiles[i][j]->getGlobalBounds().width, enemies[0].getPosition().y);
+						break;
+					case Bloc::Collision::CollisionWithNoDeterminateSide:
+						break;
+					}
+				}
+			}
+		}
 		//Vue
 		if(joueur.getPosition().x - vue.getSize().x / 2 > limiteGauche && joueur.getPosition().x + vue.getSize().x / 2 < limiteDroite)
 		{
@@ -249,6 +324,7 @@ namespace platformer
 		for(Gem gem : gems)
 			mainWin->draw(gem);
 		mainWin->draw(joueur);
+		mainWin->draw(enemies[0]);
 		mainWin->draw(scoreText);
 	}
 	int SceneNiveau::GetScore()

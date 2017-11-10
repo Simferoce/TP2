@@ -1,49 +1,49 @@
-#include "Joueur.h"
+#include "Enemy.h"
 
 using namespace platformer;
-const std::string Joueur::texturePath = "Ressources\\Sprites\\Player\\Player.png";
-int* Joueur::nbreImageParAnime = new int[nbreAnime]{ 1,10,11,11,11 };
+const std::string Enemy::texturePath = "Ressources\\Sprites\\MonsterA\\Idle.png";
+int* Enemy::nbreImageParAnime = new int[nbreAnime] { 1, 10, 11, 11, 11 };
 
-Joueur::Joueur() :Personnage(texturePath,nbreImageParAnime), velocity(0,0)
+Enemy::Enemy() :Personnage(texturePath, nbreImageParAnime), velocity(0, 0)
 {
 }
 
-Joueur::~Joueur()
+Enemy::~Enemy()
 {
 	//delete[] anime;
 }
 
-bool Joueur::init(const int limiteGauche, const int limiteDroite)
+bool Enemy::init(const int limiteGauche, const int limiteDroite)
 {
-	Personnage::init(limiteGauche,limiteDroite);
+	Personnage::init(limiteGauche, limiteDroite);
 	anime = new Animation[nbreAnime];
 	sensJoueurEst = Face;
-	anime[Joueur::Attend] = Animation(nbreImageParAnime[Joueur::Attend], Joueur::Attend,TAILLE_RECT,TAILLE_RECT);
-	anime[Joueur::Cours] = Animation(nbreImageParAnime[Joueur::Cours], Joueur::Cours, TAILLE_RECT, TAILLE_RECT);
-	anime[Joueur::Saute] = Animation(nbreImageParAnime[Joueur::Saute], Joueur::Saute, TAILLE_RECT, TAILLE_RECT);
-	anime[Joueur::Celebre] = Animation(nbreImageParAnime[Joueur::Celebre], Joueur::Celebre, TAILLE_RECT, TAILLE_RECT);
-	anime[Joueur::Meurt] = Animation(nbreImageParAnime[Joueur::Meurt], Joueur::Meurt, TAILLE_RECT, TAILLE_RECT);
+	anime[Enemy::Attend] = Animation(nbreImageParAnime[Enemy::Attend], Enemy::Attend, TAILLE_RECT, TAILLE_RECT);
+	anime[Enemy::Cours] = Animation(nbreImageParAnime[Enemy::Cours], Enemy::Cours, TAILLE_RECT, TAILLE_RECT);
+	anime[Enemy::Saute] = Animation(nbreImageParAnime[Enemy::Saute], Enemy::Saute, TAILLE_RECT, TAILLE_RECT);
+	anime[Enemy::Celebre] = Animation(nbreImageParAnime[Enemy::Celebre], Enemy::Celebre, TAILLE_RECT, TAILLE_RECT);
+	anime[Enemy::Meurt] = Animation(nbreImageParAnime[Enemy::Meurt], Enemy::Meurt, TAILLE_RECT, TAILLE_RECT);
 	animationActive = Attend;
 	animateur = 0;
 	nbreFrameParImageAnimation = 3.0f;
-	ChangerTexture(Joueur::AnimationEnum::Cours, 1, Droite);
+	ChangerTexture(Enemy::AnimationEnum::Cours, 1, Droite);
 
 	return true;
 }
 
-void platformer::Joueur::Jump()
-{	
-	if(!jumped) velocity.y = -9;
+void platformer::Enemy::Jump()
+{
+	if (!jumped) velocity.y = -9;
 	jumped = true;
 }
 
 
-void platformer::Joueur::UpdateTexture(const int animation)
+void platformer::Enemy::UpdateTexture(const int animation)
 {
 
-	if(animation == animationActive)
+	if (animation == animationActive)
 	{
-		if(jumped)
+		if (jumped)
 		{
 			nbreFrameParImageAnimation = 1.0f;
 			ChangerTexture(AnimationEnum::Saute, animateur / (int)nbreFrameParImageAnimation % (nbreImageParAnime[AnimationEnum::Saute]) + 1, sensJoueurEst);
@@ -67,10 +67,10 @@ void platformer::Joueur::UpdateTexture(const int animation)
 	}
 }
 
-void Joueur::move(const float offSetX, const float offSetY)
+void Enemy::move(const float offSetX, const float offSetY)
 {
 
-	Sprite::move(offSetX,offSetY);
+	Sprite::move(offSetX, offSetY);
 	//Test sur les limites de l'écran
 	if (getPosition().x < limiteGauche)
 	{

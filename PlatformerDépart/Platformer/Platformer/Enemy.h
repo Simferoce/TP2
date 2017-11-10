@@ -24,17 +24,17 @@ using namespace sf;
 namespace platformer
 {
 	class Bloc;
-	class Joueur : public Personnage
+	class Enemy : public Personnage
 	{
 
 	public:
 		enum AnimationEnum { Attend, Cours, Saute, Celebre, Meurt };
 		AnimationEnum animationActive;
-		Joueur();
-		~Joueur();
+		Enemy();
+		~Enemy();
 		virtual void move(const float offSetX, const float offSetY) override;
 		virtual bool init(const int limiteGauche, const int limiteDroite) override;
-		void Jump();		
+		void Jump();
 		/// <summary>
 		/// Changer la Texture. Peut lancer exception de type invalid_argument si l'index est supérieur ou égale au nombre d'images.
 		/// </summary>
@@ -51,4 +51,3 @@ namespace platformer
 		static const int nbreAnime = 5;
 	};
 }
-
