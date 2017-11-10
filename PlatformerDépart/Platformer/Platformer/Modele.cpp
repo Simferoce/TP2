@@ -4,6 +4,13 @@
 #include <string>
 #include <algorithm>
 #include "Scene.h"
+#include "SceneTitre.h"
+#include "SceneLogin.h"
+#include "SceneGestionCompte.h"
+#include "SceneNiveau1.h"
+#include "SceneScore.h"
+#include "SceneCreerCompte.h"
+#include "SceneModifierCompte.h"
 
 Modele* Modele::instance = nullptr;
 std::list<User> Modele::users;
@@ -396,6 +403,28 @@ void Modele::Save(std::string emplacement)
 void Modele::Clear()
 {
 	users.clear();
+}
+platformer::Scene * Modele::ChangerScene(platformer::Scene::scenes sceneAChangerPour)
+{
+	switch (sceneAChangerPour)
+	{
+	case platformer::Scene::scenes::TITRE:
+		return new platformer::SceneTitre();
+	case platformer::Scene::scenes::LOGIN:
+		return new platformer::SceneLogin();
+	case platformer::Scene::scenes::GESTIONCOMPTE:
+		return new platformer::SceneGestionCompte();
+	case platformer::Scene::scenes::NIVEAU1:
+		return new platformer::SceneNiveau1();
+	case platformer::Scene::scenes::SCORE:
+		return new platformer::SceneScore();
+	case platformer::Scene::scenes::CREERCOMPTE:
+		return new platformer::SceneCreerCompte();
+	case platformer::Scene::scenes::MODIFIERCOMPTE:
+		return new platformer::SceneModifierCompte();
+	default:
+		throw invalid_argument("Scene non implementée");
+	}
 }
 bool Modele::AjouterCompte(std::string infos)
 {

@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include "Modele.h"
+#include "Scene.h"
+
 class Controle
 {
 	static Controle* instance;
@@ -69,13 +71,12 @@ public:
 	/// <returns></returns>
 	static bool UserExist(std::string user, std::string emplacementFichier, int& ligne);
 	/// <summary>
-			/// Ajouter un score à l'utilisateur.
-			/// </summary>
-			/// <param name="user">L'utilisateur.</param>
-			/// <param name="score">Le resultat.</param>
-			/// <param name="emplacement">L'emplacement</param>
-			/// <returns></returns>
-		static bool AjouterScore(std::string user, int score, std::string emplacement);
-
+	/// Ajouter un score à l'utilisateur.
+	/// </summary>
+	/// <param name="user">L'utilisateur.</param>
+	/// <param name="score">Le resultat.</param>
+	/// <param name="emplacement">L'emplacement</param>
+	/// <returns>Si le score a été ajouté.</returns>
+	static bool AjouterScore(std::string user, int score, std::string emplacement);
 };
 
