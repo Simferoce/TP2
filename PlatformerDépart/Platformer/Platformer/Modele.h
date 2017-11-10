@@ -7,6 +7,7 @@
 #include <SFML/Graphics/Text.hpp>
 #include <string>
 #include "User.h"
+#include "Scene.h"
 
 
 class Controle;
@@ -40,8 +41,18 @@ public:
 	static const int MAX_PASSWORD_LENGTH = 15;
 	static const int MIN_PASSWORD_LENGTH = 5;
 	static sf::Text CreateTextLine(std::string text, float posX, float posY);
+	static std::list<User> users;	
+	/// <summary>
+	/// Ajoute un compte
+	/// </summary>
+	/// <param name="infos">L'information du compte</param>
+	/// <returns>Si le compte a été ajouté.</returns>
 	static bool AjouterCompte(std::string infos);
-	static Modele* GetInstance();	
+	/// <summary>
+	/// Gets the instance.
+	/// </summary>
+	/// <returns>The instance</returns>
+	static Modele* GetInstance();
 	/// <summary>
 	/// Initialise l'instance.
 	/// </summary>
@@ -149,9 +160,13 @@ public:
 	/// <param name="info">information.</param>
 	/// <param name="user">Utilisateur</param>
 	/// <returns></returns>
-	static bool ChangeInfoUser(std::string info, std::string user);
+	static bool ChangeInfoUser(std::string info, std::string user);	
+	/// <summary>
+	/// Sauvegarde les données à l'endroit indiquée.
+	/// </summary>
+	/// <param name="emplacement">L'emplacement.</param>
 	static void Save(std::string emplacement);
-	static std::list<User> users;
+
 	/// <summary>
 			/// Ajouter un score à l'utilisateur.
 			/// </summary>
@@ -159,8 +174,17 @@ public:
 			/// <param name="score">Le resultat.</param>
 		/// <param name="emplacement">L'emplacement</param>
 			/// <returns></returns>
-		static bool AjouterScore(std::string user, int score, std::string emplacement);
-	static void Clear();
+	static bool AjouterScore(std::string user, int score, std::string emplacement);	
+	/// <summary>
+	/// Efface tous les données virtuelles des utilisateurs.
+	/// </summary>
+	static void Clear();	
+	/// <summary>
+	/// Change la scene.
+	/// </summary>
+	/// <param name="sceneAChangerPour">La scene a changer pour.</param>
+	/// <returns>La nouvelle scene.</returns>
+	static platformer::Scene* ChangerScene(platformer::Scene::scenes sceneAChangerPour);
 private:
 	static Modele* instance;
 	//Police de base

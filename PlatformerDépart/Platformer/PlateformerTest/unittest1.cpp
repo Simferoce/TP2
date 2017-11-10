@@ -9,6 +9,9 @@
 #include "../Platformer/SceneCreerCompte.h"
 #include "../Platformer/Bloc.h"
 #include "../Platformer/User.h"
+#include "../Platformer/Scene.h"
+#include "../Platformer/SceneTitre.h"
+#include "../Platformer/SceneNiveau1.h"
 //Il faut que ce dernier lien soit aussi dans 
 //[right-click sur projet]\éditeur de liens\propriétés\entrées\dépendances additionnelles
 //sinon il y aura une erreur de linkage
@@ -555,6 +558,16 @@ namespace ProjetSFMLTest
 			}
 		}
 		Modele::Clear();
+		}
+		TEST_METHOD(ChangerScene)
+		{
+			platformer::Scene* test = Modele::ChangerScene(platformer::Scene::scenes::NIVEAU1);
+			bool test3;
+			if (platformer::SceneNiveau1* test2 = dynamic_cast<platformer::SceneNiveau1*>(test))
+				test3 = true;
+			else
+				test3 = false;
+			Assert::IsTrue(test3);
 		}
 	};
 	TEST_CLASS(ControleTest)
