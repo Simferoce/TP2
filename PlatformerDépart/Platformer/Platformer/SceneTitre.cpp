@@ -70,7 +70,7 @@ void SceneTitre::getInputs()
 			{
 				enterActif = true;
 				isRunning = false;
-				SceneLogin::etat = SceneLogin::etatLogin::JEU;
+				//SceneLogin::etat = SceneLogin::etatLogin::JEU;
 				transitionVersScene = Scene::scenes::LOGIN;
 			}
 			else if (event.key.code == Keyboard::Num1 || event.key.code == Keyboard::Numpad1)

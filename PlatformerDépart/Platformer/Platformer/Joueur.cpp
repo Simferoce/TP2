@@ -2,10 +2,11 @@
 
 using namespace platformer;
 const std::string Joueur::texturePath = "Ressources\\Sprites\\Player\\Player.png";
-int* Joueur::nbreImageParAnime = new int[nbreAnime]{ 1,10,11,11,11 };
+int Joueur::nbreImageParAnime[nbreAnime] { 1,10,11,11,11 };
 
 Joueur::Joueur() :Personnage(texturePath,nbreImageParAnime), velocity(0,0)
 {
+
 }
 
 Joueur::~Joueur()
@@ -65,6 +66,11 @@ void platformer::Joueur::UpdateTexture(const int animation)
 		ChangerTexture(animation, 1, sensJoueurEst);
 		animationActive = (AnimationEnum)animation;
 	}
+}
+
+void platformer::Joueur::Decharger()
+{
+	delete[] anime;
 }
 
 void Joueur::move(const float offSetX, const float offSetY)

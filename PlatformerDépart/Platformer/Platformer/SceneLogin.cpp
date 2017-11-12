@@ -4,6 +4,8 @@
 
 using namespace platformer;
 
+SceneLogin::etatLogin SceneLogin::etat = SceneLogin::JEU;
+
 SceneLogin::SceneLogin()
 {
 	

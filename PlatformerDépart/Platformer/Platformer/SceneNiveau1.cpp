@@ -1,6 +1,9 @@
 #include "SceneNiveau1.h"
 #include "Mur.h"
 #include "BlocFin.h"
+#include "SpawnerMen.h"
+#include "SpawnerMen2.h"
+#include "SpawnerZombie.h"
 
 using namespace platformer;
 
@@ -52,9 +55,24 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	gems.push_back(gem);
 	//Position arbitraire pour le joueur en x, pas arbitraire en y (sur le plancher)
 	joueur.setPosition(100, window->getSize().y - TAILLE_TUILES_Y * 2);
-	enemies[0]->setPosition(400, window->getSize().y - TAILLE_TUILES_Y * 2);
-	enemies[2]->setPosition(800, window->getSize().y - TAILLE_TUILES_Y * 2);
-	enemies[1]->setPosition(1200, window->getSize().y - TAILLE_TUILES_Y * 2);
+	grilleDeTuiles[10][NOMBRE_TUILES_Y - 2] = new SpawnerMen();
+	grilleDeTuiles[10][NOMBRE_TUILES_Y - 2]->setPosition((10)* TAILLE_TUILES_X, TAILLE_TUILES_Y * (NOMBRE_TUILES_Y - 2));
+	grilleDeTuiles[20][NOMBRE_TUILES_Y - 2] = new SpawnerMen2();
+	grilleDeTuiles[20][NOMBRE_TUILES_Y - 2]->setPosition((20)* TAILLE_TUILES_X, TAILLE_TUILES_Y * (NOMBRE_TUILES_Y - 2));
+	grilleDeTuiles[30][NOMBRE_TUILES_Y - 2] = new SpawnerZombie();
+	grilleDeTuiles[30][NOMBRE_TUILES_Y - 2]->setPosition((30)* TAILLE_TUILES_X, TAILLE_TUILES_Y * (NOMBRE_TUILES_Y - 2));
+	enemies[0] = dynamic_cast<SpawnerMen*>(grilleDeTuiles[10][NOMBRE_TUILES_Y - 2])->Spawn();
+	enemies[2] = dynamic_cast<SpawnerMen2*>(grilleDeTuiles[20][NOMBRE_TUILES_Y - 2])->Spawn();
+	enemies[1] = dynamic_cast<SpawnerZombie*>(grilleDeTuiles[30][NOMBRE_TUILES_Y - 2])->Spawn();
+	for (int i = 0; i<nbEnemies; i++)
+	{
+		if (!enemies[i]->init(limiteGauche, limiteDroite))
+		{
+			return false;
+		}
+		enemies[i]->directionGauche = true;
+		enemies[i]->tempsDirection = 0;
+	}
 	return true;
 }
 

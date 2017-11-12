@@ -112,6 +112,10 @@
     <ClCompile Include="SceneLogin.cpp" />
     <ClCompile Include="SceneScore.cpp" />
     <ClCompile Include="SceneTitre.cpp" />
+    <ClCompile Include="Spawner.cpp" />
+    <ClCompile Include="SpawnerMen.cpp" />
+    <ClCompile Include="SpawnerMen2.cpp" />
+    <ClCompile Include="SpawnerZombie.cpp" />
     <ClCompile Include="Testeur.cpp" />
     <ClCompile Include="Textbox.cpp" />
     <ClCompile Include="User.cpp" />
@@ -124,6 +128,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gem.h" />
+    <ClInclude Include="IFactory.h" />
     <ClInclude Include="Joueur.h" />
     <ClInclude Include="Men.h" />
     <ClInclude Include="Men2.h" />
@@ -140,6 +145,10 @@
     <ClInclude Include="SceneLogin.h" />
     <ClInclude Include="SceneScore.h" />
     <ClInclude Include="SceneTitre.h" />
+    <ClInclude Include="Spawner.h" />
+    <ClInclude Include="SpawnerMen.h" />
+    <ClInclude Include="SpawnerMen2.h" />
+    <ClInclude Include="SpawnerZombie.h" />
     <ClInclude Include="Testeur.h" />
     <ClInclude Include="Textbox.h" />
     <ClInclude Include="User.h" />

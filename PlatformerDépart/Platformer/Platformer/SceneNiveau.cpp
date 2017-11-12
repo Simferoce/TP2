@@ -44,10 +44,6 @@ namespace platformer
 			delete[] background[i];
 		}
 		delete[] background;
-		for(int i=0;i<nbEnemies;i++)
-		{
-			delete enemies[i];
-		}
 	}
 	Scene::scenes SceneNiveau::run()
 	{
@@ -93,15 +89,7 @@ namespace platformer
 			}
 		}
 		//initialisation des ennemis
-		for(int i=0;i<nbEnemies;i++)
-		{
-			if (!enemies[i]->init(limiteGauche, limiteDroite))
-			{
-				return false;
-			}
-			enemies[i]->directionGauche = true;
-			enemies[i]->tempsDirection = 0;
-		}
+
 		delaiDeuxiemeAttaqueZombie = 0;
 		if (!joueur.init(limiteGauche, limiteDroite))
 		{
@@ -112,6 +100,15 @@ namespace platformer
 		isRunning = true;
 		srand(time(nullptr));
 		return true;
+	}
+	void SceneNiveau::Decharger()
+	{
+		for(int  i=0; i < nbEnemies; ++i)
+		{
+			enemies[i]->Decharger();
+			delete enemies[i];
+		}
+		joueur.Decharger();
 	}
 	void SceneNiveau::getInputs()
 	{

@@ -2,7 +2,7 @@
 
 using namespace platformer;
 //const std::string Enemy::texturePath = "Ressources\\Sprites\\MonsterA\\Idle.png";
-int* Enemy::nbreImageParAnime = new int[nbreAnime] { 1, 10, 11, 11, 11 };
+int Enemy::nbreImageParAnime[nbreAnime] { 1, 10, 11, 11, 11 };
 
 
 Enemy::Enemy(std::string texturePath) :Personnage(texturePath, nbreImageParAnime), velocity(0, 0)
@@ -48,6 +48,10 @@ void platformer::Enemy::Jump()
 
 void platformer::Enemy::UpdateTexture(const int animation)
 {
+}
+void platformer::Enemy::Decharger()
+{
+	delete[] anime;
 }
 /// <summary>
 /// Deplace le personnage

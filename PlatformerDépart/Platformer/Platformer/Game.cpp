@@ -84,6 +84,7 @@ int Game::run()
 					Controle::AjouterScore(Game::userConnected, niveau->GetScore(), Modele::GetSaveEmplacement());
 					Modele::Save(Modele::GetSaveEmplacement());
 					userConnected = "";
+					niveau->Decharger();
 				}
 			}
 			else

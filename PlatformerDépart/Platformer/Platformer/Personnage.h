@@ -82,6 +82,7 @@ namespace platformer
 		/// <param name="direction">The direction.</param>
 		virtual void ChangerTexture(const int animation, const int index, const Direction direction);
 		virtual void UpdateTexture(const int animation);
+		virtual void Decharger() = 0;
 		Vector2f velocity;
 		bool jumped = false;
 		float vitesse = 3;

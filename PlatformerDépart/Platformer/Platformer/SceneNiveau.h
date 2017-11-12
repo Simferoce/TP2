@@ -36,7 +36,7 @@ namespace platformer
 		Texture backgroundT[BACKGROUNDS];
 		//Enemy* enemies;
 		int nbEnemies = 3;
-		Enemy* enemies[3] = { new Men(),new Zombie(), new Men2() };
+		Enemy* enemies[3] = { nullptr,nullptr,nullptr };
 		Sprite*** background;
 		int nbreBackground;
 		/// <summary>
@@ -51,6 +51,7 @@ namespace platformer
 
 		Scene::scenes run();
 		virtual bool init(RenderWindow * const window);		
+		virtual void Decharger();
 		/// <summary>
 		/// Recupère les entrées de utilisateur. Méthode incomplète.
 		/// </summary>

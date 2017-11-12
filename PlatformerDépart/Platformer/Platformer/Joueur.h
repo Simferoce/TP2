@@ -42,13 +42,14 @@ namespace platformer
 		/// <param name="index">The index.</param>
 		/// <param name="direction">The direction.</param>
 		virtual void UpdateTexture(const int animation) override;
+		virtual void Decharger() override;
 		Vector2f velocity;
 		bool jumped = false;
 		float vitesse = 3;
 	private:
 		static const std::string texturePath;
-		static int* nbreImageParAnime;
 		static const int nbreAnime = 5;
+		static int nbreImageParAnime[nbreAnime];
 	};
 }
 

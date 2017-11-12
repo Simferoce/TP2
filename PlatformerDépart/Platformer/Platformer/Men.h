@@ -3,7 +3,8 @@
 namespace platformer
 {
 	class Bloc;
-	class Men:public Enemy
+	class Men:
+		public Enemy
 	{
 		static const std::string texturePath;
 	public:
