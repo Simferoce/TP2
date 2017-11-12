@@ -10,7 +10,7 @@ Joueur::Joueur() :Personnage(texturePath,nbreImageParAnime), velocity(0,0)
 
 Joueur::~Joueur()
 {
-	//delete[] anime;
+
 }
 
 bool Joueur::init(const int limiteGauche, const int limiteDroite)

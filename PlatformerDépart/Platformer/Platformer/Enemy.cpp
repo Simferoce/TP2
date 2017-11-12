@@ -1,18 +1,24 @@
 #include "Enemy.h"
 
 using namespace platformer;
-const std::string Enemy::texturePath = "Ressources\\Sprites\\MonsterA\\Idle.png";
+//const std::string Enemy::texturePath = "Ressources\\Sprites\\MonsterA\\Idle.png";
 int* Enemy::nbreImageParAnime = new int[nbreAnime] { 1, 10, 11, 11, 11 };
 
-Enemy::Enemy() :Personnage(texturePath, nbreImageParAnime), velocity(0, 0)
+
+Enemy::Enemy(std::string texturePath) :Personnage(texturePath, nbreImageParAnime), velocity(0, 0)
 {
 }
 
 Enemy::~Enemy()
 {
-	//delete[] anime;
-}
 
+}
+/// <summary>
+/// Initialise.
+/// </summary>
+/// <param name="limiteGauche">limite gauche.</param>
+/// <param name="limiteDroite">limite droite.</param>
+/// <returns></returns>
 bool Enemy::init(const int limiteGauche, const int limiteDroite)
 {
 	Personnage::init(limiteGauche, limiteDroite);
@@ -30,7 +36,9 @@ bool Enemy::init(const int limiteGauche, const int limiteDroite)
 
 	return true;
 }
-
+/// <summary>
+/// Fait sauter l'ennemi
+/// </summary>
 void platformer::Enemy::Jump()
 {
 	if (!jumped) velocity.y = -9;
@@ -40,36 +48,14 @@ void platformer::Enemy::Jump()
 
 void platformer::Enemy::UpdateTexture(const int animation)
 {
-
-	if (animation == animationActive)
-	{
-		if (jumped)
-		{
-			nbreFrameParImageAnimation = 1.0f;
-			ChangerTexture(AnimationEnum::Saute, animateur / (int)nbreFrameParImageAnimation % (nbreImageParAnime[AnimationEnum::Saute]) + 1, sensJoueurEst);
-			if (animateur / (int)nbreFrameParImageAnimation % (nbreImageParAnime[AnimationEnum::Saute]) + 1 < 5) animateur++;
-		}
-		else
-		{
-			nbreFrameParImageAnimation = 3.0f;
-			ChangerTexture(animation, animateur / (int)nbreFrameParImageAnimation % (nbreImageParAnime[animation]) + 1, sensJoueurEst);
-			animateur++;
-			if (animateur >= nbreImageParAnime[animation] * nbreFrameParImageAnimation)
-				animateur = 0;
-		}
-	}
-	else
-	{
-		nbreFrameParImageAnimation = 3.0f;
-		animateur = 0;
-		ChangerTexture(animation, 1, sensJoueurEst);
-		animationActive = (AnimationEnum)animation;
-	}
 }
-
+/// <summary>
+/// Deplace le personnage
+/// </summary>
+/// <param name="offSetX">off set x.</param>
+/// <param name="offSetY">off set y.</param>
 void Enemy::move(const float offSetX, const float offSetY)
 {
-
 	Sprite::move(offSetX, offSetY);
 	//Test sur les limites de l'écran
 	if (getPosition().x < limiteGauche)

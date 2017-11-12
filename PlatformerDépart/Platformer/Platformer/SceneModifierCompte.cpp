@@ -1,6 +1,7 @@
 #include "SceneModifierCompte.h"
 #include <algorithm>
 #include <fstream>
+#include "Game.h"
 #include "Modele.h"
 
 using namespace platformer;
@@ -43,7 +44,7 @@ bool SceneModifierCompte::init(RenderWindow * const window)
 	text6 = Modele::CreateTextLine(texteCourriel, 0, 300);
 	//Les positions sont arbitraires, obtenus par essai et erreur.
 	//par rapport au fond d'écran
-	vector<std::string> stringSplit = Modele::GetUserInfo("GrossePatate");
+	vector<std::string> stringSplit = Modele::GetUserInfo(Game::userConnected);
 	textboxUsername.init(480, 24, Vector2f(430, 110), font);
 	textboxUsername.insererTexte(stringSplit[Modele::PositonInformation::Nickname]);
 	textbox.init(480, 24, Vector2f(430, 160), font);

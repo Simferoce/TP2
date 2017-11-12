@@ -1,7 +1,7 @@
 #include "SceneLogin.h"
 #include <algorithm>
 #include "Controle.h"
-#include "Game.h"
+
 using namespace platformer;
 
 SceneLogin::SceneLogin()
@@ -130,9 +130,23 @@ void SceneLogin::update()
 		Modele::ResultatAuthentification resultat = Controle::AuthentifierUtilisateur(textboxUsername.getTexte(), textbox.getTexte(), ligne, Modele::GetSaveEmplacement());
 		if (Modele::ResultatAuthentification::Reussi == resultat)
 		{
+			//Game::userEntre = textboxUsername.getTexte();
+			if(etat==etatLogin::JEU)
+			{
+				transitionVersScene = Scene::scenes::NIVEAU1;
+				isRunning = false;
+			}
+			else if(etat==etatLogin::EFFACER)
+			{
+				transitionVersScene = Scene::scenes::EFFACERCOMPTE;
+				isRunning = false;
+			}
+			else if(etat == etatLogin::MODIFIER)
+			{
+				transitionVersScene = Scene::scenes::MODIFIERCOMPTE;
+				isRunning = false;
+			}
 			Game::userConnected = textboxUsername.getTexte();
-			transitionVersScene = Scene::scenes::NIVEAU1;
-			isRunning = false;
 		}
 		else 
 		{

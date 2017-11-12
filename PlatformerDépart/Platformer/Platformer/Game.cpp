@@ -7,6 +7,7 @@
 #include "SceneTitre.h"
 #include "SceneScore.h"
 #include "SceneModifierCompte.h"
+#include "SceneEffacerCompte.h"
 
 using namespace platformer;
 std::string Game::userConnected = "";
@@ -28,7 +29,7 @@ int Game::testTest()
 int Game::run()
 {
 	//deux enums et un pointeur de scene pour faire la manipulation de scène
-	Scene::scenes selecteurDeScene = Scene::scenes::TITRE;
+	Scene::scenes selecteurDeScene = Scene::scenes::NIVEAU1;
 	Scene::scenes sceneEnRetour;
 	Scene* sceneActive = nullptr; //Pointeur de la super-classe, peut pointer sur n'imprte quelle scène
 	while (true)
@@ -47,7 +48,32 @@ int Game::run()
 			//Vous allez ajouter d'autre scènes, alors elles devront
 			//être ajoutées ici
 			mainWin.setView(mainWin.getDefaultView());
-			sceneActive = Modele::ChangerScene(selecteurDeScene);
+			switch (selecteurDeScene)
+			{
+			case Scene::scenes::TITRE:
+				sceneActive = new SceneTitre();
+				break;
+			case Scene::scenes::LOGIN:
+				sceneActive = new SceneLogin();
+				break;
+			case Scene::scenes::GESTIONCOMPTE:
+				sceneActive = new SceneGestionCompte();
+				break;
+			case Scene::scenes::NIVEAU1:
+				sceneActive = new SceneNiveau1();
+				break;
+			case Scene::scenes::SCORE:
+				sceneActive = new SceneScore();
+				break;
+			case Scene::scenes::CREERCOMPTE:
+				sceneActive = new SceneCreerCompte();
+				break;
+			case Scene::scenes::MODIFIERCOMPTE:
+				sceneActive = new SceneModifierCompte();
+				break;
+			case Scene::scenes::EFFACERCOMPTE:
+				sceneActive = new SceneEffacerCompte();
+			}
 			if (sceneActive->init(&mainWin))
 			{
 				sceneEnRetour = sceneActive->run();

@@ -1,5 +1,6 @@
 #include "Controle.h"
 #include "SceneTitre.h"
+#include "SceneLogin.h"
 using namespace platformer;
 
 SceneTitre::SceneTitre()
@@ -69,6 +70,7 @@ void SceneTitre::getInputs()
 			{
 				enterActif = true;
 				isRunning = false;
+				SceneLogin::etat = SceneLogin::etatLogin::JEU;
 				transitionVersScene = Scene::scenes::LOGIN;
 			}
 			else if (event.key.code == Keyboard::Num1 || event.key.code == Keyboard::Numpad1)

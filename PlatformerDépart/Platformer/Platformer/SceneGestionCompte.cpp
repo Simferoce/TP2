@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <fstream>
 #include "Modele.h"
+#include "SceneLogin.h"
 
 using namespace platformer;
 
@@ -137,11 +138,21 @@ void SceneGestionCompte::getInputs()
 			{
 				boutonMenu[Keyboard::Key::Num2] = true;
 				isRunning = false;
+				SceneLogin::etat = SceneLogin::etatLogin::MODIFIER;
 				transitionVersScene = Scene::scenes::MODIFIERCOMPTE;
 			}
 			else if (event.key.code == Keyboard::Num3)
 			{
 				boutonMenu[Keyboard::Key::Num3] = true;
+				isRunning = false;
+				SceneLogin::etat = SceneLogin::etatLogin::EFFACER;
+				transitionVersScene = Scene::scenes::LOGIN;
+			}
+			else if (event.key.code == Keyboard::Num4)
+			{
+				boutonMenu[Keyboard::Key::Num4] = true;
+				isRunning = false;
+				transitionVersScene = Scene::scenes::TITRE;
 			}
 		}
 	}

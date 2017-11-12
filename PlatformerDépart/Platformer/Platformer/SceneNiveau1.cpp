@@ -52,6 +52,9 @@ bool SceneNiveau1::init(RenderWindow * const window)
 	gems.push_back(gem);
 	//Position arbitraire pour le joueur en x, pas arbitraire en y (sur le plancher)
 	joueur.setPosition(100, window->getSize().y - TAILLE_TUILES_Y * 2);
+	enemies[0]->setPosition(400, window->getSize().y - TAILLE_TUILES_Y * 2);
+	enemies[2]->setPosition(800, window->getSize().y - TAILLE_TUILES_Y * 2);
+	enemies[1]->setPosition(1200, window->getSize().y - TAILLE_TUILES_Y * 2);
 	return true;
 }
 

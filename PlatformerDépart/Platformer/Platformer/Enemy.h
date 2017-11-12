@@ -29,8 +29,9 @@ namespace platformer
 
 	public:
 		enum AnimationEnum { Attend, Cours, Saute, Celebre, Meurt };
+		enum typeEnemy { MEN, ZOMBIE, MEN2 };
 		AnimationEnum animationActive;
-		Enemy();
+		Enemy(std::string texturePath);
 		~Enemy();
 		virtual void move(const float offSetX, const float offSetY) override;
 		virtual bool init(const int limiteGauche, const int limiteDroite) override;
@@ -45,8 +46,12 @@ namespace platformer
 		Vector2f velocity;
 		bool jumped = false;
 		float vitesse = 3;
+		int tempsDirection;
+		bool directionGauche;
+		typeEnemy typeActuel;
+		int nbVies;
 	private:
-		static const std::string texturePath;
+		//static const std::string texturePath;
 		static int* nbreImageParAnime;
 		static const int nbreAnime = 5;
 	};

@@ -15,7 +15,6 @@ namespace platformer
 		Game();
 		int run();
 		int testTest();
-
 		bool init();
 		static std::string userConnected;
 	private:

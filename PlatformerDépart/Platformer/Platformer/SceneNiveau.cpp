@@ -44,7 +44,10 @@ namespace platformer
 			delete[] background[i];
 		}
 		delete[] background;
-		delete[] enemies;
+		for(int i=0;i<nbEnemies;i++)
+		{
+			delete enemies[i];
+		}
 	}
 	Scene::scenes SceneNiveau::run()
 	{
@@ -89,12 +92,17 @@ namespace platformer
 				background[i][j]->setPosition(i * backgroundT[0].getSize().x, 0);
 			}
 		}
-		//test enemy
-		enemies = new Enemy[nbEnemies];
-		if(!enemies[0].init(limiteGauche,limiteDroite))
+		//initialisation des ennemis
+		for(int i=0;i<nbEnemies;i++)
 		{
-			return false;
+			if (!enemies[i]->init(limiteGauche, limiteDroite))
+			{
+				return false;
+			}
+			enemies[i]->directionGauche = true;
+			enemies[i]->tempsDirection = 0;
 		}
+		delaiDeuxiemeAttaqueZombie = 0;
 		if (!joueur.init(limiteGauche, limiteDroite))
 		{
 			return false;
@@ -210,74 +218,143 @@ namespace platformer
 				}
 			}
 		}
-		//Enemy
-		enemies[0].velocity.x = 0;
-		Enemy::AnimationEnum animeEnemy = Enemy::Attend;
-		if (inputs[Keyboard::A] && !inputs[Keyboard::D])
+		//Collision enemy/joueur
+		for(int i=0;i<nbEnemies;i++)
 		{
-			if (!enemies[0].jumped)
-				animeEnemy = Enemy::Cours;
-			enemies[0].sensJoueurEst = Enemy::Direction::Gauche;
-			enemies[0].velocity.x = -enemies[0].vitesse;
-		}
-		else if (inputs[Keyboard::D] && !inputs[Keyboard::A])
-		{
-			if (!enemies[0].jumped)
-				animeEnemy = Enemy::Cours;
-			enemies[0].sensJoueurEst = Enemy::Direction::Droite;
-			enemies[0].velocity.x = enemies[0].vitesse;
-		}
-		if (inputs[Keyboard::Q])
-		{
-			enemies[0].Jump();
-		}
-		if (enemies[0].jumped) animeEnemy = Enemy::AnimationEnum::Saute;
-		enemies[0].UpdateTexture(animeEnemy);
-		enemies[0].move(enemies[0].velocity.x, enemies[0].velocity.y);
-		enemies[0].velocity.y += gravite;
-		//Collision bloc/enemy
-		for (int i = 0; i < NOMBRE_TUILES_X; ++i)
-		{
-			for (int j = 0; j < NOMBRE_TUILES_Y; ++j)
+			//Si l'ennemi est vivant
+			if(enemies[i]->nbVies>0)
 			{
-				if (grilleDeTuiles[i][j] != nullptr)
+				//ennemi touche le joueur
+				if (enemies[i]->getPosition().x + 1 >= joueur.getPosition().x && enemies[i]->getPosition().x <= joueur.getPosition().x + 1 &&
+					enemies[i]->getPosition().y == joueur.getPosition().y)
 				{
-					Bloc::Collision collide = grilleDeTuiles[i][j]->DetermineCollision(enemies[0].getGlobalBounds(), enemies[0].velocity);
-					if (BlocFin* endingBloc = dynamic_cast<BlocFin*>(grilleDeTuiles[i][j]))
+					isRunning = false;
+					transitionVersScene = Scene::scenes::TITRE;
+				}
+				//Saut sur un ennemi
+				else if (enemies[i]->getPosition().x + 5 >= joueur.getPosition().x && enemies[i]->getPosition().x <= joueur.getPosition().x + 5 &&
+					enemies[i]->getPosition().y+10 >= joueur.getPosition().y && delaiDeuxiemeAttaqueZombie>100)
+				{
+					enemies[i]->nbVies--;
+					delaiDeuxiemeAttaqueZombie = 0;
+				}
+				//ennemi mort
+				if(enemies[i]->nbVies==0)
+				{
+					score += 5;
+				}
+				//compteur pour s'assurer que les 2 vies du zombie soient visibles au joueur
+				delaiDeuxiemeAttaqueZombie++;
+			}			
+		}
+		//Enemy (code actuel à cause que Move de Men n'est pas appelé à la place de move de enemy)
+		for(int z=0;z<nbEnemies;z++)
+		{
+			if(enemies[z]->nbVies>0)
+			{
+				enemies[z]->velocity.x = 0;
+				Enemy::AnimationEnum animeEnemy = Enemy::Attend;
+				if (enemies[z]->directionGauche == true)
+				{
+					if (enemies[z]->typeActuel == Enemy::typeEnemy::MEN || enemies[z]->typeActuel == Enemy::typeEnemy::ZOMBIE)
 					{
-						if (!(collide == Bloc::CollisionWithNoDeterminateSide || collide == Bloc::None))
+						if (!enemies[z]->jumped)
+							animeEnemy = Enemy::Cours;
+						enemies[z]->sensJoueurEst = Enemy::Direction::Gauche;
+						enemies[z]->velocity.x = -enemies[z]->vitesse;
+						if (enemies[z]->tempsDirection>80)
 						{
-							isRunning = false;
-							transitionVersScene = Scene::scenes::TITRE;
+							enemies[z]->tempsDirection = 0;
+							enemies[z]->directionGauche = false;
+						}
+						else
+						{
+							enemies[z]->tempsDirection++;
 						}
 					}
-					switch (collide)
+				}
+				else
+				{
+					if (enemies[z]->typeActuel == Enemy::typeEnemy::MEN || enemies[z]->typeActuel == Enemy::typeEnemy::ZOMBIE)
 					{
-					case Bloc::Collision::None:
-						break;
-					case Bloc::Collision::Bot:
-						enemies[0].velocity.y = 0;
-						enemies[0].setPosition(enemies[0].getPosition().x, grilleDeTuiles[i][j]->getPosition().y + grilleDeTuiles[i][j]->getGlobalBounds().height);
-						break;
-					case Bloc::Collision::Top:
-						enemies[0].velocity.y = 0;
-						enemies[0].setPosition(enemies[0].getPosition().x, grilleDeTuiles[i][j]->getPosition().y - enemies[0].getGlobalBounds().height);
-						enemies[0].jumped = false;
-						break;
-					case Bloc::Collision::Left:
-						enemies[0].velocity.x = 0;
-						enemies[0].setPosition(grilleDeTuiles[i][j]->getPosition().x - enemies[0].getGlobalBounds().width, enemies[0].getPosition().y);
-						break;
-					case Bloc::Collision::Right:
-						enemies[0].velocity.x = 0;
-						enemies[0].setPosition(grilleDeTuiles[i][j]->getPosition().x + grilleDeTuiles[i][j]->getGlobalBounds().width, enemies[0].getPosition().y);
-						break;
-					case Bloc::Collision::CollisionWithNoDeterminateSide:
-						break;
+						if (!enemies[z]->jumped)
+							animeEnemy = Enemy::Cours;
+						enemies[z]->sensJoueurEst = Enemy::Direction::Droite;
+						enemies[z]->velocity.x = enemies[z]->vitesse;
+						if (enemies[z]->tempsDirection>80)
+						{
+							enemies[z]->tempsDirection = 0;
+							enemies[z]->directionGauche = true;
+						}
+						else
+						{
+							enemies[z]->tempsDirection++;
+						}
+					}
+				}
+				if (enemies[z]->typeActuel == Enemy::typeEnemy::MEN2)
+				{
+					if (enemies[z]->tempsDirection>100)
+					{
+						enemies[z]->Jump();
+						enemies[z]->tempsDirection = 0;
+					}
+					else
+					{
+						enemies[z]->tempsDirection++;
+					}
+				}
+				if (enemies[z]->jumped) animeEnemy = Enemy::AnimationEnum::Saute;
+				enemies[z]->UpdateTexture(animeEnemy);
+				enemies[z]->move(enemies[z]->velocity.x, enemies[z]->velocity.y);
+				enemies[z]->velocity.y += gravite;
+				//Collision bloc/enemy
+				for (int i = 0; i < NOMBRE_TUILES_X; ++i)
+				{
+					for (int j = 0; j < NOMBRE_TUILES_Y; ++j)
+					{
+						if (grilleDeTuiles[i][j] != nullptr)
+						{
+							Bloc::Collision collide = grilleDeTuiles[i][j]->DetermineCollision(enemies[z]->getGlobalBounds(), enemies[z]->velocity);
+							if (BlocFin* endingBloc = dynamic_cast<BlocFin*>(grilleDeTuiles[i][j]))
+							{
+								if (!(collide == Bloc::CollisionWithNoDeterminateSide || collide == Bloc::None))
+								{
+									isRunning = false;
+									transitionVersScene = Scene::scenes::TITRE;
+								}
+							}
+							switch (collide)
+							{
+							case Bloc::Collision::None:
+								break;
+							case Bloc::Collision::Bot:
+								enemies[z]->velocity.y = 0;
+								enemies[z]->setPosition(enemies[z]->getPosition().x, grilleDeTuiles[i][j]->getPosition().y + grilleDeTuiles[i][j]->getGlobalBounds().height);
+								break;
+							case Bloc::Collision::Top:
+								enemies[z]->velocity.y = 0;
+								enemies[z]->setPosition(enemies[z]->getPosition().x, grilleDeTuiles[i][j]->getPosition().y - enemies[z]->getGlobalBounds().height);
+								enemies[z]->jumped = false;
+								break;
+							case Bloc::Collision::Left:
+								enemies[z]->velocity.x = 0;
+								enemies[z]->setPosition(grilleDeTuiles[i][j]->getPosition().x - enemies[z]->getGlobalBounds().width, enemies[z]->getPosition().y);
+								break;
+							case Bloc::Collision::Right:
+								enemies[z]->velocity.x = 0;
+								enemies[z]->setPosition(grilleDeTuiles[i][j]->getPosition().x + grilleDeTuiles[i][j]->getGlobalBounds().width, enemies[z]->getPosition().y);
+								break;
+							case Bloc::Collision::CollisionWithNoDeterminateSide:
+								break;
+							}
+						}
 					}
 				}
 			}
+			
 		}
+		
 		//Vue
 		if(joueur.getPosition().x - vue.getSize().x / 2 > limiteGauche && joueur.getPosition().x + vue.getSize().x / 2 < limiteDroite)
 		{
@@ -324,7 +401,14 @@ namespace platformer
 		for(Gem gem : gems)
 			mainWin->draw(gem);
 		mainWin->draw(joueur);
-		mainWin->draw(enemies[0]);
+		for(int i=0;i<nbEnemies;i++)
+		{
+			//si l'ennemi est vivant
+			if(enemies[i]->nbVies>0)
+			{
+				mainWin->draw(*enemies[i]);
+			}		
+		}	
 		mainWin->draw(scoreText);
 	}
 	int SceneNiveau::GetScore()

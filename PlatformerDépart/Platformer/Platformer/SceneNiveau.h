@@ -3,7 +3,9 @@
 #include "Joueur.h"
 #include "Bloc.h"
 #include "Gem.h"
-#include "Enemy.h"
+#include "Men.h"
+#include "Men2.h"
+#include "Zombie.h"
 
 namespace platformer
 {
@@ -32,14 +34,16 @@ namespace platformer
 		/// Trois backgrounds superposés pour le plus bel effet visuel
 		/// </summary>
 		Texture backgroundT[BACKGROUNDS];
-		Enemy* enemies;
+		//Enemy* enemies;
 		int nbEnemies = 3;
+		Enemy* enemies[3] = { new Men(),new Zombie(), new Men2() };
 		Sprite*** background;
 		int nbreBackground;
 		/// <summary>
 		/// On a 7 tuiles rouges de base; alors on va toutes les utiliser, pour le moment.
 		/// </summary>
 		Texture tuilesRougesT[TUILES_ROUGES];
+		int delaiDeuxiemeAttaqueZombie;
 
 	public:
 		SceneNiveau(int nbreX, int nbreY);

@@ -97,6 +97,8 @@
     <ClCompile Include="Gem.cpp" />
     <ClCompile Include="Joueur.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Men.cpp" />
+    <ClCompile Include="Men2.cpp" />
     <ClCompile Include="Modele.cpp" />
     <ClCompile Include="Mur.cpp" />
     <ClCompile Include="Personnage.cpp" />
@@ -112,6 +114,7 @@
     <ClCompile Include="Testeur.cpp" />
     <ClCompile Include="Textbox.cpp" />
     <ClCompile Include="User.cpp" />
+    <ClCompile Include="Zombie.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bloc.h" />
@@ -121,6 +124,8 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Gem.h" />
     <ClInclude Include="Joueur.h" />
+    <ClInclude Include="Men.h" />
+    <ClInclude Include="Men2.h" />
     <ClInclude Include="Modele.h" />
     <ClInclude Include="Mur.h" />
     <ClInclude Include="Personnage.h" />
@@ -136,6 +141,7 @@
     <ClInclude Include="Testeur.h" />
     <ClInclude Include="Textbox.h" />
     <ClInclude Include="User.h" />
+    <ClInclude Include="Zombie.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Ressources\Backgrounds\Layer0_0.png" />

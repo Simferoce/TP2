@@ -2,25 +2,20 @@
 #include <SFML/Graphics.hpp>
 #include "Scene.h"
 #include "Textbox.h"
-#include "Game.h"
-
-using namespace sf;
-
+using namespace  sf;
 namespace platformer
 {
-	class SceneLogin: public Scene
+	class SceneEffacerCompte : public Scene
 	{
 	public:
-		SceneLogin();
-		~SceneLogin();
+		SceneEffacerCompte();
+		~SceneEffacerCompte();
 
 		scenes run();
 		bool init(RenderWindow * const window);
 		void getInputs();
 		void update();
 		void draw();
-		enum etatLogin {JEU,MODIFIER,EFFACER};
-		static etatLogin etat;
 	private:
 		//L'écran titre est super arbitraire, vous pouvez en trouver un autre si vous voulez.
 		Sprite ecranTitre;
@@ -29,11 +24,12 @@ namespace platformer
 		Textbox textbox;
 		Textbox textboxUsername;
 		Textbox textboxErreur; // Ce textboxUser agit plutôt comme un messagebox.
-
-		//Nécessaire car on ne peut pas que le code ascii que Enter et Backspace ne soit jamais saisie
+		std::string userSupprimer;
+							   //Nécessaire car on ne peut pas que le code ascii que Enter et Backspace ne soit jamais saisie
 		bool backspaceActif = false;
-		bool enterActif = false;		
+		bool enterActif = false;
 		//Ne fait pas beaucoup sens à un Textbox, mais à plusieurs, ça le fera.
-		Textbox* textboxActif = nullptr;		
+		Textbox* textboxActif = nullptr;
+		
 	};
 }
